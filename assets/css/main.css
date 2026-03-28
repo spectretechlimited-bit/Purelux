@@ -1,0 +1,6 @@
+body {
+    font-family: 'Manrope', sans-serif;
+}
+.purple-gradient-bg {
+    background: radial-gradient(circle at top right, #3d2645, #1d1220);
+}
