@@ -77,8 +77,8 @@
 <span class="text-xs font-bold uppercase tracking-widest text-primary">Now Open in Kahawa Wendani</span>
 </div>
 <div class="flex flex-col gap-4">
-<h2 class="text-5xl lg:text-7xl font-black leading-[1.1] tracking-tight text-slate-800 dark:text-slate-100 min-h-[1.1em]">
-                                Professional <span class="text-primary" id="typing-text">Braiding</span>
+<h2 class="text-5xl lg:text-7xl font-black leading-[1.1] tracking-tight text-slate-800 dark:text-slate-100 min-h-[1.5em] lg:min-h-[2.2em]">
+                                Professional <br class="hidden lg:block"><span class="text-primary" id="typing-text">Braiding</span>
                             </h2>
 <p class="text-xl text-slate-600 dark:text-slate-400 max-w-lg leading-relaxed">
                                 Luxury Hair &amp; Beauty Services in Kahawa Wendani. Experience the ultimate transformation in our premium purple-themed sanctuary.
@@ -87,11 +87,11 @@
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const textElement = document.getElementById('typing-text');
-        const services = ["Braiding", "Hair Styling", "Manicure", "Pedicure", "Cornrows", "Treatment", "Hair Colouring", "Blowdry"];
+        const services = ["Braiding", "Styling", "Nails", "Pedicure", "Treats", "Colors"];
         let serviceIndex = 0;
         let charIndex = 0;
         let isDeleting = false;
-        let delay = 200;
+        let delay = 150;
 
         function type() {
             const currentService = services[serviceIndex];
@@ -99,20 +99,20 @@
             if (isDeleting) {
                 textElement.textContent = currentService.substring(0, charIndex - 1);
                 charIndex--;
-                delay = 100;
+                delay = 80;
             } else {
                 textElement.textContent = currentService.substring(0, charIndex + 1);
                 charIndex++;
-                delay = 200;
+                delay = 150;
             }
 
             if (!isDeleting && charIndex === currentService.length) {
                 isDeleting = true;
-                delay = 2000; // Pause at end
+                delay = 1500;
             } else if (isDeleting && charIndex === 0) {
                 isDeleting = false;
                 serviceIndex = (serviceIndex + 1) % services.length;
-                delay = 500;
+                delay = 400;
             }
 
             setTimeout(type, delay);
@@ -140,9 +140,36 @@
 </div>
 <div class="relative">
 <div class="absolute -inset-4 bg-primary/20 blur-3xl rounded-full"></div>
-<div class="relative rounded-3xl overflow-hidden border border-primary/20 shadow-2xl">
-<img alt="Stunning Hair Styling" class="w-full h-full object-cover aspect-[4/5]" data-alt="Woman with stunning artistic hair braiding style" src="assets/img/h1.jpeg"/>
+<div class="relative rounded-3xl overflow-hidden border border-primary/20 shadow-2xl bg-surface group">
+    <div id="hero-slider" class="relative w-full aspect-[4/5] flex transition-transform duration-700 ease-in-out">
+        <img alt="Nail Art" class="w-full shrink-0 object-cover" src="assets/img/n1.jpeg"/>
+        <img alt="Professional Braiding" class="w-full shrink-0 object-cover" src="assets/img/h1.jpeg"/>
+        <img alt="Luxury Nails" class="w-full shrink-0 object-cover" src="assets/img/n2.jpeg"/>
+        <img alt="Hair Styling" class="w-full shrink-0 object-cover" src="assets/img/h2.jpeg"/>
+    </div>
+    
+    <!-- Navigation Arrows -->
+    <button onclick="moveSlider(-1)" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 backdrop-blur-md text-white p-2 rounded-full transition-all opacity-0 group-hover:opacity-100">
+        <span class="material-symbols-outlined">arrow_back_ios_new</span>
+    </button>
+    <button onclick="moveSlider(1)" class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 backdrop-blur-md text-white p-2 rounded-full transition-all opacity-0 group-hover:opacity-100">
+        <span class="material-symbols-outlined">arrow_forward_ios</span>
+    </button>
 </div>
+
+<script>
+    let currentSlide = 0;
+    const slider = document.getElementById('hero-slider');
+    const totalSlides = 4;
+
+    function moveSlider(direction) {
+        currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+        slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+    }
+
+    // Auto-scroll every 4 seconds
+    setInterval(() => moveSlider(1), 4000);
+</script>
 <div class="absolute -bottom-6 -left-6 bg-white dark:bg-surface p-6 rounded-2xl border border-primary/20 shadow-xl hidden md:block">
 <div class="flex items-center gap-4">
 <div class="bg-primary/20 p-3 rounded-lg">
@@ -162,14 +189,14 @@
 <section class="py-24 bg-primary/5 dark:bg-surface/30" id="about">
 <div class="max-w-7xl mx-auto px-6">
 <div class="grid lg:grid-cols-2 gap-20 items-center">
-<div class="grid grid-cols-2 gap-4">
-<div class="space-y-4 pt-12">
-<img alt="Interior" class="rounded-2xl w-full aspect-square object-cover" data-alt="Interior of a luxury purple salon" src="assets/img/h2.jpeg"/>
-<img alt="Products" class="rounded-2xl w-full aspect-video object-cover" data-alt="Detail of high end hair products" src="assets/img/h3.jpeg"/>
+<div class="grid grid-cols-2 gap-6">
+<div class="space-y-6 pt-12">
+<img alt="Interior" class="rounded-2xl w-full aspect-square object-cover shadow-lg hover:scale-[1.02] transition-transform" src="assets/img/h2.jpeg"/>
+<img alt="Nail Demo" class="rounded-2xl w-full aspect-video object-cover shadow-lg hover:scale-[1.02] transition-transform" src="assets/img/n1.jpeg"/>
 </div>
-<div class="space-y-4">
-<img alt="Styling" class="rounded-2xl w-full aspect-video object-cover" data-alt="Close up of a stylist working on braids" src="assets/img/h4.jpeg"/>
-<img alt="Result" class="rounded-2xl w-full aspect-square object-cover" data-alt="Customer smiling after hair treatment" src="assets/img/h5.jpeg"/>
+<div class="space-y-6">
+<img alt="Styling" class="rounded-2xl w-full aspect-video object-cover shadow-lg hover:scale-[1.02] transition-transform" src="assets/img/h4.jpeg"/>
+<img alt="Gel Nails" class="rounded-2xl w-full aspect-square object-cover shadow-lg hover:scale-[1.02] transition-transform" src="assets/img/n2.jpeg"/>
 </div>
 </div>
 <div class="flex flex-col gap-6">
@@ -242,13 +269,13 @@
 <!-- Service 3 -->
 <div class="group relative bg-white dark:bg-surface rounded-2xl overflow-hidden border border-primary/10 hover:border-primary/40 transition-all shadow-sm hover:shadow-xl">
 <div class="aspect-video overflow-hidden">
-<img alt="Cornrows" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Detailed cornrows hair pattern" src="assets/img/h8.jpeg"/>
+<img alt="Nail Art" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="assets/img/n3.jpeg"/>
 </div>
 <div class="p-8">
-<h4 class="text-xl font-bold text-slate-800 dark:text-slate-100 mb-2">Precision Cornrows</h4>
-<p class="text-slate-600 dark:text-slate-400 mb-6">Sleek, creative, and professional cornrows for all hair textures.</p>
+<h4 class="text-xl font-bold text-slate-800 dark:text-slate-100 mb-2">Luxury Nail Art</h4>
+<p class="text-slate-600 dark:text-slate-400 mb-6">Premium manicures and creative gel art for the perfect finish.</p>
 <div class="flex items-center justify-between">
-<span class="text-primary font-bold">From $35</span>
+<span class="text-primary font-bold">From $25</span>
 <a class="text-primary font-bold flex items-center gap-1 hover:gap-2 transition-all" href="src/pages/services.html">
                                     Explore <span class="material-symbols-outlined text-sm">arrow_forward</span>
 </a>
