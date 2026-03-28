@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#d790ee",
+                        "background-light": "#f7f6f8",
+                        "background-dark": "#1d1220",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+        .glass-panel {
+            background: rgba(45, 27, 50, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(215, 144, 238, 0.1);
+        }
+    </style>
+    <script>
+        (function () {
+            const storageKey = "purelux-theme";
+            const root = document.documentElement;
+            const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+            const apply = (theme) => {
+                if (theme === "dark") {
+                    root.classList.add("dark");
+                } else {
+                    root.classList.remove("dark");
+                }
+                document.querySelectorAll("[data-theme-toggle]").forEach((btn) => {
+                    const isDark = theme === "dark";
+                    btn.setAttribute("aria-pressed", isDark ? "true" : "false");
+                    const icon = btn.querySelector("[data-theme-icon]");
+                    const label = btn.querySelector("[data-theme-label]");
+                    if (icon) icon.textContent = isDark ? "dark_mode" : "light_mode";
+                    if (label) label.textContent = isDark ? "Dark" : "Light";
+                });
+            };
+
+            const stored = localStorage.getItem(storageKey);
+            const initial = stored || (mediaQuery.matches ? "dark" : "light");
+            apply(initial);
+
+            window.pureluxToggleTheme = () => {
+                const next = root.classList.contains("dark") ? "light" : "dark";
+                localStorage.setItem(storageKey, next);
+                apply(next);
+            };
+
+            mediaQuery.addEventListener("change", (event) => {
+                if (!localStorage.getItem(storageKey)) {
+                    apply(event.matches ? "dark" : "light");
+                }
+            });
+        })();
+    </script>
+<title>Book Your Appointment | PureLux Beauty Parlour</title>
+<link rel="icon" type="image/png" href="images/logo.png"/>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between border-b border-primary/10 px-6 py-4 lg:px-20 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md sticky top-0 z-50">
+<div class="flex items-center gap-3">
+<img src="images/logo.png" alt="PureLux Logo" class="h-8 w-auto">
+<h2 class="text-xl font-extrabold tracking-tight">
+    <span class="text-slate-900 dark:text-slate-100">PureLux</span><span class="text-primary"> Beauty Parlour</span>
+</h2>
+</div>
+<div class="hidden md:flex gap-8 items-center">
+            <a class="text-sm font-semibold hover:text-primary transition-colors" href="index.html">Home</a>
+            <a class="text-sm font-semibold hover:text-primary transition-colors" href="services.html">Services</a>
+            <a class="text-sm font-semibold text-primary" href="booking.html">Bookings</a>
+            <a class="text-sm font-semibold hover:text-primary transition-colors" href="gallery.html">Gallery</a>
+            <a class="text-sm font-semibold hover:text-primary transition-colors" href="contact.html">Contact</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-2 px-3 py-2 rounded-full border border-primary/30 bg-white/80 text-slate-800 shadow-sm hover:bg-primary/10 transition-colors dark:bg-background-dark/70 dark:text-primary" type="button" data-theme-toggle aria-pressed="true" onclick="window.pureluxToggleTheme()">
+<span class="material-symbols-outlined text-sm" data-theme-icon>dark_mode</span>
+<span class="text-xs font-semibold" data-theme-label>Dark</span>
+</button>
+<button class="flex items-center justify-center rounded-xl size-10 bg-slate-200 dark:bg-primary/10 text-slate-700 dark:text-primary hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="size-10 rounded-full border-2 border-primary p-0.5">
+<img alt="Profile" class="w-full h-full object-cover rounded-full" data-alt="User profile portrait of a woman" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPjgG_QcpwY6MnHKq4s9baP0D1x5hONPZhN1_EO3yDSWzV8g7lzls8NCRT4bxsZ48SjsfhGu2dcOAIVFQWb4MH5_d4hcnwqFcRJEFPfeCYSLyGHQnQm75bpJrOYIEWoXnJhdFkAxudrg2aYQQxxqE5izZ9ZQ2D-OhDrBwXInSkDevnugrtlUUCLAG8ZKHDoOB-iW6BVSDGKGywsoDuCSoUBBl1jxw7iznEzK-Qsew4Tb0b2DiX8hIGZuDGdfpT1ydA-AqHIVqrHWlL"/>
+</div>
+</div>
+</header>
+<main class="flex-1 flex flex-col items-center py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+<!-- Hero Section -->
+<div class="w-full mb-12">
+<div class="relative w-full rounded-xl overflow-hidden min-h-[320px] flex flex-col justify-end p-8 lg:p-12 shadow-2xl">
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/40 to-transparent z-10"></div>
+<img alt="Salon Interior" class="absolute inset-0 w-full h-full object-cover" data-alt="Luxury spa interior with purple lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBY95b8LN3N5c2FlMOAfoDn6nevrCAasKZL382CoNLtJCWgmJOu-is5jMGqF64LiymapLFi9MQcEjrFS5N2NSh-sat6R_EVPfW_0DT20IaVvFrDuYAb-8oxROvPwPKcBEv14LyBYMayuip0hEnzrXO-KoMaaWEWJJZA1B6-FhPEIk1vSRvXPR8QpcGT1NBlL0be0A4EddBYJsVtQ5QlopBZ6P-tazUngJZED1UQODHOwZxAUT-mHzpVTDRWUeunhhfPOhtaNedF1E_s"/>
+<div class="relative z-20 max-w-2xl">
+<span class="px-3 py-1 bg-primary text-background-dark text-xs font-bold rounded-full uppercase tracking-widest mb-4 inline-block">Premium Experience</span>
+<p class="text-white text-4xl lg:text-5xl font-extrabold leading-tight mb-4">Book Your Moment of Zen</h1>
+<p class="text-slate-300 text-lg">Indulge in our world-class beauty treatments. Secure your appointment at PureLux Beauty Parlour today.</p>
+</div>
+</div>
+</div>
+<!-- Booking Container -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 w-full">
+<!-- Form Side -->
+<div class="lg:col-span-7">
+<div class="glass-panel p-8 lg:p-10 rounded-xl shadow-2xl">
+<div class="mb-8">
+<h3 class="text-2xl font-bold text-slate-100 mb-2">Reservation Details</h3>
+<p class="text-slate-400">Complete the form below and our concierge will confirm your slot.</p>
+</div>
+<form class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-2">
+<label class="text-sm font-semibold text-slate-300 ml-1">Full Name</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-primary/60">person</span>
+<input class="w-full pl-12 pr-4 py-4 rounded-xl border border-primary/20 bg-background-dark/50 text-slate-100 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none" placeholder="Jane Doe" type="text"/>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-semibold text-slate-300 ml-1">Phone Number</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-primary/60">call</span>
+<input class="w-full pl-12 pr-4 py-4 rounded-xl border border-primary/20 bg-background-dark/50 text-slate-100 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none" placeholder="+1 (555) 000-0000" type="tel"/>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-semibold text-slate-300 ml-1">Select Service</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-primary/60">content_cut</span>
+<select class="w-full pl-12 pr-4 py-4 rounded-xl border border-primary/20 bg-background-dark/50 text-slate-100 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none appearance-none">
+<option>Signature Hair Styling &amp; Care</option>
+<option>Premium Facial Treatment</option>
+<option>Manicure &amp; Pedicure Deluxe</option>
+<option>Bridal Makeup Package</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-primary/60 pointer-events-none">expand_more</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-2">
+<label class="text-sm font-semibold text-slate-300 ml-1">Appointment Date</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-primary/60">calendar_today</span>
+<input class="w-full pl-12 pr-4 py-4 rounded-xl border border-primary/20 bg-background-dark/50 text-slate-100 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none" type="date"/>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-semibold text-slate-300 ml-1">Preferred Time</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-primary/60">schedule</span>
+<input class="w-full pl-12 pr-4 py-4 rounded-xl border border-primary/20 bg-background-dark/50 text-slate-100 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none" type="time"/>
+</div>
+</div>
+</div>
+<button class="w-full py-5 bg-primary hover:bg-primary/90 text-background-dark font-extrabold text-lg rounded-xl transition-all shadow-xl shadow-primary/20 flex items-center justify-center gap-2" type="submit">
+                                    Confirm Booking
+                                    <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</form>
+</div>
+</div>
+<!-- Info Side -->
+<div class="lg:col-span-5 space-y-8">
+<div class="p-6 rounded-xl border border-primary/10 bg-primary/5">
+<h4 class="text-xl font-bold text-primary mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined">verified</span>
+                                PureLux Benefits
+                            </h4>
+<ul class="space-y-4">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-0.5">check_circle</span>
+<div>
+<p class="font-bold">Expert Stylists</p>
+<p class="text-sm text-slate-400">Award-winning professionals with years of expertise.</p>
+</div>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-0.5">check_circle</span>
+<div>
+<p class="font-bold">Organic Products</p>
+<p class="text-sm text-slate-400">We use only premium, chemical-free beauty essentials.</p>
+</div>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-0.5">check_circle</span>
+<div>
+<p class="font-bold">Private Suites</p>
+<p class="text-sm text-slate-400">Enjoy your treatments in complete privacy and comfort.</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="relative rounded-xl overflow-hidden h-64 group shadow-xl">
+<div class="absolute inset-0 bg-primary/20 group-hover:bg-primary/10 transition-colors z-10"></div>
+<img alt="Salon Products" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" data-alt="Luxury beauty products on a shelf" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChy9ENlL1sTT-unjREn5TdcKlTW4SJ1PAihWIb3O2HtCLYbccZ6HaaVzTDtzQUPTYgNvH8c3TB-pJhtT-IYqeBNa4ZJTDbK8UlbInM3mNcj7b8OohnO86Vw0g3BPqtNU7kgQ21VIAw6SXOZJdF-Xt3sCY4MJbtBZqtyysbMGEyhjheqH6YSI6pwI5snh-VSMAwm6rCdO1PSXvjOI9Q97vJJbFLAnKsC7tJhOuRAx6C-8Eb_a1zOsbxNz8vPUciujqzXu6uqD5gt3HG"/>
+<div class="absolute bottom-6 left-6 z-20">
+<p class="text-white font-bold text-xl drop-shadow-lg">Shop Our Collections</p>
+<p class="text-white/80 text-sm">Exclusive skin and hair care items</p>
+</div>
+</div>
+<div class="bg-background-dark/40 p-6 rounded-xl border border-primary/10">
+<h4 class="text-lg font-bold mb-4">Location</h4>
+<div class="flex items-center gap-3 text-slate-400 mb-4">
+<span class="material-symbols-outlined text-primary">location_on</span>
+<p>123 Elegance Blvd, Fashion District, NY</p>
+</div>
+<div class="w-full h-32 rounded-lg bg-slate-800 flex items-center justify-center overflow-hidden">
+<img alt="Map" class="w-full h-full object-cover opacity-50" data-alt="Abstract map showing salon location" data-location="New York" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYI-X039GNE0sDuNev9xkPeWn71tTUYpERjCgMElIETtxd04zUAael8uiYPCoPK6Rq9yh2feTNGj9HurT6-FPBy36uAhobmYEX0RnBPD4bpXjWYcHh-es6wgCt39anxP2HOtQvpaEVwBLdLCzkEHfumAgCa7D2xVuhNiyErfHF_0ZuuR22PWfKEOCdOTBmtnahb_iFpio5lePxElES8xCpLACPiAO8poCKam9u4k8HiHrK1XL5iNipU2OgPU6MxsCLkNQ_exY3cTWl"/>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="mt-auto py-10 px-6 lg:px-20 border-t border-primary/10 bg-background-dark/50">
+<div class="flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-2">
+<p class="text-sm">
+    <span class="text-slate-900 dark:text-slate-100">PureLux</span><span class="text-primary"> Beauty Parlour</span>
+    <span class="text-slate-400">© 2024. All beauty reserved.</span>
+</p>
+</div>
+        <div class="flex gap-6 text-slate-400">
+            <a class="hover:text-primary transition-colors" href="https://pureluxbeautyparlour.com" aria-label="Website"><span class="material-symbols-outlined">public</span></a>
+            <a class="hover:text-primary transition-colors" href="https://instagram.com/purelux" aria-label="Instagram"><span class="material-symbols-outlined">camera</span></a>
+            <a class="hover:text-primary transition-colors" href="mailto:hello@pureluxbeautyparlour.com" aria-label="Email"><span class="material-symbols-outlined">mail</span></a>
+</div>
+</div>
+</footer>
+</div>
+</div>
+</body></html>

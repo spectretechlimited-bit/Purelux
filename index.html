@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PureLux Beauty Parlour | Luxury Hair &amp; Beauty</title>
+<link rel="icon" type="image/png" href="images/logo.png"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#d790ee",
+                        "background-light": "#ffffff",
+                        "background-dark": "#1d1220",
+                        "surface": "#2d1b34",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+        .purple-gradient-bg {
+            background: radial-gradient(circle at top right, #3d2645, #1d1220);
+        }
+    </style>
+    <script>
+        (function () {
+            const storageKey = "purelux-theme";
+            const root = document.documentElement;
+            const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+            const apply = (theme) => {
+                if (theme === "dark") {
+                    root.classList.add("dark");
+                } else {
+                    root.classList.remove("dark");
+                }
+                document.querySelectorAll("[data-theme-toggle]").forEach((btn) => {
+                    const isDark = theme === "dark";
+                    btn.setAttribute("aria-pressed", isDark ? "true" : "false");
+                    const icon = btn.querySelector("[data-theme-icon]");
+                    const label = btn.querySelector("[data-theme-label]");
+                    if (icon) icon.textContent = isDark ? "dark_mode" : "light_mode";
+                    if (label) label.textContent = isDark ? "Dark" : "Light";
+                });
+            };
+
+            const stored = localStorage.getItem(storageKey);
+            const initial = stored || (mediaQuery.matches ? "dark" : "light");
+            apply(initial);
+
+            window.pureluxToggleTheme = () => {
+                const next = root.classList.contains("dark") ? "light" : "dark";
+                localStorage.setItem(storageKey, next);
+                apply(next);
+            };
+
+            mediaQuery.addEventListener("change", (event) => {
+                if (!localStorage.getItem(storageKey)) {
+                    apply(event.matches ? "dark" : "light");
+                }
+            });
+        })();
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased overflow-x-hidden">
+<!-- Navigation -->
+<header class="sticky top-0 z-50 w-full border-b border-primary/10 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md">
+<div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<img src="images/logo.png" alt="PureLux Logo" class="h-10 w-auto">
+<h1 class="text-2xl font-extrabold tracking-tight">
+    <span class="text-slate-900 dark:text-slate-100">PureLux</span><span class="text-primary"> Beauty Parlour</span>
+</h1>
+</div>
+            <nav class="hidden md:flex items-center gap-10">
+                <a class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="index.html">Home</a>
+                <a class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="index.html#about">About</a>
+                <a class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="services.html">Services</a>
+                <a class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="gallery.html">Gallery</a>
+                <a class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="contact.html">Contact</a>
+            </nav>
+<div class="flex items-center gap-4">
+                    <button class="flex items-center gap-2 px-3 py-2 rounded-full border border-primary/30 bg-white shadow-sm hover:bg-primary/10 transition-colors dark:bg-background-dark/70 dark:text-primary" type="button" data-theme-toggle aria-pressed="true" onclick="window.pureluxToggleTheme()">
+                        <span class="material-symbols-outlined text-sm" data-theme-icon>dark_mode</span>
+                        <span class="text-xs font-semibold" data-theme-label>Dark</span>
+                    </button>
+                    <a class="hidden sm:block px-6 py-2.5 bg-primary text-background-dark font-bold rounded-full hover:opacity-90 transition-all" href="booking.html">
+                        Book Now
+                    </a>
+<button class="md:hidden text-slate-800 dark:text-slate-100">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</header>
+<main>
+<!-- Hero Section -->
+<section class="relative overflow-hidden pt-12 pb-20 lg:pt-24 lg:pb-32">
+<div class="max-w-7xl mx-auto px-6">
+<div class="grid lg:grid-cols-2 gap-16 items-center">
+<div class="flex flex-col gap-8">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 w-fit">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+<span class="text-xs font-bold uppercase tracking-widest text-primary">Now Open in Kahawa Wendani</span>
+</div>
+<div class="flex flex-col gap-4">
+<h2 class="text-5xl lg:text-7xl font-black leading-[1.1] tracking-tight text-slate-800 dark:text-slate-100">
+                                Professional <span class="text-primary">Braiding</span>, Hair Styling &amp; Cornrows
+                            </h2>
+<p class="text-xl text-slate-600 dark:text-slate-400 max-w-lg leading-relaxed">
+                                Luxury Hair &amp; Beauty Services in Kahawa Wendani. Experience the ultimate transformation in our premium purple-themed sanctuary.
+                            </p>
+</div>
+<div class="flex flex-wrap gap-4">
+                        <a class="px-8 py-4 bg-primary text-background-dark font-bold rounded-xl text-lg hover:shadow-[0_0_20px_rgba(215,144,238,0.4)] transition-all" href="booking.html">
+                                Book Appointment
+                            </a>
+                        <a class="px-8 py-4 bg-white dark:bg-surface border border-primary/20 text-slate-800 dark:text-slate-100 font-bold rounded-xl text-lg hover:bg-primary/10 transition-all" href="services.html">
+                                View Services
+                            </a>
+</div>
+<div class="flex items-center gap-6 pt-4">
+<div class="flex -space-x-3">
+<img alt="Client" class="h-10 w-10 rounded-full border-2 border-white dark:border-background-dark" data-alt="Client testimonial avatar 1" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTKh8MpUVlsDIQKALd5QD3J4IkGjb8dblLZgxdRlmTWWlO5mApXAFImEH64ihz2bgJl2MKWTtDl3Y9YvLnSW0_gE6Nc5ttFlgu8E0Q0VWKjDJDHZSCAEYrITtUFKecmM-dILLVQSJlJmaiIwrUmikeYw0jCTwln3S4F5S9ph7hGvhUm0idF0uOW4NRfImWRbJ35Z3qDR1XFPqbF5CH3oImLsTDTR4QGuZWu36Gkmcm7YcrHFd4FvOPM1pK73aby7WWjzTKW5lWswSd"/>
+<img alt="Client" class="h-10 w-10 rounded-full border-2 border-white dark:border-background-dark" data-alt="Client testimonial avatar 2" src="https://lh3.googleusercontent.com/aida-public/AB6AXuClbjAwHFeaev62jDLlO4OD-XyQLA5VJ-DoIJa4ewVaZeAukbyRAyBQZAccOnPQr8_gGxW5EVf2zzTO_tYTkuBA_YMMzQIucmLa3xXo5NUxw_9_16y2Xcy2IWFbIMrLnHWussBoe70RQbdyZJU9yhM1gP-t2NM24_YTuDE24KoGGwlfpXL-yJx97KMq5Kkja5zh0aCkRNLZj4JrO-QWBfM5mKzrjCHh39dY4546rKj_0F-pYTY3-TiDgFQQSFeqEhAENMfWT4jYkSR7"/>
+<img alt="Client" class="h-10 w-10 rounded-full border-2 border-white dark:border-background-dark" data-alt="Client testimonial avatar 3" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1IYLUlFBoPbx8RethC97tDlgL7VAJjRhlkv91on6akBqYKI2xLTMvaQByXM40EMh8MZBpXhw8l4jq4iC9MPCyyn0OVUx-Y7oX-NGQEsDxXfrmU9jPzdKAF2ozdBzAisOuwF1OMJOJ2Zcr5RwXgNqNiwxbmlO-PkQwmdoNMtYJCTvaEqQiscYk_vtcETIYIT4WHj3UIPm8ahmfW7IzvkNS2g5vSR52jIPcITlkr1hTcTeXgJ09s3UWmUKfzQIdWnEBWGtS6Dc9uE8G"/>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 font-medium"><span class="text-slate-800 dark:text-slate-100 font-bold">500+</span> Happy Clients</p>
+</div>
+</div>
+<div class="relative">
+<div class="absolute -inset-4 bg-primary/20 blur-3xl rounded-full"></div>
+<div class="relative rounded-3xl overflow-hidden border border-primary/20 shadow-2xl">
+<img alt="Stunning Hair Styling" class="w-full h-full object-cover aspect-[4/5]" data-alt="Woman with stunning artistic hair braiding style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2TdRQgHA7Su4IpeMDxEDg9CeEpoPOVB8dClWY0hX_6R6aVJnMhiD2svHbSALTUK06WPUokI2y1yhdVp3ksNgflW-Jd3-Xe9zfSYLsOL83wNHvBcBKWnl9K7y4zSioPtfsBK5rfvAaFGmmwW0C1hyTbjhVFnY9O4yUA6Kkaq2BHHlT5-d7_9r6za-msyFTZaQetlXeBlT5rDWPEJ-VnldE0kpnTEZdvrMx15Kbqn68-5po_B3TmuDHloymMQztQM1vpidp_f9waNHq"/>
+</div>
+<div class="absolute -bottom-6 -left-6 bg-white dark:bg-surface p-6 rounded-2xl border border-primary/20 shadow-xl hidden md:block">
+<div class="flex items-center gap-4">
+<div class="bg-primary/20 p-3 rounded-lg">
+<span class="material-symbols-outlined text-primary">verified_user</span>
+</div>
+<div>
+<p class="text-sm font-bold text-slate-800 dark:text-slate-100">Certified Experts</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">10+ Years Experience</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- About Section -->
+<section class="py-24 bg-primary/5 dark:bg-surface/30" id="about">
+<div class="max-w-7xl mx-auto px-6">
+<div class="grid lg:grid-cols-2 gap-20 items-center">
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-4 pt-12">
+<img alt="Interior" class="rounded-2xl w-full aspect-square object-cover" data-alt="Interior of a luxury purple salon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlesui0ren4gPAMieZlMMktGRQuFZjU7QG87-aGNWFY9d1-eoOepWOfGnsudZ_Y_Sal36bwCmLuFifDqVLZJvTTphD-72ElHtdgVjB-N_zX7q5gESbuZw-IqtcP6URbAW-paaM9we_FVYJgYXqmbFVXBDB18FSqs3_mvfH5xpKDrX76mEcalimj7VNQ9Ln9_lYx9mVJQBFiWLrmXbUT7dP3ESynIWrUUUwdRGl56XicHXSbxqzKcGFOPwMS74CeRhQCjXNFInWwRqG"/>
+<img alt="Products" class="rounded-2xl w-full aspect-video object-cover" data-alt="Detail of high end hair products" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgx5ENkJtjifvbaZVaq0e4H_nQYDLIMWpuGGRPVcOzyrrs19zkUyUncV3wBncGwVHP6vXqfVs5FtGTuc_JXSl_dkBbV8oGA8tx0Bd29ln5vj-gwTZD237oS4KNuAPfnc_LDU_CCSFd0JhcitdZ1fdyZzpUvuiQwbRvmoMT1Q410ck3YJ6j8T76_R6_ikWuxkv0vsP7C7Dt4CFYO_AMdRonSq74XCX0H_N1eDRhbTcU7pbGsOdhVAH13LjnjSp6wAAe-KXzmtq22Ey0"/>
+</div>
+<div class="space-y-4">
+<img alt="Styling" class="rounded-2xl w-full aspect-video object-cover" data-alt="Close up of a stylist working on braids" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWmpSmjj_kN43d5u1_ZFj0PVN5NXer1PY34Vf5Szceg2rXpqRrr1tpSp3ws57jztDxriSE6nziK5myfguqA2SZb6srnPjWdn1rFMXfq-rpZs9Tr4fyW1axDljOAgg5ZT7tr_9qyGOyVrJfFVs3P411HTwdoADx102YbM-xEzgdXeFzFmR96pZs2Jfr0oYfOSLiIPQbzxjJ9W5N5LsF4ucx93mAk2CzDMEUrtgaPiNmF9aUM2d53re0seMEl_FhfGNsVTMZgtYfOZKW"/>
+<img alt="Result" class="rounded-2xl w-full aspect-square object-cover" data-alt="Customer smiling after hair treatment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAj7HP-3hj1e5HyzK02K6omy6b0ApcGoA9IQO9bMq-4xMFnTrvSTLc-wo5AEkEzjB7b6BaION7wvUStiRWOlfpjt86AhyV4IF1Rvu6PKuxgETGHgdqHn80Opa8XsCOnh_WpHPJlSS8ZolMifEw-E1WJtZPUi3zsu23iI0CHOItxT60KpGw2VmFwzEP-7OLQ7yzoG0sENrb8RlQoJQTIhAKEgmocu1pe3OsdfC4F9Y6x8lhxZEhpM4bN99j2KoxvseJyL1OUibfL_lZ_"/>
+</div>
+</div>
+<div class="flex flex-col gap-6">
+<h3 class="text-primary font-bold tracking-widest uppercase text-sm">Our Philosophy</h3>
+<h2 class="text-4xl font-bold text-slate-800 dark:text-slate-100 leading-tight">About PureLux Beauty Parlour</h2>
+<p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+                            We provide high-end hair and beauty services with a focus on luxury and client satisfaction in a premium purple-themed environment. Every strand tells a story, and we're here to make yours breathtaking.
+                        </p>
+<div class="grid gap-6 pt-4">
+<div class="flex gap-4 p-4 rounded-xl bg-white dark:bg-background-dark/50 border border-primary/10 shadow-sm">
+<span class="material-symbols-outlined text-primary text-3xl">diversity_1</span>
+<div>
+<h4 class="text-slate-800 dark:text-slate-100 font-bold">Expert Stylists</h4>
+<p class="text-slate-600 dark:text-slate-400 text-sm mt-1">Our team consists of industry veterans trained in global trends.</p>
+</div>
+</div>
+<div class="flex gap-4 p-4 rounded-xl bg-white dark:bg-background-dark/50 border border-primary/10 shadow-sm">
+<span class="material-symbols-outlined text-primary text-3xl">auto_awesome</span>
+<div>
+<h4 class="text-slate-800 dark:text-slate-100 font-bold">Premium Products</h4>
+<p class="text-slate-600 dark:text-slate-400 text-sm mt-1">We use only the finest organic hair care and professional products.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Services Grid -->
+<section class="py-24" id="services">
+<div class="max-w-7xl mx-auto px-6">
+<div class="text-center mb-16 space-y-4">
+<h3 class="text-primary font-bold tracking-widest uppercase text-sm">Elite Offerings</h3>
+<h2 class="text-4xl font-bold text-slate-800 dark:text-slate-100">Our Signature Services</h2>
+<p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">From intricate braids to transformative styling, discover the luxury service that suits your personality.</p>
+</div>
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Service 1 -->
+<div class="group relative bg-white dark:bg-surface rounded-2xl overflow-hidden border border-primary/10 hover:border-primary/40 transition-all shadow-sm hover:shadow-xl">
+<div class="aspect-video overflow-hidden">
+<img alt="Braiding" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Intricate box braids style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCytQ5wJPRS-5LLNSEMQaC2ozXVjgWR-XMyfPlz0qEACvN0ksG5obtOamcrVyM4yFpIoF5o8doIJghrO75XlSUxIosMkLQZbyCoBtmsGzotdsWnOTwZgtC22jnDlFt5Pr24Jg-jSXhsIlItT36wKGWGtcnqGS9ycrX9VlAVklpOrV8Iacdt7jF5a3Um15DqsrSN7CQj53eLBMzD5_GF4Z-TIV6B9VdhqXOvATfZ0h9HjyUeatOw1gvLdv-haDw_4zQ1qOt4E24ISgSK"/>
+</div>
+<div class="p-8">
+<h4 class="text-xl font-bold text-slate-800 dark:text-slate-100 mb-2">Artistic Braiding</h4>
+<p class="text-slate-600 dark:text-slate-400 mb-6">Masterfully crafted braids that last and protect your natural hair.</p>
+<div class="flex items-center justify-between">
+<span class="text-primary font-bold">From $45</span>
+<a class="text-primary font-bold flex items-center gap-1 hover:gap-2 transition-all" href="services.html">
+                                    Explore <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Service 2 -->
+<div class="group relative bg-white dark:bg-surface rounded-2xl overflow-hidden border border-primary/10 hover:border-primary/40 transition-all shadow-sm hover:shadow-xl">
+<div class="aspect-video overflow-hidden">
+<img alt="Styling" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Elegant hair styling for an event" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCucuvjD4C2zmT_zKjpWQJbSI9TzLVjpUTf2L7yVIJV-aDajtmNc5Ju4aUpUifsPLcfpOweycIDtgA3HtZl_OdrptEP1aFQImoTE58HmpWWmA46GfWHgm05DXpYXuNGZR7LJc30J59Vl7zNf8-M8Ch8AVf6uLWnsy8hUW6EZsfiyPmszuas-3PmS6PYFLzMfc7EK7g0laFoqOhOUfy1WoibkL1LhtRJ8tJPHnyPqbTo8-boYmQ25Zvc017kqEi4abaJFLzss1gOobDm"/>
+</div>
+<div class="p-8">
+<h4 class="text-xl font-bold text-slate-800 dark:text-slate-100 mb-2">Couture Hair Styling</h4>
+<p class="text-slate-600 dark:text-slate-400 mb-6">Bespoke styling for weddings, galas, and your everyday elegance.</p>
+<div class="flex items-center justify-between">
+<span class="text-primary font-bold">From $60</span>
+<a class="text-primary font-bold flex items-center gap-1 hover:gap-2 transition-all" href="services.html">
+                                    Explore <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Service 3 -->
+<div class="group relative bg-white dark:bg-surface rounded-2xl overflow-hidden border border-primary/10 hover:border-primary/40 transition-all shadow-sm hover:shadow-xl">
+<div class="aspect-video overflow-hidden">
+<img alt="Cornrows" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Detailed cornrows hair pattern" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlJ7lEDhK2yLPAMvr5APzq9rhQVqq6q52HDMI8z6oNsdXBJDQ_1pLtccVaPtUzQ3RtFnUzegJgqrUkLsiL-SpMbdJxFXBSZhqGaWR8E3kQOUWKr5O6l68j4H7fWgipMr56S-cvStQum6NyfXoJQmnGjIo6bhf4X0vTrsZIRiPiEcV05M2fB-zJvA6X6mecPsPRXVSsvjqhB9QrVPGwivy5uLqLV7E0IS2YnUaenIutfFTHbrqNrsmvUTfqIKOyT6dwSrU8FeDt2bJp"/>
+</div>
+<div class="p-8">
+<h4 class="text-xl font-bold text-slate-800 dark:text-slate-100 mb-2">Precision Cornrows</h4>
+<p class="text-slate-600 dark:text-slate-400 mb-6">Sleek, creative, and professional cornrows for all hair textures.</p>
+<div class="flex items-center justify-between">
+<span class="text-primary font-bold">From $35</span>
+<a class="text-primary font-bold flex items-center gap-1 hover:gap-2 transition-all" href="services.html">
+                                    Explore <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Gallery Preview -->
+<section class="py-24 bg-primary/5 dark:bg-surface/20" id="gallery">
+<div class="max-w-7xl mx-auto px-6">
+<div class="flex flex-col md:flex-row items-end justify-between mb-12 gap-6">
+<div class="space-y-4">
+<h3 class="text-primary font-bold tracking-widest uppercase text-sm">Our Portfolio</h3>
+<h2 class="text-4xl font-bold text-slate-800 dark:text-slate-100">The Purelux Look</h2>
+</div>
+<a class="px-6 py-3 border border-primary text-primary font-bold rounded-xl hover:bg-primary hover:text-background-dark transition-all" href="gallery.html">
+                        View Full Gallery
+                    </a>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="space-y-4">
+<img alt="Gallery 1" class="rounded-2xl w-full h-64 object-cover" data-alt="Close up of a beautiful braided bun" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoNKlfUJjBFxKfPvvZHKm2fUKzK7Fd5KjYbR-fjGhvv9Vb4bXWXJyhwMXmhiNVNtfvIPlNOcQCrLnP0VDn2sF4KEksMCZnXHYyJT1cl9oENuLXVw9JFa4lFv--L0-7DMB8x5Ovd1UNfegDeleFrsQ8CJIaCB7MzI4fuNfxsh1LdCZ1irGrHN9eZeiDBAQCFnVqpB4kyJ2xCrpTjYa3x9RlIoYRlShgi1VHlIlB4Z8RUwGLidEshmIDf_VZtcdJecnmARf8X9VzNFBM"/>
+<img alt="Gallery 2" class="rounded-2xl w-full h-48 object-cover" data-alt="Professional stylist cutting hair" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMeqgH1vjG-UV2a2ZfoZyPtFFYNdc4LsrKpo9dL4LPwIBnI2KhtHiun5gd6AthdjMKSNb7HOiLn3xAX4yYYbsw8rwUX67jieU5R72AXkrZOn2ldSZNKxtB-TY8YOTWJFiruT-JfzMxYs5JjEYs1TmtFeZMbT52hbbi_fQqCVn99SKTns8I86OSpZRgDPn46q6xOvQw2ML-t0q60sLFe6KtnMrn3Dv44YngcCCTts3eqfep_URLENOcHJ2wjRFQrcSSxEB24NIU700W"/>
+</div>
+<div class="space-y-4 pt-8">
+<img alt="Gallery 3" class="rounded-2xl w-full h-48 object-cover" data-alt="Styling tools on a purple table" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfrhmGrpRDEIJrh1G_0JgLHjy918EeNFvo5ieRqxsfchIdQHEcYlfdfohsB7zAjAQ5EvZa6CR5_mDrzczEFf8Q2um4gH8O9wvw__0QhaOj6hHUhUb28XhOgWd15AiKMlRZhlSn8HB2eXKI6oTX_j3ifjzQic0URn7TGNd-pNbCARmjbbPunFjgkMs-5ZjvdaRQx1ptiBv_VnRUzAze0mSPtT3cOA-ae0OkKdSNnAXODa5fXIPtXc3APlFZdjQzl1M9ASgBUd_NSkrm"/>
+<img alt="Gallery 4" class="rounded-2xl w-full h-64 object-cover" data-alt="Smiling client with long braids" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxGaoqHTt2ZHgdTEkdFG4v17imwvtGKVkNUqTCiqIqoKdfBjfX4NyuncaX3kBuq7mVk7MDm0D21BNu-xYNGT4VCxhALU1L6uiytKbGBxLJjHNVwkG70d0yQJUAj_0tDXdrkKAKkf0Vx11CWsFNyii19VDU93l9fZc6aWGoDIh74Kyd8A7dpEw9-ogLwr1VlcF43yg517u_8xC1ksf8z3tga1d4OWh_VQcNs-cwXCc-bnubU2MGHnPZ2WdCEyuV3DwB1E5QyVm8cXxq"/>
+</div>
+<div class="space-y-4">
+<img alt="Gallery 5" class="rounded-2xl w-full h-64 object-cover" data-alt="Luxury salon waiting area" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFFYm2ed03sM12w5rZFseBMvb46vpm03HtHFFGblty-QIKrfYfKizQY_C1AdoWR9NQBTxz8l-ZZ7O8NrICK6_EwsrJeZ2F5jLW_mrm5cc8Kx-CsxLNYwyzfaRwU4uNN_s126cszfN8iY33N96UlN56QKWjj7YqYlVfCxWLJ1yiaCiv42vVKelJ4ktZUza6SqvbGlVBOza48iKoeAxdBpfLqXa4PNNnn_l56iU8qig_3ibZTYIAHwPHr-CbiO67TMD8a5nJDmEqYc4D"/>
+<img alt="Gallery 6" class="rounded-2xl w-full h-48 object-cover" data-alt="Macro of hair texture after treatment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVSXBfYBsWFV9x39HsCPh-77mVVY_5JZBnvRMVBeMGyFyAPlsgWIu5JYz_aGa-L4WTo0hGE_mpr-aQ8Oy07HtARqSrQRWFTnNoCHN4gOKG3rfAAFTsqu7g8QgghBhxeksDfBT_zlcvARE9jxbsoT4Ya5IT6H5HDoKid8hlXWENf0e9j-pMWQcA-i9Zi-iYNx9H2YhBEDFsG6xY_VYNV1sXk56ds53VqowIAFo-rJQKtDgilcj8NmKxb6sCDS4UikqOYGE_lfo3_Wu4"/>
+</div>
+<div class="space-y-4 pt-8">
+<img alt="Gallery 7" class="rounded-2xl w-full h-48 object-cover" data-alt="Close up portrait with artistic hair design" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-asOr-oAM7NsaytDFPkz7bUNt3TYCvy-LPsCW-fRFUh4C64sfukAjCYnHBx0r0Y50vcO2so6261-P6nNIzafV-HvWV7Pgz32q0i41uwjAAPrkoV6xVQTChmmI2jcxKoRohLtCMDaZ7Xl1GL2dk1nVfpfx_cXM6ywuz4DWZh7Fw140wMCgLxfwzJ05yRftHwy0Nvtf_IJZ8lchqeW7kZcBV3ijclYu-NGs30B2W7ynFVG9Ttmrwy4YYA2HkBHbprnI26C-wsyZpMs4"/>
+<img alt="Gallery 8" class="rounded-2xl w-full h-64 object-cover" data-alt="Woman checking hair in a mirror" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC68AujfrieEqXv1LvwWlWFO-yUUj_il6_qOjgUtEA9aUU9mqqNLsMPsT2mPxeozbdL0KD97u8WaxiNmhfe55j6dxZ3FrPWe8vYLbBTY3PRLahbdURJxw-blbCAaKNoEZWN7GqXDmtkkZUVntW7Nt71HkWDV18-HHSUDSbfqxDXjD0BAODgIZ5AElAR2vgsfNkoVNRO_tg4a8YluJTh5fgsUrz1eUgsiCOKvF2yyjb3h8pxVu5TpSof5-T5rQqdY4f0CWl386N4oz7V"/>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-24">
+<div class="max-w-7xl mx-auto px-6">
+<div class="relative bg-primary p-12 lg:p-20 rounded-[2rem] overflow-hidden text-center">
+<div class="absolute inset-0 opacity-10" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAj-l8a9xFALX56IYRMTk8bgRhofzLjFewnE3l4WRadBOV_e31R2kgM6cQdJHCNjby5QdzSgt0IUlQ9B_jDcjLx0-rO2JYlHa_6i44Le4MAtZvsFHuuNzMGH2sgUqmrMTNlvcBuc9Z_qNcOqMqQy0xFN65lBZ3LRmfzwEx7nZU82y5h25kW8WaNW9H8USTj0Js3Q5IxEguB5R0dT489uxBONMd3OlFhMSARd7jVWG9Io0Gx_JxoIqF8L65qse7ajeiKNk09fyKH4J2a');"></div>
+<div class="relative flex flex-col items-center gap-8">
+<h2 class="text-4xl lg:text-5xl font-black text-background-dark max-w-3xl">Ready to Elevate Your Look to the Next Level?</h2>
+<p class="text-background-dark/80 text-lg font-medium max-w-xl">
+                            Join the hundreds of satisfied clients in Kahawa Wendani who trust Purelux for their beauty needs.
+                        </p>
+            <a class="px-10 py-5 bg-background-dark text-primary font-black rounded-2xl text-xl hover:scale-105 transition-all shadow-2xl" href="booking.html">
+                            Schedule Your Visit Now
+                        </a>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-white dark:bg-background-dark border-t border-primary/10 pt-20 pb-10">
+<div class="max-w-7xl mx-auto px-6">
+<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+<div class="space-y-6">
+<div class="flex items-center gap-3">
+<h2 class="text-xl font-extrabold">
+    <span class="text-slate-900 dark:text-slate-100">PureLux</span><span class="text-primary"> Beauty Parlour</span>
+</h2>
+</div>
+<p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Excellence in every strand. Providing the finest hair and beauty experiences in Kahawa Wendani since 2018.
+                    </p>
+                    <div class="flex gap-4">
+                        <a class="h-10 w-10 rounded-full bg-primary/10 dark:bg-surface border border-primary/20 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" href="https://www.facebook.com" aria-label="Facebook">
+<span class="material-symbols-outlined text-sm">social_leaderboard</span>
+</a>
+                        <a class="h-10 w-10 rounded-full bg-primary/10 dark:bg-surface border border-primary/20 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" href="https://www.instagram.com" aria-label="Instagram">
+<span class="material-symbols-outlined text-sm">camera</span>
+</a>
+                        <a class="h-10 w-10 rounded-full bg-primary/10 dark:bg-surface border border-primary/20 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" href="mailto:hello@pureluxbeautyparlour.com" aria-label="Email">
+<span class="material-symbols-outlined text-sm">alternate_email</span>
+</a>
+</div>
+</div>
+<div>
+<h4 class="text-slate-800 dark:text-slate-100 font-bold mb-6">Quick Links</h4>
+<ul class="space-y-4 text-slate-600 dark:text-slate-400">
+                        <li><a class="hover:text-primary transition-colors" href="index.html">Home</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="index.html#about">About Us</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="services.html">Services</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="booking.html">Book Now</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-slate-800 dark:text-slate-100 font-bold mb-6">Services</h4>
+<ul class="space-y-4 text-slate-600 dark:text-slate-400">
+                        <li><a class="hover:text-primary transition-colors" href="services.html">Artistic Braiding</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="services.html">Couture Styling</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="services.html">Cornrows</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="services.html">Treatments</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-slate-800 dark:text-slate-100 font-bold mb-6">Location</h4>
+<ul class="space-y-4 text-slate-600 dark:text-slate-400">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-xl">location_on</span>
+<span>Main Street, Kahawa Wendani<br/>Nairobi, Kenya</span>
+</li>
+                        <li class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary text-xl">call</span>
+                            <a class="hover:text-primary transition-colors" href="tel:+254700000000">+254 700 000 000</a>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary text-xl">mail</span>
+                            <a class="hover:text-primary transition-colors" href="mailto:hello@pureluxbeautyparlour.com">hello@pureluxbeautyparlour.com</a>
+                        </li>
+</ul>
+</div>
+</div>
+<div class="pt-8 border-t border-primary/10 text-center">
+<p class="text-slate-500 text-sm">© 2024 PureLux Beauty Parlour. All rights reserved. Designed for elegance.</p>
+</div>
+</div>
+</footer>
+</body></html>

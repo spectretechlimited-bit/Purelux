@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Premium Gallery | PureLux Beauty Parlour</title>
+<link rel="icon" type="image/png" href="images/logo.png"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#d790ee",
+                        "background-light": "#f7f6f8",
+                        "background-dark": "#1d1220",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+        .gallery-card:hover .overlay {
+            opacity: 1;
+        }
+        .gallery-card:hover img {
+            transform: scale(1.05);
+        }
+    </style>
+    <script>
+        (function () {
+            const storageKey = "purelux-theme";
+            const root = document.documentElement;
+            const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+            const apply = (theme) => {
+                if (theme === "dark") {
+                    root.classList.add("dark");
+                } else {
+                    root.classList.remove("dark");
+                }
+                document.querySelectorAll("[data-theme-toggle]").forEach((btn) => {
+                    const isDark = theme === "dark";
+                    btn.setAttribute("aria-pressed", isDark ? "true" : "false");
+                    const icon = btn.querySelector("[data-theme-icon]");
+                    const label = btn.querySelector("[data-theme-label]");
+                    if (icon) icon.textContent = isDark ? "dark_mode" : "light_mode";
+                    if (label) label.textContent = isDark ? "Dark" : "Light";
+                });
+            };
+
+            const stored = localStorage.getItem(storageKey);
+            const initial = stored || (mediaQuery.matches ? "dark" : "light");
+            apply(initial);
+
+            window.pureluxToggleTheme = () => {
+                const next = root.classList.contains("dark") ? "light" : "dark";
+                localStorage.setItem(storageKey, next);
+                apply(next);
+            };
+
+            mediaQuery.addEventListener("change", (event) => {
+                if (!localStorage.getItem(storageKey)) {
+                    apply(event.matches ? "dark" : "light");
+                }
+            });
+        })();
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 w-full border-b border-primary/10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-20">
+<div class="flex items-center gap-3">
+<img src="images/logo.png" alt="PureLux Logo" class="h-8 w-auto">
+<h1 class="text-xl font-extrabold tracking-tight">
+    <span class="text-slate-900 dark:text-slate-100 uppercase">PureLux</span><span class="text-primary"> Beauty Parlour</span>
+</h1>
+</div>
+            <nav class="hidden md:flex items-center gap-10">
+                <a class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="index.html">Home</a>
+                <a class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="services.html">Services</a>
+                <a class="text-sm font-semibold text-primary" href="gallery.html">Gallery</a>
+                <a class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="booking.html">Book</a>
+                <a class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="contact.html">Contact</a>
+            </nav>
+<div class="flex items-center gap-4">
+                    <button class="flex items-center gap-2 px-3 py-2 rounded-full border border-primary/30 bg-white/80 text-slate-800 shadow-sm hover:bg-primary/10 transition-colors dark:bg-background-dark/70 dark:text-primary" type="button" data-theme-toggle aria-pressed="true" onclick="window.pureluxToggleTheme()">
+                        <span class="material-symbols-outlined text-sm" data-theme-icon>dark_mode</span>
+                        <span class="text-xs font-semibold" data-theme-label>Dark</span>
+                    </button>
+                    <a class="bg-primary hover:bg-primary/90 text-background-dark px-6 py-2.5 rounded-lg text-sm font-bold transition-all shadow-lg shadow-primary/20" href="booking.html">
+                        Book Now
+                    </a>
+<div class="size-10 rounded-full bg-primary/10 border border-primary/20 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="User profile avatar portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBp288ruQCnQwKJ0uwyslX6KLJjMAVt4AFohMfEXuqRoupTZsgOG1Ls7BXDtkFSkUDcxc3k3Z_0MQNAC4nx_rkQmMe7nZwXWPM-_Gmxd3SUH5kEkCjiZ44BA64g0BlMsahFxd_uzXG7TN6ccs2X_-b0lfFNHIdqSr2Tdw22bRwBxcjAk_JaGaPUoROqE6u69nHxpkvuMlhNjJ6W1GBn7WW4W4vhTPJDwC5tIYBHIxzzpMY8kTKriVm5b2CXdheBfLRpRNZP7NJdIqTw"/>
+</div>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<!-- Hero Section -->
+<section class="relative mb-16 overflow-hidden rounded-xl bg-gradient-to-br from-primary/20 via-background-dark to-background-dark border border-primary/10">
+<div class="absolute inset-0 opacity-40">
+<img class="w-full h-full object-cover" data-alt="Luxury salon interior with purple lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBR5evrYsTdqZmwG7Uf2fu7jkekEGyWaIpPLcBcZj0HgyHLMNhq5oiyN_nh9cDq32VvgLKiFZLHJs1SNptYbJ5mUmlz3P0uL98JlQxvNPBLdWJNLsGt26i8608Fhxdbcb2lfBg2Wvh9-1FyKx0MqvZewe2k9eUT5d98R5C4iBZdpVpwDeyG6zPpMkHQ4mg4Y6Ow6oJTiNCTMsXmC0hsjlkngdrWZmVruOamBLDR2hZusA-I3h85Clypz5tHkyx1XUfLh0Zhczp4IoYn"/>
+<div class="absolute inset-0 bg-gradient-to-r from-background-dark via-background-dark/80 to-transparent"></div>
+</div>
+<div class="relative z-10 p-8 md:p-16 max-w-2xl">
+<span class="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-widest text-primary uppercase bg-primary/10 rounded-full border border-primary/20">Our Premium Gallery</span>
+<h2 class="text-4xl md:text-6xl font-black text-white leading-tight mb-6">Masterpieces in Every Strand</h2>
+<p class="text-slate-300 text-lg leading-relaxed mb-8">Discover our curated collection of artistic braiding, vibrant coloring, and precision styling. Every look is a unique transformation tailored for excellence.</p>
+<div class="flex flex-wrap gap-4">
+<button class="flex items-center gap-2 px-6 py-3 bg-white text-background-dark font-bold rounded-lg hover:bg-primary transition-colors">
+<span class="material-symbols-outlined">style</span>
+                        View Latest Trends
+                    </button>
+</div>
+</div>
+</section>
+<!-- Category Filter -->
+<div class="flex flex-wrap items-center gap-3 mb-10 overflow-x-auto pb-4 scrollbar-hide">
+<button class="px-6 py-2.5 rounded-full bg-primary text-background-dark font-bold text-sm whitespace-nowrap">All Work</button>
+<button class="px-6 py-2.5 rounded-full bg-primary/10 hover:bg-primary/20 text-slate-700 dark:text-slate-200 font-bold text-sm border border-primary/10 whitespace-nowrap transition-all">Braiding</button>
+<button class="px-6 py-2.5 rounded-full bg-primary/10 hover:bg-primary/20 text-slate-700 dark:text-slate-200 font-bold text-sm border border-primary/10 whitespace-nowrap transition-all">Coloring</button>
+<button class="px-6 py-2.5 rounded-full bg-primary/10 hover:bg-primary/20 text-slate-700 dark:text-slate-200 font-bold text-sm border border-primary/10 whitespace-nowrap transition-all">Styling</button>
+<button class="px-6 py-2.5 rounded-full bg-primary/10 hover:bg-primary/20 text-slate-700 dark:text-slate-200 font-bold text-sm border border-primary/10 whitespace-nowrap transition-all">Bridal</button>
+<div class="ml-auto flex items-center gap-2 text-slate-400">
+<span class="text-sm font-medium">Showing 12 results</span>
+<span class="material-symbols-outlined">filter_list</span>
+</div>
+</div>
+<!-- Responsive Image Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+<!-- Card 1 -->
+<div class="gallery-card group relative overflow-hidden rounded-xl bg-background-dark/50 border border-primary/10 aspect-[3/4] cursor-pointer">
+<img class="w-full h-full object-cover transition-transform duration-500" data-alt="Intricate geometric pattern box braids" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQayisgiVQEScZEIgCspJ1suNr4dIBq7Q8OjYtyv_E2bMb43md1EvbQHdQNZAzLbF44ih5uclBNmhsOHa8E3Fp7OPvfY_EfCsvPyQgICeS3e6ZfETBjk9G43zfvyFrPLUUu_ctzSmmD24vE4cs0KIvXNNgVbgnaROk6HgK5tj8K7NzkoUGKNbk8-C8ogoSKraTxI50i9KW9nSnD_eD-hKzfwO6Kfj8uT2AIXlBgOEfAHxl5zBaL4qbawK6W9V9nVkjIA4cuhcCIEmB"/>
+<div class="overlay absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/20 to-transparent opacity-0 transition-opacity duration-300 flex flex-col justify-end p-6">
+<span class="text-primary text-xs font-bold uppercase tracking-widest mb-2">Braiding</span>
+<h3 class="text-white text-xl font-bold mb-1">Intricate Box Braids</h3>
+<p class="text-slate-300 text-sm line-clamp-2">Precision patterns with silk-finish extensions.</p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="gallery-card group relative overflow-hidden rounded-xl bg-background-dark/50 border border-primary/10 aspect-[3/4] cursor-pointer">
+<img class="w-full h-full object-cover transition-transform duration-500" data-alt="Vibrant neon purple hair color styling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMFbDgpZDxZGju_w_bo4VuRdIEqcoo3iF4Fd84IFO7FRlpbdmAN66GE6ozhQW78iKajgKwxP_GsCQBK3SCsKGAxTYqzTSOIBoDEIl8DEFOMs4Ucvqq_6Q8gQzazv0dxZnw_9G134kxFEvHpRd76BaFkVxGtgDMlX1J5OnWz8vXcAss_UbkNija1mdP1WEFPNPFHAb2e5lZEI7enAA74tgy_BEFZ-aPvzHhq_BM4Uhf2FD3tiJmPeyeAE7pGV1c0CMr5-ihPzaPqk3G"/>
+<div class="overlay absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/20 to-transparent opacity-0 transition-opacity duration-300 flex flex-col justify-end p-6">
+<span class="text-primary text-xs font-bold uppercase tracking-widest mb-2">Coloring</span>
+<h3 class="text-white text-xl font-bold mb-1">Vibrant Ombre</h3>
+<p class="text-slate-300 text-sm line-clamp-2">Seamless transition from deep amethyst to lilac.</p>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="gallery-card group relative overflow-hidden rounded-xl bg-background-dark/50 border border-primary/10 aspect-[3/4] cursor-pointer">
+<img class="w-full h-full object-cover transition-transform duration-500" data-alt="Sleek silk press straight hair" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3ePqQu1qDOsq9wwhScZJIaSmZddZ05ywtY5YrF_fAIgne0PzTYxo1v-rNQxmuQWhqYhT_kczlDCkyYyJWwwyFCDJgeCUdt4N_eKcCY_Qa95mumDKwq_-ymAHscVu7O2AbvU2ftUSZPR7zGxEX2XGjNdtL8DPE2q-gInwf9kpaJQmSNcZansS7G8FD-uq-b9xGfhBCEqPFWlbQX4qf68pfRld77kFzKmUOOXMDbdmy27FJihDoemQJFgsDEs7uIMWfSjs-W7O479e8"/>
+<div class="overlay absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/20 to-transparent opacity-0 transition-opacity duration-300 flex flex-col justify-end p-6">
+<span class="text-primary text-xs font-bold uppercase tracking-widest mb-2">Styling</span>
+<h3 class="text-white text-xl font-bold mb-1">Sleek Silk Press</h3>
+<p class="text-slate-300 text-sm line-clamp-2">High-gloss, heat-protected botanical finish.</p>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="gallery-card group relative overflow-hidden rounded-xl bg-background-dark/50 border border-primary/10 aspect-[3/4] cursor-pointer">
+<img class="w-full h-full object-cover transition-transform duration-500" data-alt="Bohemian goddess locs with hair jewelry" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAK-A3A_UDl2rstdU8ddpmQxMfuxvS0YLSHqXVCMNkYvuZ0wUDoPbmzB9GOKhHM1bFf1AAg8P54hTXknxUx1fP1Zwt-D8oPLbHUJN9Ooh_bVo3JrykIXgnbvQQ72XfigzFgOxbBIpXWnYjWoVT1_jrDhyCU48nVLbzAwOGdCZ37VxU7fCjfqztMHEHqXKYmb76AdIx-gAGnQFw1ljhMKe2CtEy-2US9moOb6OOnOknUOc4ocXmcfZo8opgrXv3bK3Fxan2Vx8Rnzv7O"/>
+<div class="overlay absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/20 to-transparent opacity-0 transition-opacity duration-300 flex flex-col justify-end p-6">
+<span class="text-primary text-xs font-bold uppercase tracking-widest mb-2">Braiding</span>
+<h3 class="text-white text-xl font-bold mb-1">Bohemian Locs</h3>
+<p class="text-slate-300 text-sm line-clamp-2">Soft-textured locs with golden accents.</p>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="gallery-card group relative overflow-hidden rounded-xl bg-background-dark/50 border border-primary/10 aspect-[3/4] cursor-pointer">
+<img class="w-full h-full object-cover transition-transform duration-500" data-alt="Pastel balayage hair coloring" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIjB0RciGDpLw2okycssjNBNB14vaR03tapWaHRIcgcrdI47T5_ObNN5V-1saSCTCiuYDVXb6CC12Sau9WaeFG97PyAs0LtYjMo6en0q98zJFShRpY637HdNDx9cUKSBAQ2zexSd7yxXiA2znb_88DCVhCvParLbHk7cc6Ovv-cNUqxPkVlWnK0iyp2X9zIXSJjHHz-JoPiVxbQcmwM52kRSWFbvwnjxLnWIn3cooVVB-cQ4xj_SNZedRIuxa0iFGt5bla2jV1tS7W"/>
+<div class="overlay absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/20 to-transparent opacity-0 transition-opacity duration-300 flex flex-col justify-end p-6">
+<span class="text-primary text-xs font-bold uppercase tracking-widest mb-2">Coloring</span>
+<h3 class="text-white text-xl font-bold mb-1">Pastel Balayage</h3>
+<p class="text-slate-300 text-sm line-clamp-2">Hand-painted pastel highlights for soft dimension.</p>
+</div>
+</div>
+<!-- Card 6 -->
+<div class="gallery-card group relative overflow-hidden rounded-xl bg-background-dark/50 border border-primary/10 aspect-[3/4] cursor-pointer">
+<img class="w-full h-full object-cover transition-transform duration-500" data-alt="Elegant bridal updo with flowers" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCxdfEkyJz8XGQaB3ieeEVOEoDlAG1bBvTEwZXPxR8HOzZi4JLaHtza4pSzj52L3sB2oMtt3JmWIRU0sFvs_157p6ZYsU3E0p4Ek3-pXKK7dA72JZoTproHXBflf6glsdPeEz_KFjBu8yRdATPb5GcpOTojnwEhkMvQiPxJkDtLJikZbUYVRigwP8-xcdNBWokzx0ZX64eUuM8v2Rg9AQ8esdwUpTzjJYIOMqdXQCZqs-YJW3nzZHLwxWDCzysg2HDj9Ylxvj1J6L_"/>
+<div class="overlay absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/20 to-transparent opacity-0 transition-opacity duration-300 flex flex-col justify-end p-6">
+<span class="text-primary text-xs font-bold uppercase tracking-widest mb-2">Styling</span>
+<h3 class="text-white text-xl font-bold mb-1">Bridal Updo</h3>
+<p class="text-slate-300 text-sm line-clamp-2">Timeless elegance for your special day.</p>
+</div>
+</div>
+<!-- Card 7 -->
+<div class="gallery-card group relative overflow-hidden rounded-xl bg-background-dark/50 border border-primary/10 aspect-[3/4] cursor-pointer">
+<img class="w-full h-full object-cover transition-transform duration-500" data-alt="Short bob haircut with bold color" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzl7hhZT5W6RH9i1qqkpiWAqcatqFUuBj3zsMyJ7MEbQKxPzAyGgLI-Pu9YN9UNdo3uszS_55doahn2zp6cqaRU0MCLys5CZj1JCSrAsUq185RJg_4CSX_jk99W1sN5927TFydVj0Rv-QfRxssA9fiqVhNEFIRgUEcTtJw3yOGrDUzmT7vdgmpN0HXUtNywN31inTSkxuRBJL_Cgh7jNMnixQPDBh0vWwMCoWdGdHqtvjdVOfKFKqp1SP8Nrh6V0MU2gcOI9blwKyT"/>
+<div class="overlay absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/20 to-transparent opacity-0 transition-opacity duration-300 flex flex-col justify-end p-6">
+<span class="text-primary text-xs font-bold uppercase tracking-widest mb-2">Styling</span>
+<h3 class="text-white text-xl font-bold mb-1">Precision Bob</h3>
+<p class="text-slate-300 text-sm line-clamp-2">Sharp lines and high-contrast color tones.</p>
+</div>
+</div>
+<!-- Card 8 -->
+<div class="gallery-card group relative overflow-hidden rounded-xl bg-background-dark/50 border border-primary/10 aspect-[3/4] cursor-pointer">
+<img class="w-full h-full object-cover transition-transform duration-500" data-alt="Feed-in braids protective style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCK5IEMqpyoKZAC7v2TkoT-bXhEIV0TA0eGuY6-di3GeMReX2wYilTHSo9SCQVpDW3YIGOlwutP2RZ5osk-D6U-YVHYZqmEs_lDFc99zw1hEggu0yniNwPYZYsSVYhjb4eEwe6gCWiipw-PgjyQo1ad6J66MFH2R1vTdanG6Dl-EWGuhDVWxjocBjlAN-VV-aHAZMUVOCXWD0excZ9zpWwaaDKVQor-C4BN_UQYcpYIlHNjmQs8CRxgb1LOyAbK14vXYUIW0Ax9c4EE"/>
+<div class="overlay absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/20 to-transparent opacity-0 transition-opacity duration-300 flex flex-col justify-end p-6">
+<span class="text-primary text-xs font-bold uppercase tracking-widest mb-2">Braiding</span>
+<h3 class="text-white text-xl font-bold mb-1">Feed-in Braids</h3>
+<p class="text-slate-300 text-sm line-clamp-2">Natural-looking extensions with seamless edges.</p>
+</div>
+</div>
+</div>
+<!-- Call to Action -->
+<section class="mt-20 text-center py-20 px-6 rounded-3xl bg-primary/5 border border-primary/10 relative overflow-hidden">
+<div class="absolute -top-24 -left-24 size-64 bg-primary/20 rounded-full blur-[100px]"></div>
+<div class="absolute -bottom-24 -right-24 size-64 bg-primary/20 rounded-full blur-[100px]"></div>
+<h2 class="text-3xl md:text-5xl font-black text-slate-900 dark:text-white mb-6">Ready for your transformation?</h2>
+<p class="text-slate-600 dark:text-slate-300 text-lg mb-10 max-w-xl mx-auto">Experience the Purelux touch today. Our expert stylists are ready to create your next masterpiece.</p>
+<div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a class="w-full sm:w-auto px-10 py-4 bg-primary text-background-dark font-black rounded-xl hover:scale-105 transition-all text-lg shadow-xl shadow-primary/20" href="booking.html">
+                    Book Appointment
+                </a>
+            <a class="w-full sm:w-auto px-10 py-4 bg-transparent border-2 border-primary/30 text-primary font-black rounded-xl hover:bg-primary/10 transition-all text-lg" href="contact.html">
+                    Contact Salon
+                </a>
+</div>
+</section>
+</main>
+<footer class="bg-background-light dark:bg-background-dark border-t border-primary/10 pt-16 pb-8">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+<div class="col-span-1 md:col-span-2">
+<div class="flex items-center gap-3 mb-6">
+<h2 class="text-lg font-bold tracking-tight">
+    <span class="text-slate-900 dark:text-slate-100 uppercase">PureLux</span><span class="text-primary"> Beauty Parlour</span>
+</h2>
+</div>
+<p class="text-slate-500 dark:text-slate-400 max-w-sm mb-8">Premium beauty services focused on health, artistry, and the ultimate luxury salon experience.</p>
+<div class="flex gap-4">
+<a class="size-10 rounded-lg bg-primary/10 border border-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-background-dark transition-all" href="#">
+<span class="material-symbols-outlined">share</span>
+</a>
+<a class="size-10 rounded-lg bg-primary/10 border border-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-background-dark transition-all" href="#">
+<span class="material-symbols-outlined">camera</span>
+</a>
+</div>
+</div>
+<div>
+            <h3 class="text-white font-bold mb-6">Quick Links</h3>
+            <ul class="space-y-4 text-slate-500 dark:text-slate-400">
+                <li><a class="hover:text-primary transition-colors" href="index.html#about">About Us</a></li>
+                <li><a class="hover:text-primary transition-colors" href="contact.html">Our Team</a></li>
+                <li><a class="hover:text-primary transition-colors" href="booking.html">Gift Cards</a></li>
+                <li><a class="hover:text-primary transition-colors" href="contact.html">Careers</a></li>
+            </ul>
+</div>
+<div>
+<h3 class="text-white font-bold mb-6">Contact</h3>
+<ul class="space-y-4 text-slate-500 dark:text-slate-400">
+                <li class="flex items-start gap-3">
+                    <span class="material-symbols-outlined text-primary">location_on</span>
+                    <span>123 Elegance Blvd,<br/>Fashion District, NY 10012</span>
+                </li>
+                <li class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary">call</span>
+                    <a class="hover:text-primary transition-colors" href="tel:+15551234567">(555) 123-4567</a>
+                </li>
+</ul>
+</div>
+</div>
+<div class="border-t border-primary/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500">
+<p>© 2024 PureLux Beauty Parlour. All rights reserved.</p>
+<div class="flex gap-8">
+            <a class="hover:text-primary transition-colors" href="contact.html">Privacy Policy</a>
+            <a class="hover:text-primary transition-colors" href="contact.html">Terms of Service</a>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

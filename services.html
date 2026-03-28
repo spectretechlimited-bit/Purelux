@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Premium Services | PureLux Beauty Parlour</title>
+<link rel="icon" type="image/png" href="images/logo.png"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#d790ee",
+                        "background-light": "#f7f6f8",
+                        "background-dark": "#1d1220",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .service-card-gradient {
+            background: linear-gradient(to bottom, transparent 0%, rgba(29, 18, 32, 0.9) 100%);
+        }
+    </style>
+    <script>
+        (function () {
+            const storageKey = "purelux-theme";
+            const root = document.documentElement;
+            const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+            const apply = (theme) => {
+                if (theme === "dark") {
+                    root.classList.add("dark");
+                } else {
+                    root.classList.remove("dark");
+                }
+                document.querySelectorAll("[data-theme-toggle]").forEach((btn) => {
+                    const isDark = theme === "dark";
+                    btn.setAttribute("aria-pressed", isDark ? "true" : "false");
+                    const icon = btn.querySelector("[data-theme-icon]");
+                    const label = btn.querySelector("[data-theme-label]");
+                    if (icon) icon.textContent = isDark ? "dark_mode" : "light_mode";
+                    if (label) label.textContent = isDark ? "Dark" : "Light";
+                });
+            };
+
+            const stored = localStorage.getItem(storageKey);
+            const initial = stored || (mediaQuery.matches ? "dark" : "light");
+            apply(initial);
+
+            window.pureluxToggleTheme = () => {
+                const next = root.classList.contains("dark") ? "light" : "dark";
+                localStorage.setItem(storageKey, next);
+                apply(next);
+            };
+
+            mediaQuery.addEventListener("change", (event) => {
+                if (!localStorage.getItem(storageKey)) {
+                    apply(event.matches ? "dark" : "light");
+                }
+            });
+        })();
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/20 px-6 py-4 lg:px-20">
+<div class="flex items-center gap-4">
+<img src="images/logo.png" alt="PureLux Logo" class="h-8 w-auto">
+<h2 class="text-xl font-bold leading-tight tracking-tight">
+    <span class="text-slate-900 dark:text-slate-100">PureLux</span><span class="text-primary"> Beauty Parlour</span>
+</h2>
+</div>
+            <nav class="hidden md:flex gap-8">
+                <a class="text-sm font-medium hover:text-primary transition-colors" href="index.html">Home</a>
+                <a class="text-sm font-medium text-primary underline underline-offset-4" href="services.html">Services</a>
+                <a class="text-sm font-medium hover:text-primary transition-colors" href="gallery.html">Gallery</a>
+                <a class="text-sm font-medium hover:text-primary transition-colors" href="index.html#about">About</a>
+                <a class="text-sm font-medium hover:text-primary transition-colors" href="contact.html">Contact</a>
+            </nav>
+<div class="flex gap-3">
+            <button class="flex items-center gap-2 h-10 px-3 rounded-xl border border-primary/30 bg-white/80 text-slate-800 shadow-sm hover:bg-primary/10 transition-colors dark:bg-background-dark/70 dark:text-primary" type="button" data-theme-toggle aria-pressed="true" onclick="window.pureluxToggleTheme()">
+                    <span class="material-symbols-outlined text-sm" data-theme-icon>dark_mode</span>
+                    <span class="text-xs font-semibold" data-theme-label>Dark</span>
+                </button>
+            <a class="flex items-center justify-center rounded-xl h-10 w-10 bg-primary/10 text-primary hover:bg-primary/20 transition-all" href="booking.html" aria-label="Book a service">
+                    <span class="material-symbols-outlined">shopping_cart</span>
+                </a>
+            <a class="flex items-center justify-center rounded-xl h-10 w-10 bg-primary text-background-dark hover:opacity-90 transition-all" href="contact.html" aria-label="Contact PureLux Beauty Parlour">
+                    <span class="material-symbols-outlined">person</span>
+                </a>
+</div>
+</header>
+<main class="flex-1 max-w-7xl mx-auto w-full px-6 py-8">
+<!-- Hero Section -->
+<div class="relative w-full mb-12 rounded-xl overflow-hidden min-h-[320px] flex flex-col justify-end bg-slate-800" data-alt="Luxurious hair salon interior with purple lighting">
+<img alt="" class="absolute inset-0 w-full h-full object-cover opacity-60" data-alt="Modern high-end beauty salon workstation" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDia6JWu0DH7KnZ46WuNGlM8LHL4IFTIKSfcJHfavxYN9XoEF0rg9H_svFGjs2Td4eKFm9zEEC3qZl0gF4C2fwFwKvDiUNwjqcodjr-OAMc-YVrweN3p7CHuR6eTwOFm3mGRxR7VSUE5h0dLBv9IL0DEsp0wxx-tCWl377bRttldXi7EmOLBvnIXIAeA4OkUZgx1qdiiCJfm-N79hNXUB0tYFtZh1_S-UPMLXhWmV4HY79RiThND-_7wdyfpp8XmSYzWWa6nuLWcjGx"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/20 to-transparent"></div>
+<div class="relative p-8 lg:p-12">
+<span class="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-bold uppercase tracking-wider mb-4">Elite Beauty Experience</span>
+<h1 class="text-slate-100 text-4xl lg:text-5xl font-extrabold leading-tight mb-4">Premium Hair Services</h1>
+<p class="text-slate-300 max-w-2xl text-lg">Indulge in our curated selection of high-end beauty treatments, performed by master stylists using the finest organic products.</p>
+</div>
+</div>
+<!-- Category Filters -->
+<div class="flex gap-3 mb-10 overflow-x-auto pb-4 no-scrollbar">
+<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary px-6 text-background-dark font-bold text-sm transition-all shadow-lg shadow-primary/20">
+                        All Services
+                    </button>
+<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary/10 px-6 text-slate-900 dark:text-slate-100 font-semibold text-sm hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined text-sm">grid_view</span> Braiding
+                    </button>
+<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary/10 px-6 text-slate-900 dark:text-slate-100 font-semibold text-sm hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined text-sm">content_cut</span> Styling
+                    </button>
+<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary/10 px-6 text-slate-900 dark:text-slate-100 font-semibold text-sm hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined text-sm">palette</span> Coloring
+                    </button>
+<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary/10 px-6 text-slate-900 dark:text-slate-100 font-semibold text-sm hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined text-sm">spa</span> Treatments
+                    </button>
+</div>
+<!-- Services Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Service Card 1 -->
+<div class="group relative flex flex-col bg-white dark:bg-slate-900/50 rounded-xl overflow-hidden border border-primary/10 hover:border-primary/40 transition-all">
+<div class="aspect-[4/3] w-full relative overflow-hidden">
+<img alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Close up of intricate box braids" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQws-TL2Zy668UdhppbgHmAKhMIf9twjW_6EUhLQAQCgwiTfWqye6v5GQLJLnUmgQTAXwvC-l71EL9jXxgrXQgI6FtslyRbPtTlhJY0ldx4jfHEOVpV88HyLdxVc00UydI6_Uq9l5PIwmxx9fJ-CX8PJP8RDvp9NEoRIzeCs6iL4G0UfErJLUMrdsXsJcu-hJ_Z_D25-rJUvXtmE2kdWU6tMlM_GR9EiRixgH9mFKsLMhj8dtc8YiFpZAyHD3mkpiZZ0YkEKrkkUHa"/>
+<div class="absolute top-4 right-4 bg-background-dark/80 backdrop-blur-md px-3 py-1 rounded-lg text-primary text-sm font-bold">
+                                $85+
+                            </div>
+</div>
+<div class="p-6 flex flex-col grow">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary text-lg">star</span>
+<span class="text-xs font-bold uppercase text-primary tracking-widest">Master Level</span>
+</div>
+<h3 class="text-xl font-bold mb-2">Intricate Braiding</h3>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6 grow">Custom patterns, goddess braids, or premium extensions designed to last and protect your natural hair.</p>
+                        <div class="flex items-center justify-between gap-4">
+                            <div class="flex items-center text-xs text-slate-400">
+                                <span class="material-symbols-outlined text-sm mr-1">schedule</span> 120 min
+                                </div>
+                            <a class="bg-primary text-background-dark font-bold px-6 py-2.5 rounded-lg text-sm hover:brightness-110 transition-all" href="booking.html">
+                                    Book Now
+                                </a>
+                        </div>
+</div>
+</div>
+<!-- Service Card 2 -->
+<div class="group relative flex flex-col bg-white dark:bg-slate-900/50 rounded-xl overflow-hidden border border-primary/10 hover:border-primary/40 transition-all">
+<div class="aspect-[4/3] w-full relative overflow-hidden">
+<img alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Woman receiving a professional hair blowout" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyrUaI-gqnffr7768aNrJ_qcw5_rbbNeAlhMIrsA8vR2m8qAd6V5c0ROKQNJM0THECBHdW4xjdGFnd1NsMhlE0CU5rTyDbJN9m1h2VuM3CIeP7XvpWC90UKIbxtQJg7QmaTRKLo1qlOndhVXiO14IB0LlQ_fHjImG3aK7DjJChehhZxgYhU8Wtt9k79kZofZW_fnN6Is8vEvz_mE-7rbTg0Kmwgqsm8JOKomnJdmOI3ErDEMl7TfNLuDk1WAGZnw_uAQtcLwd8DpbB"/>
+<div class="absolute top-4 right-4 bg-background-dark/80 backdrop-blur-md px-3 py-1 rounded-lg text-primary text-sm font-bold">
+                                $60+
+                            </div>
+</div>
+<div class="p-6 flex flex-col grow">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary text-lg">auto_awesome</span>
+<span class="text-xs font-bold uppercase text-primary tracking-widest">Popular</span>
+</div>
+<h3 class="text-xl font-bold mb-2">Signature Styling</h3>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6 grow">Precision cuts, voluminous blowouts, and silk presses for any occasion, tailored to your face shape.</p>
+                        <div class="flex items-center justify-between gap-4">
+                            <div class="flex items-center text-xs text-slate-400">
+                                <span class="material-symbols-outlined text-sm mr-1">schedule</span> 60 min
+                                </div>
+                            <a class="bg-primary text-background-dark font-bold px-6 py-2.5 rounded-lg text-sm hover:brightness-110 transition-all" href="booking.html">
+                                    Book Now
+                                </a>
+                        </div>
+</div>
+</div>
+<!-- Service Card 3 -->
+<div class="group relative flex flex-col bg-white dark:bg-slate-900/50 rounded-xl overflow-hidden border border-primary/10 hover:border-primary/40 transition-all">
+<div class="aspect-[4/3] w-full relative overflow-hidden">
+<img alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Vibrant purple hair coloring process" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDi5A2f2ieKZ83hGC1E_UiCtX2REAft0SLaJOM8NI8MBLGSxC8DZ9jxxlW31mVLBwOn7WARewjzgQ9rdVzAgsNaXwO-mNDq4w3VmHCd_5l0_ar_c1vBJh9Ko_Q1_EZwJXsW5dKhbU9Ll3PXPTTIXmEpC-Kv8tMvlaH7mVl-uVfRGo88vAUH-MwgS91HelyD7Z2DMeCdkMmC5HQx24yz8-DL87hM3lDER3d-qrlCJfvTUhS_-uONGfNZNlm6r40ubjMa8LdKS1KjbmSD"/>
+<div class="absolute top-4 right-4 bg-background-dark/80 backdrop-blur-md px-3 py-1 rounded-lg text-primary text-sm font-bold">
+                                $120+
+                            </div>
+</div>
+<div class="p-6 flex flex-col grow">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary text-lg">palette</span>
+<span class="text-xs font-bold uppercase text-primary tracking-widest">Creative</span>
+</div>
+<h3 class="text-xl font-bold mb-2">Vibrant Coloring</h3>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6 grow">From subtle balayage to bold avant-garde hues using our exclusive ammonia-free organic dye range.</p>
+                        <div class="flex items-center justify-between gap-4">
+                            <div class="flex items-center text-xs text-slate-400">
+                                <span class="material-symbols-outlined text-sm mr-1">schedule</span> 180 min
+                                </div>
+                            <a class="bg-primary text-background-dark font-bold px-6 py-2.5 rounded-lg text-sm hover:brightness-110 transition-all" href="booking.html">
+                                    Book Now
+                                </a>
+                        </div>
+</div>
+</div>
+<!-- Service Card 4 -->
+<div class="group relative flex flex-col bg-white dark:bg-slate-900/50 rounded-xl overflow-hidden border border-primary/10 hover:border-primary/40 transition-all">
+<div class="aspect-[4/3] w-full relative overflow-hidden">
+<img alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Hair being treated with steam and luxury products" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmycLIRyIqLPlHTy1OyEsLh-hWhIZmrG-Wk12INi21M5_MJ7SdOlRa4TqPmBh4zChKSrpPIVtuSyVdICfHQBwsoTCPWmmnXosl9ko0mTRNbJewA6cFceZmUOROeoP2uTTiYEy25sTfzBB8rpxGmQlO9bWvIBssfOHYQd0gxN7FtBRL7PrIUsnFb6Yp-GeQKZpduZfLGJLjNnff5yllzGUhp3xIjnS1-EWGfas8MJQtkjgy19KoiWzYvJ25AiBvUFiT3d250o4wkQmq"/>
+<div class="absolute top-4 right-4 bg-background-dark/80 backdrop-blur-md px-3 py-1 rounded-lg text-primary text-sm font-bold">
+                                $95+
+                            </div>
+</div>
+<div class="p-6 flex flex-col grow">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary text-lg">spa</span>
+<span class="text-xs font-bold uppercase text-primary tracking-widest">Restorative</span>
+</div>
+<h3 class="text-xl font-bold mb-2">Luxury Spa Care</h3>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6 grow">Intensive scalp detox and deep moisture therapy to revitalize damaged hair and promote healthy growth.</p>
+                        <div class="flex items-center justify-between gap-4">
+                            <div class="flex items-center text-xs text-slate-400">
+                                <span class="material-symbols-outlined text-sm mr-1">schedule</span> 90 min
+                                </div>
+                            <a class="bg-primary text-background-dark font-bold px-6 py-2.5 rounded-lg text-sm hover:brightness-110 transition-all" href="booking.html">
+                                    Book Now
+                                </a>
+                        </div>
+</div>
+</div>
+<!-- Service Card 5 -->
+<div class="group relative flex flex-col bg-white dark:bg-slate-900/50 rounded-xl overflow-hidden border border-primary/10 hover:border-primary/40 transition-all">
+<div class="aspect-[4/3] w-full relative overflow-hidden">
+<img alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Woman with elegant evening hairstyle" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPzN7IJma9d3MCnmNkbH-Q_qXhRU9kCePiie-6I57DmdCCDutRD3nFl6lrXUtnNJZHMfGeAQ0XsqCdig3AxYK5kkWmKfnqBZvdLJw_zrT9niX8_Mu6JWw5_8szhUfxtdRT3a9wBn3Cxywk-NJQkupoyXSS4tyWuHvYSFuCluygsyiJpabltKR3VeuDfroUDJhiyISBpISLScr5dNqAyc88PiIBNU1EitCeT-aWhyslWut1ActlhW1f-3_2NZNQCFTfiF6aWaq6qjnk"/>
+<div class="absolute top-4 right-4 bg-background-dark/80 backdrop-blur-md px-3 py-1 rounded-lg text-primary text-sm font-bold">
+                                $150+
+                            </div>
+</div>
+<div class="p-6 flex flex-col grow">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary text-lg">event</span>
+<span class="text-xs font-bold uppercase text-primary tracking-widest">Special Event</span>
+</div>
+<h3 class="text-xl font-bold mb-2">Bridal &amp; Gala Updos</h3>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6 grow">Elegant architectural hairstyles designed to withstand your most important celebrations and events.</p>
+                        <div class="flex items-center justify-between gap-4">
+                            <div class="flex items-center text-xs text-slate-400">
+                                <span class="material-symbols-outlined text-sm mr-1">schedule</span> 150 min
+                                </div>
+                            <a class="bg-primary text-background-dark font-bold px-6 py-2.5 rounded-lg text-sm hover:brightness-110 transition-all" href="booking.html">
+                                    Book Now
+                                </a>
+                        </div>
+</div>
+</div>
+<!-- Service Card 6 -->
+<div class="group relative flex flex-col bg-white dark:bg-slate-900/50 rounded-xl overflow-hidden border border-primary/10 hover:border-primary/40 transition-all">
+<div class="aspect-[4/3] w-full relative overflow-hidden">
+<img alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Hairdresser applying treatment to client hair" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAinnWD79Nfi99Yj9uxqlR6q8JQ-FH4jCGETse7fKtQNrO6J7TZuqucQysf-FaKxf7mP78m8JqFl1PsrXh_vz_wfcIBA5e653KZmZi1x0lwZPLsxGG4hAM9Rpaot5AJbI53GlWGWtxpnGHplRriZfCpNdOtuTlHnoVBaOWeBWS930JaO4bN4UCDF6B1cgfK8g1o2dnxdEIGsgcIrQFBwKPWsO2q_zc0P__hzrkgcsqwegzj3lZUCaxOXH-gEXB6nWOEPOGuqPxjknWU"/>
+<div class="absolute top-4 right-4 bg-background-dark/80 backdrop-blur-md px-3 py-1 rounded-lg text-primary text-sm font-bold">
+                                $200+
+                            </div>
+</div>
+<div class="p-6 flex flex-col grow">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary text-lg">science</span>
+<span class="text-xs font-bold uppercase text-primary tracking-widest">Advanced</span>
+</div>
+<h3 class="text-xl font-bold mb-2">Keratin Fusion</h3>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6 grow">Semi-permanent hair straightening and smoothing treatment that eliminates frizz and adds incredible shine.</p>
+                        <div class="flex items-center justify-between gap-4">
+                            <div class="flex items-center text-xs text-slate-400">
+                                <span class="material-symbols-outlined text-sm mr-1">schedule</span> 210 min
+                                </div>
+                            <a class="bg-primary text-background-dark font-bold px-6 py-2.5 rounded-lg text-sm hover:brightness-110 transition-all" href="booking.html">
+                                    Book Now
+                                </a>
+                        </div>
+</div>
+</div>
+</div>
+<!-- Gift Card Section -->
+<div class="mt-20 p-8 lg:p-12 rounded-xl bg-primary/10 border border-primary/20 flex flex-col lg:flex-row items-center justify-between gap-8">
+<div class="max-w-xl text-center lg:text-left">
+<h2 class="text-3xl font-bold mb-4">Share the Purelux Experience</h2>
+<p class="text-slate-500 dark:text-slate-400">Surprise someone special with a gift card for our premium services. Available for any amount or specific service packages.</p>
+</div>
+            <a class="w-full lg:w-auto px-10 py-4 rounded-xl bg-primary text-background-dark font-bold text-lg hover:scale-105 transition-transform" href="contact.html">
+                        Purchase Gift Card
+                    </a>
+</div>
+</main>
+<!-- Footer -->
+<footer class="mt-20 border-t border-primary/10 bg-background-light dark:bg-background-dark px-6 py-12 lg:px-20">
+<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
+<div class="col-span-1 md:col-span-1">
+<div class="flex items-center gap-4 text-primary mb-6">
+<h2 class="text-lg font-bold">
+    <span class="text-slate-900 dark:text-slate-100">PureLux</span><span class="text-primary"> Beauty Parlour</span>
+</h2>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400">Transforming beauty into an art form since 2018. We believe in the power of professional care.</p>
+</div>
+<div>
+<h4 class="font-bold mb-6">Quick Links</h4>
+            <ul class="space-y-4 text-sm text-slate-500 dark:text-slate-400">
+                <li><a class="hover:text-primary transition-colors" href="booking.html">Book Appointment</a></li>
+                <li><a class="hover:text-primary transition-colors" href="gallery.html">View Portfolio</a></li>
+                <li><a class="hover:text-primary transition-colors" href="contact.html">Stylist Team</a></li>
+                <li><a class="hover:text-primary transition-colors" href="contact.html">Salon Policy</a></li>
+            </ul>
+</div>
+<div>
+<h4 class="font-bold mb-6">Contact Us</h4>
+<ul class="space-y-4 text-sm text-slate-500 dark:text-slate-400">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm">location_on</span>
+                                123 Beauty Ave, Manhattan, NY
+                            </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm">call</span>
+                                <a class="hover:text-primary transition-colors" href="tel:+15550001122">+1 (555) 000-1122</a>
+                            </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm">mail</span>
+                                <a class="hover:text-primary transition-colors" href="mailto:hello@purelux.beauty">hello@purelux.beauty</a>
+                            </li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-6">Social</h4>
+<div class="flex gap-4">
+                <a class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-background-dark transition-all" href="https://purelux.example.com" aria-label="Website">
+<span class="material-symbols-outlined">public</span>
+</a>
+                <a class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-background-dark transition-all" href="https://youtube.com" aria-label="YouTube">
+<span class="material-symbols-outlined">play_circle</span>
+</a>
+                <a class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-background-dark transition-all" href="https://instagram.com" aria-label="Instagram">
+<span class="material-symbols-outlined">camera</span>
+</a>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-primary/5 text-center text-xs text-slate-500">
+                    © 2024 PureLux Beauty Parlour. All rights reserved.
+                </div>
+</footer>
+</div>
+</div>
+</body></html>

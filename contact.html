@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#d790ee",
+                        "background-light": "#f7f6f8",
+                        "background-dark": "#1d1220",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<script>
+        (function () {
+            const storageKey = "purelux-theme";
+            const root = document.documentElement;
+            const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+            const apply = (theme) => {
+                if (theme === "dark") {
+                    root.classList.add("dark");
+                } else {
+                    root.classList.remove("dark");
+                }
+                document.querySelectorAll("[data-theme-toggle]").forEach((btn) => {
+                    const isDark = theme === "dark";
+                    btn.setAttribute("aria-pressed", isDark ? "true" : "false");
+                    const icon = btn.querySelector("[data-theme-icon]");
+                    const label = btn.querySelector("[data-theme-label]");
+                    if (icon) icon.textContent = isDark ? "dark_mode" : "light_mode";
+                    if (label) label.textContent = isDark ? "Dark" : "Light";
+                });
+            };
+
+            const stored = localStorage.getItem(storageKey);
+            const initial = stored || (mediaQuery.matches ? "dark" : "light");
+            apply(initial);
+
+            window.pureluxToggleTheme = () => {
+                const next = root.classList.contains("dark") ? "light" : "dark";
+                localStorage.setItem(storageKey, next);
+                apply(next);
+            };
+
+            mediaQuery.addEventListener("change", (event) => {
+                if (!localStorage.getItem(storageKey)) {
+                    apply(event.matches ? "dark" : "light");
+                }
+            });
+        })();
+    </script>
+<title>Contact Us | PureLux Beauty Parlour</title>
+<link rel="icon" type="image/png" href="images/logo.png"/>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 w-full border-b border-primary/10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-20">
+<div class="flex items-center gap-3">
+<img src="images/logo.png" alt="PureLux Logo" class="h-8 w-auto">
+<h2 class="text-xl font-extrabold tracking-tight">
+    <span class="text-slate-900 dark:text-slate-100 uppercase">PureLux</span><span class="text-primary font-medium"> Beauty Parlour</span>
+</h2>
+</div>
+            <nav class="hidden md:flex items-center gap-10">
+                <a class="text-sm font-semibold hover:text-primary transition-colors" href="index.html">Home</a>
+                <a class="text-sm font-semibold hover:text-primary transition-colors" href="services.html">Services</a>
+                <a class="text-sm font-semibold hover:text-primary transition-colors" href="gallery.html">Gallery</a>
+                <a class="text-sm font-semibold text-primary transition-colors" href="contact.html">Contact</a>
+                <a class="text-sm font-semibold hover:text-primary transition-colors" href="booking.html">Book</a>
+            </nav>
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-2 px-3 py-2 rounded-full border border-primary/30 bg-white/80 text-slate-800 shadow-sm hover:bg-primary/10 transition-colors dark:bg-background-dark/70 dark:text-primary" type="button" data-theme-toggle aria-pressed="true" onclick="window.pureluxToggleTheme()">
+<span class="material-symbols-outlined text-sm" data-theme-icon>dark_mode</span>
+<span class="text-xs font-semibold" data-theme-label>Dark</span>
+</button>
+<button class="p-2.5 rounded-xl bg-primary/10 text-primary hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined text-[22px]">person</span>
+</button>
+<button class="p-2.5 rounded-xl bg-primary text-background-dark font-bold hover:opacity-90 transition-all">
+<span class="material-symbols-outlined text-[22px]">shopping_bag</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<main class="min-h-screen">
+<!-- Hero Section -->
+<section class="relative h-[400px] flex items-center justify-center overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-b from-primary/20 to-background-dark z-10"></div>
+<div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&amp;fit=crop&amp;q=80&amp;w=1600')] bg-cover bg-center" data-alt="Atmospheric luxury beauty salon interior lighting"></div>
+<div class="relative z-20 text-center px-4">
+<h1 class="text-5xl md:text-7xl font-extrabold text-white mb-6 tracking-tight">Get in <span class="text-primary italic">Touch</span></h1>
+<p class="max-w-2xl mx-auto text-lg md:text-xl text-slate-200 font-light leading-relaxed">
+                    Experience premium beauty services tailored just for you. Reach out via the form below or message us directly for an exclusive consultation.
+                </p>
+</div>
+</section>
+<!-- Contact Section -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-20 relative z-30 pb-20">
+<div class="grid lg:grid-cols-3 gap-8">
+<!-- Contact Info Cards -->
+<div class="lg:col-span-1 flex flex-col gap-6">
+<div class="bg-white dark:bg-slate-900/50 p-8 rounded-xl border border-primary/10 backdrop-blur-sm shadow-xl">
+<div class="flex items-start gap-4 mb-8">
+<div class="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">location_on</span>
+</div>
+<div>
+<h3 class="text-lg font-bold mb-1">Our Location</h3>
+<p class="text-slate-500 dark:text-slate-400">123 Luxury Lane, Beverly Hills<br/>California, 90210</p>
+</div>
+</div>
+<div class="flex items-start gap-4 mb-8">
+<div class="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">call</span>
+</div>
+<div>
+<h3 class="text-lg font-bold mb-1">Phone Number</h3>
+<p class="text-slate-500 dark:text-slate-400">+1 (555) 000-1234</p>
+<p class="text-slate-500 dark:text-slate-400">+1 (555) 000-5678</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">mail</span>
+</div>
+<div>
+<h3 class="text-lg font-bold mb-1">Email Us</h3>
+<p class="text-slate-500 dark:text-slate-400">hello@pureluxbeautyparlour.com</p>
+<p class="text-slate-500 dark:text-slate-400">booking@pureluxbeautyparlour.com</p>
+</div>
+</div>
+</div>
+<!-- WhatsApp Button -->
+<a class="flex items-center justify-center gap-3 bg-[#25D366] hover:opacity-90 text-white p-5 rounded-xl font-bold text-lg shadow-lg transition-transform hover:scale-[1.02]" href="https://wa.me/15550001234">
+<svg class="w-6 h-6" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.301-.15-1.767-.872-2.04-.971-.272-.1-.47-.15-.67.15-.198.3-.77.97-.943 1.168-.173.199-.347.223-.647.072-.3-.15-1.269-.467-2.417-1.485-.892-.795-1.493-1.777-1.668-2.078-.176-.3-.018-.462.13-.61.135-.133.3-.347.45-.52.149-.174.198-.298.298-.497.1-.2.05-.375-.025-.524-.075-.15-.67-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.768-.721 2.016-1.415.249-.694.249-1.289.173-1.415-.077-.127-.27-.202-.57-.352zM12 21.693c-1.748 0-3.457-.47-4.944-1.359L7 20.334l-5.118 1.342L3.225 16.6l-.372-.593c-.976-1.554-1.491-3.344-1.491-5.18 0-5.334 4.34-9.674 9.674-9.674 5.333 0 9.673 4.34 9.673 9.674s-4.34 9.673-9.673 9.673zm0-17.674c-4.408 0-7.999 3.591-7.999 8 0 1.663.512 3.242 1.481 4.568l.228.312-1.341 4.966 5.083-1.332.302.179c1.246.74 2.668 1.131 4.126 1.131 4.408 0 7.999-3.591 7.999-8s-3.591-8-7.999-8z"></path></svg>
+                        Chat on WhatsApp
+                    </a>
+</div>
+<!-- Contact Form -->
+<div class="lg:col-span-2 bg-white dark:bg-slate-900/50 p-8 md:p-12 rounded-xl border border-primary/10 backdrop-blur-sm shadow-xl">
+<h2 class="text-3xl font-bold mb-2">Send us a Message</h2>
+<p class="text-slate-500 dark:text-slate-400 mb-10 text-lg">Have a question? We'd love to hear from you. Please fill out the form below.</p>
+<form class="space-y-6">
+<div class="grid md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300 ml-1">Full Name</label>
+<input class="w-full bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg p-4 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all placeholder:text-slate-400" placeholder="Jane Doe" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300 ml-1">Email Address</label>
+<input class="w-full bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg p-4 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all placeholder:text-slate-400" placeholder="jane@example.com" type="email"/>
+</div>
+</div>
+<div class="grid md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300 ml-1">Phone Number</label>
+<input class="w-full bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg p-4 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all placeholder:text-slate-400" placeholder="+1 (555) 000-0000" type="tel"/>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300 ml-1">Subject</label>
+<select class="w-full bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg p-4 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all text-slate-400">
+<option disabled="" selected="">Choose service</option>
+<option>Hair Styling</option>
+<option>Nail Care</option>
+<option>Facial Treatment</option>
+<option>Bridal Package</option>
+<option>Other</option>
+</select>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300 ml-1">Your Message</label>
+<textarea class="w-full bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg p-4 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all placeholder:text-slate-400" placeholder="Tell us how we can help you..." rows="4"></textarea>
+</div>
+<button class="w-full bg-primary text-background-dark font-extrabold text-lg p-4 rounded-lg hover:opacity-90 transition-all shadow-lg flex items-center justify-center gap-2" type="submit">
+                            Send Message
+                            <span class="material-symbols-outlined">send</span>
+</button>
+</form>
+</div>
+</div>
+</section>
+<!-- Map Section -->
+<section class="w-full px-4 sm:px-6 lg:px-8 pb-20">
+<div class="rounded-2xl overflow-hidden border border-primary/10 shadow-2xl h-[450px] relative group">
+<div class="absolute inset-0 bg-primary/5 pointer-events-none z-10"></div>
+<!-- Mock Map View -->
+<div class="w-full h-full bg-[#111] flex items-center justify-center overflow-hidden" data-location="Beverly Hills, CA" style="">
+<div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&amp;fit=crop&amp;q=80&amp;w=2000')] bg-cover opacity-40 grayscale" data-alt="Dark stylized map of city streets"></div>
+<div class="relative z-20 flex flex-col items-center">
+<div class="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center animate-pulse mb-4">
+<div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-background-dark">
+<span class="material-symbols-outlined">location_on</span>
+</div>
+</div>
+<div class="bg-background-dark/90 backdrop-blur-md p-6 rounded-xl border border-primary/30 text-center">
+<h4 class="font-bold text-xl mb-1 text-primary">Purelux Beverly Hills</h4>
+<p class="text-slate-400">123 Luxury Lane, CA 90210</p>
+<button class="mt-4 text-primary text-sm font-bold flex items-center gap-2 hover:underline mx-auto">
+                                GET DIRECTIONS <span class="material-symbols-outlined text-sm">open_in_new</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- FAQ CTA -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 text-center">
+<div class="bg-gradient-to-r from-primary/10 via-primary/5 to-transparent p-12 rounded-3xl border border-primary/10">
+<h2 class="text-3xl font-bold mb-4">Still have questions?</h2>
+<p class="text-slate-500 dark:text-slate-400 mb-8 max-w-xl mx-auto">Check out our frequently asked questions for quick answers about our services, bookings, and policies.</p>
+<a class="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-primary text-primary font-bold hover:bg-primary hover:text-background-dark transition-all" href="#">
+                    Visit FAQ Page <span class="material-symbols-outlined">arrow_forward</span>
+</a>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-slate-900 border-t border-white/5 py-12">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex items-center gap-3">
+<h2 class="text-lg font-extrabold tracking-tight">
+    <span class="text-slate-100 uppercase">PureLux</span><span class="text-primary font-medium"> Beauty Parlour</span>
+</h2>
+</div>
+        <div class="flex gap-8 text-slate-400 text-sm font-medium">
+            <a class="hover:text-primary" href="contact.html">Privacy Policy</a>
+            <a class="hover:text-primary" href="contact.html">Terms of Service</a>
+            <a class="hover:text-primary" href="contact.html">Careers</a>
+</div>
+<div class="flex gap-4">
+            <a class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all" href="mailto:hello@pureluxbeautyparlour.com">
+<span class="material-symbols-outlined">alternate_email</span>
+</a>
+            <a class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all" href="https://instagram.com">
+<span class="material-symbols-outlined">camera</span>
+</a>
+</div>
+</div>
+<p class="mt-8 text-center text-slate-500 text-xs">
+                © 2024 PureLux Beauty Parlour. All rights reserved. Professional beauty excellence.
+            </p>
+</div>
+</footer>
+</body></html>
