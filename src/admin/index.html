@@ -32,25 +32,25 @@
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen font-display antialiased">
     <!-- Login Modal Overlay -->
     <div id="loginModal" class="fixed inset-0 z-[100] flex items-center justify-center bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-xl transition-all flex p-6">
-        <div class="bg-white dark:bg-surface p-10 rounded-[3rem] border border-primary/30 shadow-2xl w-full max-w-md">
-            <div class="text-center mb-10">
+        <div class="bg-white dark:bg-surface p-8 rounded-[2.5rem] border border-primary/30 shadow-2xl w-full max-w-md">
+            <div class="text-center mb-8">
                 <img src="../../assets/img/logo.png" alt="PureLux Logo" class="h-16 w-auto mx-auto mb-6">
-                <h2 class="text-3xl font-black text-slate-900 dark:text-slate-100 tracking-tight">Admin Access</h2>
-                <p class="text-slate-700 dark:text-slate-300 mt-3 font-semibold">Enter credentials to manage your salon.</p>
+                <h2 class="text-2xl font-black text-slate-900 dark:text-slate-100 tracking-tight">Admin Login</h2>
+                <p class="text-slate-600 dark:text-slate-300 mt-2 text-sm font-semibold">Sign in to continue.</p>
             </div>
             
             <form id="loginForm" class="space-y-6">
                 <div>
-                    <label class="block text-sm font-black uppercase tracking-widest mb-3 text-slate-900 dark:text-slate-100">Email Address</label>
-                    <input type="email" name="email" required class="w-full bg-slate-50 dark:bg-background-dark/60 border-2 border-slate-300 dark:border-primary/40 rounded-2xl px-6 py-4 focus:ring-4 focus:ring-primary/25 focus:border-primary text-slate-900 dark:text-slate-100 font-bold transition-all placeholder:text-slate-500 dark:placeholder:text-slate-400" placeholder="admin@purelux.com">
+                    <label class="block text-xs font-black uppercase tracking-widest mb-2 text-slate-900 dark:text-slate-100">Email</label>
+                    <input type="email" name="email" required class="w-full bg-slate-50 dark:bg-background-dark/60 border-2 border-slate-300 dark:border-primary/40 rounded-2xl px-5 py-3.5 focus:ring-4 focus:ring-primary/25 focus:border-primary text-slate-900 dark:text-slate-100 font-bold transition-all placeholder:text-slate-500 dark:placeholder:text-slate-400" placeholder="admin@purelux.com">
                 </div>
                 <div>
-                    <label class="block text-sm font-black uppercase tracking-widest mb-3 text-slate-900 dark:text-slate-100">Password</label>
-                    <input type="password" name="password" required class="w-full bg-slate-50 dark:bg-background-dark/60 border-2 border-slate-300 dark:border-primary/40 rounded-2xl px-6 py-4 focus:ring-4 focus:ring-primary/25 focus:border-primary text-slate-900 dark:text-slate-100 font-bold transition-all placeholder:text-slate-500 dark:placeholder:text-slate-400" placeholder="••••••••">
+                    <label class="block text-xs font-black uppercase tracking-widest mb-2 text-slate-900 dark:text-slate-100">Password</label>
+                    <input type="password" name="password" required class="w-full bg-slate-50 dark:bg-background-dark/60 border-2 border-slate-300 dark:border-primary/40 rounded-2xl px-5 py-3.5 focus:ring-4 focus:ring-primary/25 focus:border-primary text-slate-900 dark:text-slate-100 font-bold transition-all placeholder:text-slate-500 dark:placeholder:text-slate-400" placeholder="••••••••">
                 </div>
                 <p id="loginError" class="text-rose-500 text-sm font-bold text-center hidden"></p>
-                <button type="submit" class="w-full bg-primary text-background-dark font-black py-4 rounded-2xl shadow-xl shadow-primary/25 hover:brightness-95 hover:scale-[1.01] transition-transform active:scale-100 uppercase tracking-widest text-lg">
-                    Authorize Access
+                <button type="submit" class="w-full bg-primary text-background-dark font-black py-3.5 rounded-2xl shadow-xl shadow-primary/25 hover:brightness-95 hover:scale-[1.01] transition-transform active:scale-100 uppercase tracking-widest text-base">
+                    Login
                 </button>
             </form>
         </div>
@@ -58,94 +58,94 @@
 
     <div id="mainContent" class="flex flex-col lg:flex-row min-h-screen blur-sm pointer-events-none">
         <!-- Dashboard Sidebar -->
-        <aside class="w-full lg:w-80 bg-white dark:bg-surface border-r border-primary/20 p-8 flex flex-col gap-12 sticky top-0 h-screen">
+        <aside class="w-full lg:w-72 bg-white dark:bg-surface border-r border-primary/20 p-6 flex flex-col gap-10 sticky top-0 h-screen">
             <div class="flex items-center gap-4">
                 <img src="../../assets/img/logo.png" alt="PureLux Logo" class="h-12 w-auto">
-                <h2 class="text-2xl font-black tracking-tighter">PureLux <span class="text-primary italic">Admin</span></h2>
+                <h2 class="text-xl font-black tracking-tight">PureLux <span class="text-primary italic">Admin</span></h2>
             </div>
             
             <nav class="flex flex-col gap-4">
-                <a href="#" data-section="overview" class="nav-link flex items-center gap-4 px-8 py-5 rounded-[2rem] bg-primary text-background-dark font-black shadow-lg shadow-primary/20 transition-all">
+                <a href="#" data-section="overview" class="nav-link flex items-center gap-4 px-6 py-4 rounded-2xl bg-primary text-background-dark font-black shadow-lg shadow-primary/20 transition-all">
                     <span class="material-symbols-outlined">dashboard</span> Overview
                 </a>
-                <a href="#" data-section="bookings" class="nav-link flex items-center gap-4 px-8 py-5 rounded-[2rem] hover:bg-primary/10 transition-all font-bold">
+                <a href="#" data-section="bookings" class="nav-link flex items-center gap-4 px-6 py-4 rounded-2xl hover:bg-primary/10 transition-all font-bold">
                     <span class="material-symbols-outlined">calendar_month</span> Bookings
                 </a>
-                <a href="#" data-section="services" class="nav-link flex items-center gap-4 px-8 py-5 rounded-[2rem] hover:bg-primary/10 transition-all font-bold">
+                <a href="#" data-section="services" class="nav-link flex items-center gap-4 px-6 py-4 rounded-2xl hover:bg-primary/10 transition-all font-bold">
                     <span class="material-symbols-outlined">auto_awesome</span> Services
                 </a>
-                <a href="#" data-section="analytics" class="nav-link flex items-center gap-4 px-8 py-5 rounded-[2rem] hover:bg-primary/10 transition-all font-bold">
+                <a href="#" data-section="analytics" class="nav-link flex items-center gap-4 px-6 py-4 rounded-2xl hover:bg-primary/10 transition-all font-bold">
                     <span class="material-symbols-outlined">trending_up</span> Analytics
                 </a>
                 <div class="h-px bg-primary/10 my-6"></div>
-                <a href="../../index.html" target="_blank" class="flex items-center gap-4 px-8 py-5 rounded-[2rem] hover:bg-primary/10 transition-all font-bold">
+                <a href="../../index.html" target="_blank" class="flex items-center gap-4 px-6 py-4 rounded-2xl hover:bg-primary/10 transition-all font-bold">
                     <span class="material-symbols-outlined">visibility</span> Live Preview
                 </a>
-                <button id="logoutBtn" class="flex items-center gap-4 px-8 py-5 rounded-[2rem] text-rose-500 hover:bg-rose-500/10 transition-all font-black mt-auto">
+                <button id="logoutBtn" class="flex items-center gap-4 px-6 py-4 rounded-2xl text-rose-500 hover:bg-rose-500/10 transition-all font-black mt-auto">
                     <span class="material-symbols-outlined">logout</span> Log Out
                 </button>
             </nav>
         </aside>
 
         <!-- Main Workspace -->
-        <main class="flex-1 p-8 lg:p-16">
+        <main class="flex-1 p-6 lg:p-10">
             <!-- OVERVIEW SECTION -->
             <div id="overview" class="admin-section space-y-16">
-                <header class="flex flex-col md:flex-row md:items-center justify-between gap-10">
+                <header class="flex flex-col md:flex-row md:items-center justify-between gap-8">
                     <div>
-                        <h1 class="text-5xl font-black tracking-tighter mb-4">Command Center</h1>
-                        <p class="text-slate-500 dark:text-slate-400 text-xl max-w-xl">Welcome back. Everything's running smoothly today.</p>
+                        <h1 class="text-3xl md:text-4xl font-black tracking-tight mb-2">Dashboard</h1>
+                        <p class="text-slate-500 dark:text-slate-400 text-base md:text-lg max-w-xl">Overview of bookings and performance.</p>
                     </div>
-                    <div class="flex items-center gap-6 bg-white dark:bg-surface p-6 rounded-[3rem] border border-primary/20 shadow-xl pr-12">
-                        <div class="h-16 w-16 rounded-[2rem] overflow-hidden border-2 border-primary/30 rotate-3">
+                    <div class="flex items-center gap-4 bg-white dark:bg-surface p-4 rounded-3xl border border-primary/20 shadow-sm">
+                        <div class="h-12 w-12 rounded-2xl overflow-hidden border-2 border-primary/30">
                             <img src="../../assets/img/n1.jpeg" alt="Admin" class="object-cover w-full h-full">
                         </div>
                         <div>
-                            <p class="font-black text-lg">PureLux Admin</p>
+                            <p class="font-black">PureLux Admin</p>
                             <span class="text-xs bg-primary/20 text-primary px-3 py-1 rounded-full font-black uppercase tracking-widest">Master Manager</span>
                         </div>
                     </div>
                 </header>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                    <div class="bg-white dark:bg-surface p-10 rounded-[3rem] border border-primary/10 shadow-sm hover:border-primary/40 transition-all group scale-100 hover:scale-[1.02]">
-                        <div class="flex items-center justify-between mb-8">
-                            <div class="p-5 rounded-3xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-background-dark transition-all">
-                                <span class="material-symbols-outlined text-4xl">pending_actions</span>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-white dark:bg-surface p-6 rounded-3xl border border-primary/10 shadow-sm hover:border-primary/40 transition-all group">
+                        <div class="flex items-center justify-between mb-5">
+                            <div class="p-4 rounded-2xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-background-dark transition-all">
+                                <span class="material-symbols-outlined text-3xl">pending_actions</span>
                             </div>
-                            <span class="text-emerald-500 font-black bg-emerald-500/10 px-5 py-2 rounded-2xl text-sm">UP 24%</span>
+                            <span class="text-emerald-500 font-black bg-emerald-500/10 px-4 py-1.5 rounded-2xl text-xs">UP 24%</span>
                         </div>
                         <h3 class="text-slate-500 dark:text-slate-400 font-black uppercase text-xs tracking-tighter">Live Bookings</h3>
-                        <p id="statBookings" class="text-6xl font-black mt-4">0</p>
+                        <p id="statBookings" class="text-4xl font-black mt-2">0</p>
                     </div>
                     
-                    <div class="bg-white dark:bg-surface p-10 rounded-[3rem] border border-primary/10 shadow-sm hover:border-primary/40 transition-all group scale-100 hover:scale-[1.02]">
-                        <div class="flex items-center justify-between mb-8">
-                            <div class="p-5 rounded-3xl bg-amber-500/10 text-amber-500 group-hover:bg-amber-500 group-hover:text-white transition-all">
-                                <span class="material-symbols-outlined text-4xl">payments</span>
+                    <div class="bg-white dark:bg-surface p-6 rounded-3xl border border-primary/10 shadow-sm hover:border-primary/40 transition-all group">
+                        <div class="flex items-center justify-between mb-5">
+                            <div class="p-4 rounded-2xl bg-amber-500/10 text-amber-500 group-hover:bg-amber-500 group-hover:text-white transition-all">
+                                <span class="material-symbols-outlined text-3xl">payments</span>
                             </div>
-                            <span class="text-amber-500 font-black bg-amber-500/10 px-5 py-2 rounded-2xl text-sm">STABLE</span>
+                            <span class="text-amber-500 font-black bg-amber-500/10 px-4 py-1.5 rounded-2xl text-xs">STABLE</span>
                         </div>
                         <h3 class="text-slate-500 dark:text-slate-400 font-black uppercase text-xs tracking-tighter">Our Services</h3>
-                        <p id="statServices" class="text-6xl font-black mt-4">18</p>
+                        <p id="statServices" class="text-4xl font-black mt-2">18</p>
                     </div>
 
-                    <div class="bg-white dark:bg-surface p-10 rounded-[3rem] border border-primary/10 shadow-sm hover:border-primary/40 transition-all group scale-100 hover:scale-[1.02]">
-                        <div class="flex items-center justify-between mb-8">
-                            <div class="p-5 rounded-3xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-background-dark transition-all">
-                                <span class="material-symbols-outlined text-4xl">group</span>
+                    <div class="bg-white dark:bg-surface p-6 rounded-3xl border border-primary/10 shadow-sm hover:border-primary/40 transition-all group">
+                        <div class="flex items-center justify-between mb-5">
+                            <div class="p-4 rounded-2xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-background-dark transition-all">
+                                <span class="material-symbols-outlined text-3xl">group</span>
                             </div>
-                            <span class="text-primary font-black bg-primary/10 px-5 py-2 rounded-2xl text-sm">ACTIVE</span>
+                            <span class="text-primary font-black bg-primary/10 px-4 py-1.5 rounded-2xl text-xs">ACTIVE</span>
                         </div>
                         <h3 class="text-slate-500 dark:text-slate-400 font-black uppercase text-xs tracking-tighter">Total Audience</h3>
-                        <p id="statClients" class="text-6xl font-black mt-4">5.2k</p>
+                        <p id="statClients" class="text-4xl font-black mt-2">5.2k</p>
                     </div>
                 </div>
 
-                <section class="bg-white dark:bg-surface rounded-[4rem] border border-primary/20 shadow-xl overflow-hidden">
-                    <div class="p-12 border-b border-primary/10 flex items-center justify-between">
-                        <h2 class="text-3xl font-black">Recent Bookings</h2>
-                        <button onclick="document.querySelector('[data-section=\'bookings\']').click()" class="bg-primary/10 hover:bg-primary text-primary hover:text-background-dark px-8 py-4 rounded-2xl font-black transition-all">View Full Log</button>
+                <section class="bg-white dark:bg-surface rounded-[2.5rem] border border-primary/20 shadow-sm overflow-hidden">
+                    <div class="p-6 border-b border-primary/10 flex items-center justify-between">
+                        <h2 class="text-xl font-black">Recent Bookings</h2>
+                        <button onclick="document.querySelector('[data-section=\'bookings\']').click()" class="bg-primary/10 hover:bg-primary text-primary hover:text-background-dark px-5 py-2.5 rounded-xl font-black transition-all text-sm">View All</button>
                     </div>
                     <div class="overflow-x-auto">
                         <table class="w-full text-left">
@@ -168,21 +168,21 @@
 
             <!-- PLACEHOLDERS FOR OTHER SECTIONS -->
             <div id="bookings" class="admin-section hidden space-y-16">
-                <h1 class="text-5xl font-black tracking-tighter">Full Booking Log</h1>
-                <p class="text-xl text-slate-500">Manage all customer appointments from this view.</p>
-                <div class="bg-white dark:bg-surface p-12 rounded-[3rem] border border-primary/10 text-center italic opacity-60">Full records content goes here...</div>
+                <h1 class="text-3xl font-black tracking-tight">Bookings</h1>
+                <p class="text-base text-slate-500 dark:text-slate-400">All appointments.</p>
+                <div class="bg-white dark:bg-surface p-8 rounded-3xl border border-primary/10 text-center italic opacity-70">Coming soon…</div>
             </div>
             
             <div id="services" class="admin-section hidden space-y-16">
-                <h1 class="text-5xl font-black tracking-tighter">Service Portfolio</h1>
-                <p class="text-xl text-slate-500">Edit prices, descriptions, and add new luxury services.</p>
-                <div class="bg-white dark:bg-surface p-12 rounded-[3rem] border border-primary/10 text-center italic opacity-60">Service management panel goes here...</div>
+                <h1 class="text-3xl font-black tracking-tight">Services</h1>
+                <p class="text-base text-slate-500 dark:text-slate-400">Manage pricing and descriptions.</p>
+                <div class="bg-white dark:bg-surface p-8 rounded-3xl border border-primary/10 text-center italic opacity-70">Coming soon…</div>
             </div>
 
             <div id="analytics" class="admin-section hidden space-y-16">
-                <h1 class="text-5xl font-black tracking-tighter">Global Insights</h1>
-                <p class="text-xl text-slate-500">Track your salon's growth and revenue trends.</p>
-                <div class="bg-white dark:bg-surface p-12 rounded-[3rem] border border-primary/10 text-center italic opacity-60">Analytics charts and data go here...</div>
+                <h1 class="text-3xl font-black tracking-tight">Analytics</h1>
+                <p class="text-base text-slate-500 dark:text-slate-400">Bookings and performance.</p>
+                <div class="bg-white dark:bg-surface p-8 rounded-3xl border border-primary/10 text-center italic opacity-70">Coming soon…</div>
             </div>
         </main>
     </div>
