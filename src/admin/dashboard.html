@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>PureLux Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <link href="../../assets/css/main.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script src="../../assets/js/theme.js"></script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+    <div class="flex flex-col lg:flex-row min-h-screen">
+        <!-- Dashboard Sidebar -->
+        <aside class="w-full lg:w-72 bg-white dark:bg-surface border-r border-primary/20 p-6 flex flex-col gap-10">
+            <div class="flex items-center gap-4">
+                <img src="../../assets/img/logo.png" alt="PureLux Logo" class="h-10 w-auto">
+                <h2 class="text-xl font-black">Admin Panel</h2>
+            </div>
+            
+            <nav class="flex flex-col gap-3">
+                <a href="#" class="flex items-center gap-4 px-6 py-4 rounded-2xl bg-primary text-background-dark font-bold shadow-lg shadow-primary/20">
+                    <span class="material-symbols-outlined">dashboard</span> Dashboard
+                </a>
+                <a href="bookings/index.html" class="flex items-center gap-4 px-6 py-4 rounded-2xl hover:bg-primary/10 transition-all font-semibold">
+                    <span class="material-symbols-outlined">calendar_month</span> Bookings
+                </a>
+                <a href="services/index.html" class="flex items-center gap-4 px-6 py-4 rounded-2xl hover:bg-primary/10 transition-all font-semibold">
+                    <span class="material-symbols-outlined">auto_awesome</span> Services
+                </a>
+                <a href="gallery/index.html" class="flex items-center gap-4 px-6 py-4 rounded-2xl hover:bg-primary/10 transition-all font-semibold">
+                    <span class="material-symbols-outlined">photo_library</span> Gallery
+                </a>
+                <a href="analytics/index.html" class="flex items-center gap-4 px-6 py-4 rounded-2xl hover:bg-primary/10 transition-all font-semibold">
+                    <span class="material-symbols-outlined">trending_up</span> Analytics
+                </a>
+                <div class="border-t border-primary/10 my-4"></div>
+                <a href="../../index.html" target="_blank" class="flex items-center gap-4 px-6 py-4 rounded-2xl hover:bg-primary/10 transition-all font-semibold">
+                    <span class="material-symbols-outlined">visibility</span> View Website
+                </a>
+                <a href="auth/login.html" class="flex items-center gap-4 px-6 py-4 rounded-2xl text-rose-500 hover:bg-rose-500/10 transition-all font-semibold mt-auto">
+                    <span class="material-symbols-outlined">logout</span> Sign Out
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="flex-1 p-8 lg:p-12 space-y-12">
+            <header class="flex flex-col md:flex-row md:items-center justify-between gap-8">
+                <div>
+                    <h1 class="text-4xl font-black tracking-tight">System Overview</h1>
+                    <p class="text-slate-500 dark:text-slate-400 mt-2 text-lg">Manage bookings, services, and view performance.</p>
+                </div>
+                <div class="flex items-center gap-4 bg-white dark:bg-surface p-4 rounded-3xl border border-primary/20 shadow-sm">
+                    <div class="h-12 w-12 rounded-full overflow-hidden border-2 border-primary/50">
+                        <img src="../../assets/img/n1.jpeg" alt="Admin" class="object-cover w-full h-full">
+                    </div>
+                    <div class="hidden sm:block">
+                        <p class="font-bold">PureLux Admin</p>
+                        <p class="text-xs text-primary font-semibold uppercase tracking-widest">Master Manager</p>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Stats Highlight -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white dark:bg-surface p-8 rounded-3xl border border-primary/10 shadow-sm hover:border-primary/40 transition-all group">
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="p-4 rounded-2xl bg-primary/10 text-primary group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined text-3xl">pending_actions</span>
+                        </div>
+                        <span class="text-emerald-500 font-bold bg-emerald-500/10 px-4 py-1.5 rounded-full text-sm">+24%</span>
+                    </div>
+                    <h3 class="text-slate-500 dark:text-slate-400 font-bold uppercase text-xs tracking-widest">Ongoing Bookings</h3>
+                    <p class="text-4xl font-black mt-2">12</p>
+                </div>
+                
+                <div class="bg-white dark:bg-surface p-8 rounded-3xl border border-primary/10 shadow-sm hover:border-primary/40 transition-all group">
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="p-4 rounded-2xl bg-amber-500/10 text-amber-500 group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined text-3xl">payments</span>
+                        </div>
+                        <span class="text-amber-500 font-bold bg-amber-500/10 px-4 py-1.5 rounded-full text-sm">Stable</span>
+                    </div>
+                    <h3 class="text-slate-500 dark:text-slate-400 font-bold uppercase text-xs tracking-widest">Total Services</h3>
+                    <p class="text-4xl font-black mt-2">18</p>
+                </div>
+
+                <div class="bg-white dark:bg-surface p-8 rounded-3xl border border-primary/10 shadow-sm hover:border-primary/40 transition-all group">
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="p-4 rounded-2xl bg-primary/10 text-primary group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined text-3xl">group</span>
+                        </div>
+                        <span class="text-primary font-bold bg-primary/10 px-4 py-1.5 rounded-full text-sm">5000+</span>
+                    </div>
+                    <h3 class="text-slate-500 dark:text-slate-400 font-bold uppercase text-xs tracking-widest">Registered Clients</h3>
+                    <p class="text-4xl font-black mt-2">5,204</p>
+                </div>
+            </div>
+
+            <!-- Booking Section Preview -->
+            <section class="bg-white dark:bg-surface rounded-3xl border border-primary/20 overflow-hidden">
+                <div class="p-8 border-b border-primary/10 flex items-center justify-between">
+                    <h2 class="text-2xl font-black">Recent Bookings</h2>
+                    <a href="bookings/index.html" class="text-primary font-bold hover:underline">View All</a>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="bg-primary/5 text-slate-500 dark:text-slate-400 uppercase text-xs font-black tracking-widest">
+                                <th class="px-8 py-5">Client</th>
+                                <th class="px-8 py-5">Service</th>
+                                <th class="px-8 py-5">Date/Time</th>
+                                <th class="px-8 py-5">Status</th>
+                                <th class="px-8 py-5 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-primary/5">
+                            <tr class="group hover:bg-primary/5 transition-colors">
+                                <td class="px-8 py-6 font-bold">Alice Kamau</td>
+                                <td class="px-8 py-6">Knotless Braids</td>
+                                <td class="px-8 py-6 opacity-60">Today, 2:00 PM</td>
+                                <td class="px-8 py-6">
+                                    <span class="px-3 py-1 bg-amber-500/10 text-amber-500 rounded-lg text-xs font-bold uppercase tracking-widest">Pending</span>
+                                </td>
+                                <td class="px-8 py-6 text-right">
+                                    <button class="text-emerald-500 font-bold hover:bg-emerald-500/10 px-4 py-2 rounded-xl transition-all">Confirm</button>
+                                </td>
+                            </tr>
+                            <tr class="group hover:bg-primary/5 transition-colors">
+                                <td class="px-8 py-6 font-bold">Sarah Mwangi</td>
+                                <td class="px-8 py-6">Gel Manicure</td>
+                                <td class="px-8 py-6 opacity-60">Tomorrow, 10:00 AM</td>
+                                <td class="px-8 py-6">
+                                    <span class="px-3 py-1 bg-emerald-500/10 text-emerald-500 rounded-lg text-xs font-bold uppercase tracking-widest">Confirmed</span>
+                                </td>
+                                <td class="px-8 py-6 text-right">
+                                    <button class="text-slate-400 font-bold hover:bg-slate-400/10 px-4 py-2 rounded-xl transition-all">Update</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

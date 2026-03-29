@@ -65,7 +65,7 @@
 </header>
 <main>
 <!-- Hero Section -->
-<section class="relative overflow-hidden pt-12 pb-20 lg:pt-24 lg:pb-32">
+<section class="relative overflow-hidden pt-4 pb-20 lg:pt-8 lg:pb-32">
 <div class="max-w-7xl mx-auto px-6">
 <div class="grid lg:grid-cols-2 gap-16 items-center">
 <div class="flex flex-col gap-8">
@@ -76,22 +76,31 @@
 </span>
 <span class="text-xs font-bold uppercase tracking-widest text-primary">Now Open in Kahawa Wendani</span>
 </div>
-<div class="flex flex-col gap-4">
-<h2 class="text-5xl lg:text-7xl font-black leading-[1.1] tracking-tight text-slate-800 dark:text-slate-100 min-h-[1.5em] lg:min-h-[2.2em]">
+<div class="flex flex-col gap-2">
+<h2 class="text-5xl lg:text-7xl font-black leading-[1.1] tracking-tight text-slate-800 dark:text-slate-100 min-h-[1.2em] sm:min-h-[2.2em] lg:min-h-[2.2em]">
                                 Professional <br class="hidden lg:block"><span class="text-primary" id="typing-text">Braiding</span>
                             </h2>
 <p class="text-xl text-slate-600 dark:text-slate-400 max-w-lg leading-relaxed">
-                                Luxury Hair &amp; Beauty Services in Kahawa Wendani. Experience the ultimate transformation in our premium purple-themed sanctuary.
+                                Redefining beauty excellence in Kahawa Wendani with bespoke hair artistry and premium nail care in an atmosphere of pure sophistication.
                             </p>
 </div>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const textElement = document.getElementById('typing-text');
-        const services = ["Braiding", "Styling", "Nails", "Pedicure", "Treats", "Colors"];
+        const services = [
+            "Braiding", 
+            "Hair Styling", 
+            "Manicure", 
+            "Pedicure", 
+            "Cornrows", 
+            "Treatment", 
+            "Hair Colouring", 
+            "Blowdry"
+        ];
         let serviceIndex = 0;
         let charIndex = 0;
         let isDeleting = false;
-        let delay = 150;
+        let delay = 100;
 
         function type() {
             const currentService = services[serviceIndex];
@@ -99,20 +108,20 @@
             if (isDeleting) {
                 textElement.textContent = currentService.substring(0, charIndex - 1);
                 charIndex--;
-                delay = 80;
+                delay = 50;
             } else {
                 textElement.textContent = currentService.substring(0, charIndex + 1);
                 charIndex++;
-                delay = 150;
+                delay = 100;
             }
 
             if (!isDeleting && charIndex === currentService.length) {
                 isDeleting = true;
-                delay = 1500;
+                delay = 2000;
             } else if (isDeleting && charIndex === 0) {
                 isDeleting = false;
                 serviceIndex = (serviceIndex + 1) % services.length;
-                delay = 400;
+                delay = 500;
             }
 
             setTimeout(type, delay);
@@ -121,38 +130,54 @@
         type();
     });
 </script>
-<div class="flex flex-wrap gap-4">
+<div class="flex flex-wrap gap-4 mt-2">
                         <a class="px-8 py-4 bg-primary text-background-dark font-bold rounded-xl text-lg hover:shadow-[0_0_20px_rgba(215,144,238,0.4)] transition-all" href="src/pages/booking.html">
-                                Start Your Transformation
+                                Book Now
                             </a>
                         <a class="px-8 py-4 bg-white dark:bg-surface border border-primary/20 text-slate-800 dark:text-slate-100 font-bold rounded-xl text-lg hover:bg-primary/10 transition-all" href="src/pages/services.html">
-                                Explore Our Secrets
+                                View Services
                             </a>
 </div>
-<div class="flex items-center gap-6 pt-4">
+<div class="flex items-center gap-6 pt-2">
 <div class="flex -space-x-3">
 <img alt="Client" class="h-10 w-10 rounded-full border-2 border-white dark:border-background-dark" data-alt="Client testimonial avatar 1" src="assets/img/n1.jpeg"/>
 <img alt="Client" class="h-10 w-10 rounded-full border-2 border-white dark:border-background-dark" data-alt="Client testimonial avatar 2" src="assets/img/n2.jpeg"/>
 <img alt="Client" class="h-10 w-10 rounded-full border-2 border-white dark:border-background-dark" data-alt="Client testimonial avatar 3" src="assets/img/n3.jpeg"/>
 </div>
-<p class="text-sm text-slate-500 dark:text-slate-400 font-medium"><span class="text-slate-800 dark:text-slate-100 font-bold">500+</span> Happy Clients</p>
+<p class="text-sm text-slate-500 dark:text-slate-400 font-medium"><span class="text-slate-800 dark:text-slate-100 font-bold">5000+</span> Satisfied Clients</p>
 </div>
 </div>
 <div class="relative">
 <div class="absolute -inset-4 bg-primary/20 blur-3xl rounded-full"></div>
 <div class="relative rounded-3xl overflow-hidden border border-primary/20 shadow-2xl bg-surface group">
-    <div id="hero-slider" class="relative w-full aspect-[4/5] flex transition-transform duration-700 ease-in-out">
+    <div id="hero-slider" class="relative w-full aspect-[4/4.2] flex transition-transform duration-700 ease-in-out">
         <img alt="Nail Art" class="w-full shrink-0 object-cover" src="assets/img/n1.jpeg"/>
         <img alt="Professional Braiding" class="w-full shrink-0 object-cover" src="assets/img/h1.jpeg"/>
+        <img alt="Styling Expertise" class="w-full shrink-0 object-cover" src="assets/img/h2.jpeg"/>
         <img alt="Luxury Nails" class="w-full shrink-0 object-cover" src="assets/img/n2.jpeg"/>
-        <img alt="Hair Styling" class="w-full shrink-0 object-cover" src="assets/img/h2.jpeg"/>
+        <img alt="Braided Bun" class="w-full shrink-0 object-cover" src="assets/img/h3.jpeg"/>
+        <img alt="Salon Experience" class="w-full shrink-0 object-cover" src="assets/img/h.jpeg"/>
+        <img alt="Premium Polish" class="w-full shrink-0 object-cover" src="assets/img/n3.jpeg"/>
+        <img alt="Master Braider" class="w-full shrink-0 object-cover" src="assets/img/h4.jpeg"/>
+        <img alt="Chic Nails" class="w-full shrink-0 object-cover" src="assets/img/n1.jpeg"/>
+        <img alt="Intricate Styling" class="w-full shrink-0 object-cover" src="assets/img/h5.jpeg"/>
+        <img alt="Natural Care" class="w-full shrink-0 object-cover" src="assets/img/h6.jpeg"/>
+        <img alt="Trendsetting" class="w-full shrink-0 object-cover" src="assets/img/h7.jpeg"/>
+        <img alt="Artistic Touch" class="w-full shrink-0 object-cover" src="assets/img/h8.jpeg"/>
+        <img alt="Perfect Finish" class="w-full shrink-0 object-cover" src="assets/img/h9.jpeg"/>
+        <img alt="Glamour Hair" class="w-full shrink-0 object-cover" src="assets/img/h10.jpeg"/>
+        <img alt="Nail Perfection" class="w-full shrink-0 object-cover" src="assets/img/n2.jpeg"/>
+        <img alt="Elite Braiding" class="w-full shrink-0 object-cover" src="assets/img/h11.jpeg"/>
+        <img alt="Modern Beauty" class="w-full shrink-0 object-cover" src="assets/img/h12.jpeg"/>
+        <!-- Clone of first slide for seamless loop -->
+        <img alt="Nail Art" class="w-full shrink-0 object-cover" src="assets/img/n1.jpeg"/>
     </div>
     
     <!-- Navigation Arrows -->
-    <button onclick="moveSlider(-1)" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 backdrop-blur-md text-white p-2 rounded-full transition-all opacity-0 group-hover:opacity-100">
+    <button onclick="manualMove(-1)" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 backdrop-blur-md text-white p-2 rounded-full transition-all opacity-0 group-hover:opacity-100">
         <span class="material-symbols-outlined">arrow_back_ios_new</span>
     </button>
-    <button onclick="moveSlider(1)" class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 backdrop-blur-md text-white p-2 rounded-full transition-all opacity-0 group-hover:opacity-100">
+    <button onclick="manualMove(1)" class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 backdrop-blur-md text-white p-2 rounded-full transition-all opacity-0 group-hover:opacity-100">
         <span class="material-symbols-outlined">arrow_forward_ios</span>
     </button>
 </div>
@@ -160,15 +185,43 @@
 <script>
     let currentSlide = 0;
     const slider = document.getElementById('hero-slider');
-    const totalSlides = 4;
+    const totalSlides = 18; // 18 unique images + 1 clone
+    let isMoving = false;
 
     function moveSlider(direction) {
-        currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+        if (isMoving) return;
+        isMoving = true;
+        
+        currentSlide += direction;
+        slider.style.transition = 'transform 0.7s ease-in-out';
         slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+        // Wait for transition to finish
+        setTimeout(() => {
+            if (currentSlide >= totalSlides) {
+                // Instantly snap to the first slide
+                slider.style.transition = 'none';
+                currentSlide = 0;
+                slider.style.transform = `translateX(0)`;
+            } else if (currentSlide < 0) {
+                // Instantly snap to the last slide (clone)
+                slider.style.transition = 'none';
+                currentSlide = totalSlides - 1;
+                slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+            }
+            isMoving = false;
+        }, 700);
     }
 
     // Auto-scroll every 4 seconds
-    setInterval(() => moveSlider(1), 4000);
+    let autoInterval = setInterval(() => moveSlider(1), 4000);
+
+    // Reset interval on manual move
+    function manualMove(dir) {
+        clearInterval(autoInterval);
+        moveSlider(dir);
+        autoInterval = setInterval(() => moveSlider(1), 4000);
+    }
 </script>
 <div class="absolute -bottom-6 -left-6 bg-white dark:bg-surface p-6 rounded-2xl border border-primary/20 shadow-xl hidden md:block">
 <div class="flex items-center gap-4">
@@ -176,8 +229,8 @@
 <span class="material-symbols-outlined text-primary">verified_user</span>
 </div>
 <div>
-<p class="text-sm font-bold text-slate-800 dark:text-slate-100">Certified Experts</p>
-<p class="text-xs text-slate-500 dark:text-slate-400">10+ Years Experience</p>
+<p class="text-sm font-bold text-slate-800 dark:text-slate-100">Excellence Guaranteed</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">Award-Winning Techniques</p>
 </div>
 </div>
 </div>
@@ -189,14 +242,14 @@
 <section class="py-24 bg-primary/5 dark:bg-surface/30" id="about">
 <div class="max-w-7xl mx-auto px-6">
 <div class="grid lg:grid-cols-2 gap-20 items-center">
-<div class="grid grid-cols-2 gap-6">
-<div class="space-y-6 pt-12">
-<img alt="Interior" class="rounded-2xl w-full aspect-square object-cover shadow-lg hover:scale-[1.02] transition-transform" src="assets/img/h2.jpeg"/>
-<img alt="Nail Demo" class="rounded-2xl w-full aspect-video object-cover shadow-lg hover:scale-[1.02] transition-transform" src="assets/img/n1.jpeg"/>
+<div class="grid grid-cols-2 gap-8">
+<div class="space-y-8 pt-12">
+<img alt="Interior" class="rounded-2xl w-full aspect-[3/4] object-cover shadow-lg hover:scale-[1.02] transition-transform" src="assets/img/h2.jpeg"/>
+<img alt="Nail Demo" class="rounded-2xl w-full aspect-square object-cover shadow-lg hover:scale-[1.02] transition-transform" src="assets/img/n1.jpeg"/>
 </div>
-<div class="space-y-6">
-<img alt="Styling" class="rounded-2xl w-full aspect-video object-cover shadow-lg hover:scale-[1.02] transition-transform" src="assets/img/h4.jpeg"/>
-<img alt="Gel Nails" class="rounded-2xl w-full aspect-square object-cover shadow-lg hover:scale-[1.02] transition-transform" src="assets/img/n2.jpeg"/>
+<div class="space-y-8">
+<img alt="Styling" class="rounded-2xl w-full aspect-square object-cover shadow-lg hover:scale-[1.02] transition-transform" src="assets/img/h4.jpeg"/>
+<img alt="Gel Nails" class="rounded-2xl w-full aspect-[3/4] object-cover shadow-lg hover:scale-[1.02] transition-transform" src="assets/img/n2.jpeg"/>
 </div>
 </div>
 <div class="flex flex-col gap-6">
@@ -236,7 +289,7 @@
 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 <!-- Service 1 -->
 <div class="group relative bg-white dark:bg-surface rounded-2xl overflow-hidden border border-primary/10 hover:border-primary/40 transition-all shadow-sm hover:shadow-xl">
-<div class="aspect-video overflow-hidden">
+<div class="aspect-[4/3] overflow-hidden">
 <img alt="Braiding" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Intricate box braids style" src="assets/img/h6.jpeg"/>
 </div>
 <div class="p-8">
@@ -252,7 +305,7 @@
 </div>
 <!-- Service 2 -->
 <div class="group relative bg-white dark:bg-surface rounded-2xl overflow-hidden border border-primary/10 hover:border-primary/40 transition-all shadow-sm hover:shadow-xl">
-<div class="aspect-video overflow-hidden">
+<div class="aspect-[4/3] overflow-hidden">
 <img alt="Styling" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Elegant hair styling for an event" src="assets/img/h7.jpeg"/>
 </div>
 <div class="p-8">
@@ -268,7 +321,7 @@
 </div>
 <!-- Service 3 -->
 <div class="group relative bg-white dark:bg-surface rounded-2xl overflow-hidden border border-primary/10 hover:border-primary/40 transition-all shadow-sm hover:shadow-xl">
-<div class="aspect-video overflow-hidden">
+<div class="aspect-[4/3] overflow-hidden">
 <img alt="Nail Art" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="assets/img/n3.jpeg"/>
 </div>
 <div class="p-8">
@@ -297,22 +350,22 @@
                         View Full Gallery
                     </a>
 </div>
-<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-<div class="space-y-4">
-<img alt="Gallery 1" class="rounded-2xl w-full h-64 object-cover" data-alt="Close up of a beautiful braided bun" src="assets/img/h1.jpeg"/>
-<img alt="Gallery 2" class="rounded-2xl w-full h-48 object-cover" data-alt="Professional stylist cutting hair" src="assets/img/h2.jpeg"/>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+<div class="space-y-6">
+<img alt="Gallery 1" class="rounded-2xl w-full h-80 object-cover shadow-lg" data-alt="Close up of a beautiful braided bun" src="assets/img/h1.jpeg"/>
+<img alt="Gallery 2" class="rounded-2xl w-full h-64 object-cover shadow-lg" data-alt="Professional stylist cutting hair" src="assets/img/h2.jpeg"/>
 </div>
-<div class="space-y-4 pt-8">
-<img alt="Gallery 3" class="rounded-2xl w-full h-48 object-cover" data-alt="Styling tools on a purple table" src="assets/img/h3.jpeg"/>
-<img alt="Gallery 4" class="rounded-2xl w-full h-64 object-cover" data-alt="Smiling client with long braids" src="assets/img/h4.jpeg"/>
+<div class="space-y-6 pt-12">
+<img alt="Gallery 3" class="rounded-2xl w-full h-64 object-cover shadow-lg" data-alt="Styling tools on a purple table" src="assets/img/h3.jpeg"/>
+<img alt="Gallery 4" class="rounded-2xl w-full h-80 object-cover shadow-lg" data-alt="Smiling client with long braids" src="assets/img/h4.jpeg"/>
 </div>
-<div class="space-y-4">
-<img alt="Gallery 5" class="rounded-2xl w-full h-64 object-cover" data-alt="Luxury salon waiting area" src="assets/img/h5.jpeg"/>
-<img alt="Gallery 6" class="rounded-2xl w-full h-48 object-cover" data-alt="Macro of hair texture after treatment" src="assets/img/h6.jpeg"/>
+<div class="space-y-6">
+<img alt="Gallery 5" class="rounded-2xl w-full h-80 object-cover shadow-lg" data-alt="Luxury salon waiting area" src="assets/img/h5.jpeg"/>
+<img alt="Gallery 6" class="rounded-2xl w-full h-64 object-cover shadow-lg" data-alt="Macro of hair texture after treatment" src="assets/img/h6.jpeg"/>
 </div>
-<div class="space-y-4 pt-8">
-<img alt="Gallery 7" class="rounded-2xl w-full h-48 object-cover" data-alt="Close up portrait with artistic hair design" src="assets/img/h7.jpeg"/>
-<img alt="Gallery 8" class="rounded-2xl w-full h-64 object-cover" data-alt="Woman checking hair in a mirror" src="assets/img/h8.jpeg"/>
+<div class="space-y-6 pt-12">
+<img alt="Gallery 7" class="rounded-2xl w-full h-64 object-cover shadow-lg" data-alt="Close up portrait with artistic hair design" src="assets/img/h7.jpeg"/>
+<img alt="Gallery 8" class="rounded-2xl w-full h-80 object-cover shadow-lg" data-alt="Woman checking hair in a mirror" src="assets/img/h8.jpeg"/>
 </div>
 </div>
 </div>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Gallery Management | PureLux Admin</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <link href="../../../assets/css/main.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script src="../../../assets/js/theme.js"></script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+    <div class="flex flex-col lg:flex-row min-h-screen">
+        <!-- Sidebar -->
+        <aside class="w-full lg:w-72 bg-white dark:bg-surface border-r border-primary/20 p-6 flex flex-col gap-10">
+            <div class="flex items-center gap-4">
+                <img src="../../../assets/img/logo.png" alt="PureLux Logo" class="h-10 w-auto">
+                <h2 class="text-xl font-black">Admin Panel</h2>
+            </div>
+            <nav class="flex flex-col gap-3">
+                <a href="../dashboard.html" class="flex items-center gap-4 px-6 py-4 rounded-2xl hover:bg-primary/10 transition-all font-semibold">
+                    <span class="material-symbols-outlined">dashboard</span> Dashboard
+                </a>
+                <a href="../bookings/index.html" class="flex items-center gap-4 px-6 py-4 rounded-2xl hover:bg-primary/10 transition-all font-semibold">
+                    <span class="material-symbols-outlined">calendar_month</span> Bookings
+                </a>
+                <a href="../services/index.html" class="flex items-center gap-4 px-6 py-4 rounded-2xl hover:bg-primary/10 transition-all font-semibold">
+                    <span class="material-symbols-outlined">auto_awesome</span> Services
+                </a>
+                <a href="index.html" class="flex items-center gap-4 px-6 py-4 rounded-2xl bg-primary text-background-dark font-bold shadow-lg shadow-primary/20">
+                    <span class="material-symbols-outlined">photo_library</span> Gallery
+                </a>
+                <a href="../analytics/index.html" class="flex items-center gap-4 px-6 py-4 rounded-2xl hover:bg-primary/10 transition-all font-semibold">
+                    <span class="material-symbols-outlined">trending_up</span> Analytics
+                </a>
+                <div class="border-t border-primary/10 my-4"></div>
+                <a href="../../../index.html" class="flex items-center gap-4 px-6 py-4 rounded-2xl hover:bg-primary/10 transition-all font-semibold mt-auto">
+                    <span class="material-symbols-outlined">visibility</span> View Website
+                </a>
+                <a href="../auth/login.html" class="flex items-center gap-4 px-6 py-4 rounded-2xl text-rose-500 hover:bg-rose-500/10 transition-all font-semibold">
+                    <span class="material-symbols-outlined">logout</span> Sign Out
+                </a>
+            </nav>
+        </aside>
+
+        <main class="flex-1 p-8 lg:p-12 space-y-12">
+            <header class="flex flex-col md:flex-row md:items-center justify-between gap-8">
+                <div>
+                    <h1 class="text-4xl font-black tracking-tight text-primary">Gallery Manager</h1>
+                    <p class="text-slate-500 dark:text-slate-400 mt-2 text-lg">Upload and manage visual inspiration for your clients.</p>
+                </div>
+                <button class="bg-primary hover:bg-primary-light text-white font-bold py-4 px-8 rounded-2xl flex items-center gap-4 transition-all shadow-lg shadow-primary/30 group">
+                    <span class="material-symbols-outlined group-hover:scale-110 transition-transform">cloud_upload</span>
+                    Upload Photos
+                </button>
+            </header>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
+                <!-- Gallery Image 1 -->
+                <div class="bg-white dark:bg-surface rounded-3xl border border-primary/10 overflow-hidden shadow-sm hover:border-primary/40 transition-all group">
+                    <div class="aspect-square relative overflow-hidden">
+                        <img src="../../../assets/img/h1.jpeg" alt="Gallery Image" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/80 to-transparent translate-y-full group-hover:translate-y-0 transition-transform">
+                            <div class="flex justify-between items-center text-white">
+                                <span class="text-sm font-bold">h1.jpeg</span>
+                                <button class="p-2 bg-rose-500/20 text-rose-500 hover:bg-rose-500/40 rounded-xl transition-all"><span class="material-symbols-outlined">delete</span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Gallery Image 2 -->
+                <div class="bg-white dark:bg-surface rounded-3xl border border-primary/10 overflow-hidden shadow-sm hover:border-primary/40 transition-all group">
+                    <div class="aspect-square relative overflow-hidden">
+                        <img src="../../../assets/img/h2.jpeg" alt="Gallery Image" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/80 to-transparent translate-y-full group-hover:translate-y-0 transition-transform">
+                            <div class="flex justify-between items-center text-white">
+                                <span class="text-sm font-bold">h2.jpeg</span>
+                                <button class="p-2 bg-rose-500/20 text-rose-500 hover:bg-rose-500/40 rounded-xl transition-all"><span class="material-symbols-outlined">delete</span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Gallery Image 3 -->
+                <div class="bg-white dark:bg-surface rounded-3xl border border-primary/10 overflow-hidden shadow-sm hover:border-primary/40 transition-all group">
+                    <div class="aspect-square relative overflow-hidden">
+                        <img src="../../../assets/img/h3.jpeg" alt="Gallery Image" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/80 to-transparent translate-y-full group-hover:translate-y-0 transition-transform">
+                            <div class="flex justify-between items-center text-white">
+                                <span class="text-sm font-bold">h3.jpeg</span>
+                                <button class="p-2 bg-rose-500/20 text-rose-500 hover:bg-rose-500/40 rounded-xl transition-all"><span class="material-symbols-outlined">delete</span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Gallery Image 4 -->
+                <div class="bg-white dark:bg-surface rounded-3xl border border-primary/10 overflow-hidden shadow-sm hover:border-primary/40 transition-all group">
+                    <div class="aspect-square relative overflow-hidden">
+                        <img src="../../../assets/img/h4.jpeg" alt="Gallery Image" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/80 to-transparent translate-y-full group-hover:translate-y-0 transition-transform">
+                            <div class="flex justify-between items-center text-white">
+                                <span class="text-sm font-bold">h4.jpeg</span>
+                                <button class="p-2 bg-rose-500/20 text-rose-500 hover:bg-rose-500/40 rounded-xl transition-all"><span class="material-symbols-outlined">delete</span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Gallery Image 5 -->
+                <div class="bg-white dark:bg-surface rounded-3xl border border-primary/10 overflow-hidden shadow-sm hover:border-primary/40 transition-all group">
+                    <div class="aspect-square relative overflow-hidden">
+                        <img src="../../../assets/img/h5.jpeg" alt="Gallery Image" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/80 to-transparent translate-y-full group-hover:translate-y-0 transition-transform">
+                            <div class="flex justify-between items-center text-white">
+                                <span class="text-sm font-bold">h5.jpeg</span>
+                                <button class="p-2 bg-rose-500/20 text-rose-500 hover:bg-rose-500/40 rounded-xl transition-all"><span class="material-symbols-outlined">delete</span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Gallery Image 6 -->
+                <div class="bg-white dark:bg-surface rounded-3xl border border-primary/10 overflow-hidden shadow-sm hover:border-primary/40 transition-all group">
+                    <div class="aspect-square relative overflow-hidden">
+                        <img src="../../../assets/img/h6.jpeg" alt="Gallery Image" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/80 to-transparent translate-y-full group-hover:translate-y-0 transition-transform">
+                            <div class="flex justify-between items-center text-white">
+                                <span class="text-sm font-bold">h6.jpeg</span>
+                                <button class="p-2 bg-rose-500/20 text-rose-500 hover:bg-rose-500/40 rounded-xl transition-all"><span class="material-symbols-outlined">delete</span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
