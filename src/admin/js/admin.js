@@ -43,10 +43,12 @@ const AdminApp = {
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 this.loginModal.classList.add('hidden');
+                this.loginModal.classList.remove('flex');
                 this.mainContent.classList.remove('blur-sm', 'pointer-events-none');
                 this.loadDashboardData();
             } else {
                 this.loginModal.classList.remove('hidden');
+                this.loginModal.classList.add('flex');
                 this.mainContent.classList.add('blur-sm', 'pointer-events-none');
             }
         });
