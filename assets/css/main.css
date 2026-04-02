@@ -4,3 +4,7 @@ body {
 .purple-gradient-bg {
     background: radial-gradient(circle at top right, #3d2645, #1d1220);
 }
+
+.glow-text {
+    text-shadow: 0 0 12px currentColor;
+}
