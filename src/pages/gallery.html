@@ -8,8 +8,25 @@
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="../../assets/css/main.css">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#d790ee",
+                        "background-light": "#ffffff",
+                        "background-dark": "#1d1220",
+                        "surface": "#2d1b34",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script><link rel="stylesheet" href="../../assets/css/main.css">
 <script src="../../assets/js/theme.js"></script>
 </head>
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
@@ -167,55 +184,56 @@
 </div>
 </section>
 </main>
-<footer class="bg-background-light dark:bg-background-dark border-t border-primary/10 pt-16 pb-8">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-<div class="col-span-1 md:col-span-2">
-<div class="flex items-center gap-3 mb-6">
-<h2 class="text-lg font-bold tracking-tight">
-    <span class="text-slate-900 dark:text-slate-100 uppercase">PureLux</span><span class="text-primary"> Beauty Parlour</span>
+<footer class="bg-white dark:bg-background-dark border-t border-primary/10 pt-20 pb-10">
+<div class="max-w-7xl mx-auto px-6">
+<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+<div class="space-y-6">
+<div class="flex items-center gap-3">
+<h2 class="text-xl font-extrabold">
+    <span class="text-slate-900 dark:text-slate-100">PureLux</span><span class="text-primary"> Beauty Parlour</span>
 </h2>
 </div>
-<p class="text-slate-500 dark:text-slate-400 max-w-sm mb-8">Premium beauty services focused on health, artistry, and the ultimate luxury salon experience.</p>
-<div class="flex gap-4">
-<a class="size-10 rounded-lg bg-primary/10 border border-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-background-dark transition-all" href="#">
-<span class="text-xs font-extrabold tracking-wider">Share</span>
-</a>
-<a class="size-10 rounded-lg bg-primary/10 border border-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-background-dark transition-all" href="#">
-<span class="text-xs font-extrabold tracking-wider">IG</span>
-</a>
-</div>
+<p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                     Providing the finest hair and beauty experiences.
+                    </p>
+
 </div>
 <div>
-            <h3 class="text-white font-bold mb-6">Quick Links</h3>
-            <ul class="space-y-4 text-slate-500 dark:text-slate-400">
-                <li><a class="hover:text-primary transition-colors" href="index.html#about">About Us</a></li>
-                <li><a class="hover:text-primary transition-colors" href="contact.html">Our Team</a></li>
-                <li><a class="hover:text-primary transition-colors" href="booking.html">Gift Cards</a></li>
-                <li><a class="hover:text-primary transition-colors" href="contact.html">Careers</a></li>
-            </ul>
+<h4 class="text-slate-800 dark:text-slate-100 font-bold mb-6">Quick Links</h4>
+<ul class="space-y-4 text-slate-600 dark:text-slate-400">
+                        <li><a class="hover:text-primary transition-colors" href="../../index.html">Home</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="../../index.html#about">About Us</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="services.html">Services</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="booking.html">Book Now</a></li>
+</ul>
 </div>
 <div>
-<h3 class="text-white font-bold mb-6">Contact</h3>
-<ul class="space-y-4 text-slate-500 dark:text-slate-400">
-                <li class="flex items-start gap-3">
-                    <span>123 Elegance Blvd,<br/>Fashion District, NY 10012</span>
-                </li>
-                <li class="flex items-center gap-3">
-                    <a class="hover:text-primary transition-colors" href="tel:+15551234567">(555) 123-4567</a>
-                </li>
+<h4 class="text-slate-800 dark:text-slate-100 font-bold mb-6">Services</h4>
+<ul class="space-y-4 text-slate-600 dark:text-slate-400">
+                        <li><a class="hover:text-primary transition-colors" href="services.html">Artistic Braiding</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="services.html">Couture Styling</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="services.html">Cornrows</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="services.html">Treatments</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-slate-800 dark:text-slate-100 font-bold mb-6">Location</h4>
+<ul class="space-y-4 text-slate-600 dark:text-slate-400">
+<li class="flex items-start gap-3">
+<span>Main Street, Kahawa Wendani<br/>Nairobi, Kenya</span>
+</li>
+                        <li class="flex items-center gap-3">
+                            <a class="hover:text-primary transition-colors" href="tel:+254700000000">+254 700 000 000</a>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <a class="hover:text-primary transition-colors" href="mailto:hello@pureluxbeautyparlour.com">hello@pureluxbeautyparlour.com</a>
+                        </li>
 </ul>
 </div>
 </div>
-<div class="border-t border-primary/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500">
-<p>
-    © 2026 PureLux Beauty Parlour. All rights reserved.
-    <span class="block mt-2 text-xs text-primary glow-text">Powered by Spectre Tech Limited</span>
-</p>
-<div class="flex gap-8">
-            <a class="hover:text-primary transition-colors" href="contact.html">Privacy Policy</a>
-            <a class="hover:text-primary transition-colors" href="contact.html">Terms of Service</a>
-</div>
+<div class="pt-8 border-t border-primary/10 text-center">
+<p class="text-slate-500 text-sm">© 2026 PureLux Beauty Parlour. All rights reserved.</p>
+<p class="mt-2 text-xs text-primary glow-text">Powered by Spectre Tech Limited</p>
 </div>
 </div>
 </footer>

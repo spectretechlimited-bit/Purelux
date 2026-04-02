@@ -7,42 +7,58 @@
 <link rel="icon" type="image/png" href="../../assets/img/logo.png"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="../../assets/css/main.css">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#d790ee",
+                        "background-light": "#ffffff",
+                        "background-dark": "#1d1220",
+                        "surface": "#2d1b34",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script><link rel="stylesheet" href="../../assets/css/main.css">
 <script src="../../assets/js/theme.js"></script>
 </head>
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
 <div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
 <div class="layout-container flex h-full grow flex-col">
 <!-- Top Navigation Bar -->
-<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/20 px-6 py-4 lg:px-20">
-<div class="flex items-center gap-4">
-<img src="../../assets/img/logo.png" alt="PureLux Logo" class="h-8 w-auto">
-<h2 class="text-xl font-bold leading-tight tracking-tight">
+<header class="sticky top-0 z-50 w-full border-b border-primary/10 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md">
+<div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<img src="../../assets/img/logo.png" alt="PureLux Logo" class="h-10 w-auto">
+<h1 class="text-2xl font-extrabold tracking-tight">
     <span class="text-slate-900 dark:text-slate-100">PureLux</span><span class="text-primary"> Beauty Parlour</span>
-</h2>
+</h1>
 </div>
-            <nav class="hidden md:flex gap-8">
-                <a class="text-sm font-medium hover:text-primary transition-colors" href="../../index.html">Home</a>
-                <a class="text-sm font-medium text-primary underline underline-offset-4" href="services.html">Services</a>
-                <a class="text-sm font-medium hover:text-primary transition-colors" href="gallery.html">Gallery</a>
-                <a class="text-sm font-medium hover:text-primary transition-colors" href="contact.html">Contact</a>
-                <a class="text-sm font-medium hover:text-primary transition-colors" href="booking.html">Booking</a>
+            <nav class="hidden md:flex items-center gap-10">
+                <a class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="../../index.html">Home</a>
+                <a class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="../../index.html#about">About</a>
+                <a class="text-sm font-semibold text-primary underline underline-offset-4 transition-colors" href="services.html">Services</a>
+                <a class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="gallery.html">Gallery</a>
+                <a class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="contact.html">Contact</a>
             </nav>
-                <a class="text-sm font-medium hover:text-primary transition-colors" href="../../index.html#about">About</a>
-                <a class="text-sm font-medium hover:text-primary transition-colors" href="contact.html">Contact</a>
-            </nav>
-<div class="flex gap-3">
-            <button class="flex items-center gap-2 h-10 px-3 rounded-xl border border-primary/30 bg-white/80 text-slate-800 shadow-sm hover:bg-primary/10 transition-colors dark:bg-background-dark/70 dark:text-primary" type="button" data-theme-toggle aria-pressed="true" onclick="window.pureluxToggleTheme()">
-                    <span class="material-symbols-outlined text-sm" data-theme-icon>dark_mode</span>
-                    <span class="text-xs font-semibold" data-theme-label>Dark</span>
-                </button>
-            <a class="flex items-center justify-center rounded-xl h-10 w-10 bg-primary/10 text-primary hover:bg-primary/20 transition-all" href="booking.html" aria-label="Book a service">
-                    <span class="material-symbols-outlined">shopping_cart</span>
-                </a>
-            <a class="flex items-center justify-center rounded-xl h-10 w-10 bg-primary text-background-dark hover:opacity-90 transition-all" href="contact.html" aria-label="Contact PureLux Beauty Parlour">
-                    <span class="material-symbols-outlined">person</span>
-                </a>
+<div class="flex items-center gap-4">
+                    <button class="flex items-center gap-2 px-3 py-2 rounded-full border border-primary/30 bg-white shadow-sm hover:bg-primary/10 transition-colors dark:bg-background-dark/70 dark:text-primary" type="button" data-theme-toggle aria-pressed="true" onclick="window.pureluxToggleTheme()">
+                        <span class="material-symbols-outlined text-sm" data-theme-icon>dark_mode</span>
+                        <span class="text-xs font-semibold" data-theme-label>Dark</span>
+                    </button>
+                    <a class="hidden sm:block px-6 py-2.5 bg-primary text-background-dark font-bold rounded-full hover:opacity-90 transition-all" href="booking.html">
+                        Book Now
+                    </a>
+<button class="md:hidden text-slate-800 dark:text-slate-100">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
 </div>
 </header>
 <main class="flex-1 max-w-7xl mx-auto w-full px-6 py-8">
@@ -56,24 +72,7 @@
 <p class="text-slate-300 max-w-2xl text-lg">Indulge in our curated selection of high-end beauty treatments, performed by master stylists using the finest organic products.</p>
 </div>
 </div>
-<!-- Category Filters -->
-<div class="flex gap-3 mb-10 overflow-x-auto pb-4 no-scrollbar">
-<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary px-6 text-background-dark font-bold text-sm transition-all shadow-lg shadow-primary/20">
-                        All Services
-                    </button>
-<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary/10 px-6 text-slate-900 dark:text-slate-100 font-semibold text-sm hover:bg-primary/20 transition-all">
-<span class="material-symbols-outlined text-sm">grid_view</span> Braiding
-                    </button>
-<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary/10 px-6 text-slate-900 dark:text-slate-100 font-semibold text-sm hover:bg-primary/20 transition-all">
-<span class="material-symbols-outlined text-sm">content_cut</span> Styling
-                    </button>
-<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary/10 px-6 text-slate-900 dark:text-slate-100 font-semibold text-sm hover:bg-primary/20 transition-all">
-<span class="material-symbols-outlined text-sm">palette</span> Coloring
-                    </button>
-<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary/10 px-6 text-slate-900 dark:text-slate-100 font-semibold text-sm hover:bg-primary/20 transition-all">
-<span class="material-symbols-outlined text-sm">spa</span> Treatments
-                    </button>
-</div>
+
 <!-- Services Grid -->
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 <!-- Service Card 1 -->
@@ -227,70 +226,59 @@
 </div>
 </div>
 </div>
-<!-- Gift Card Section -->
-<div class="mt-20 p-8 lg:p-12 rounded-xl bg-primary/10 border border-primary/20 flex flex-col lg:flex-row items-center justify-between gap-8">
-<div class="max-w-xl text-center lg:text-left">
-<h2 class="text-3xl font-bold mb-4">Share the Purelux Experience</h2>
-<p class="text-slate-500 dark:text-slate-400">Surprise someone special with a gift card for our premium services. Available for any amount or specific service packages.</p>
-</div>
-            <a class="w-full lg:w-auto px-10 py-4 rounded-xl bg-primary text-background-dark font-bold text-lg hover:scale-105 transition-transform" href="contact.html">
-                        Purchase Gift Card
-                    </a>
-</div>
-</main>
 <!-- Footer -->
-<footer class="mt-20 border-t border-primary/10 bg-background-light dark:bg-background-dark px-6 py-12 lg:px-20">
-<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
-<div class="col-span-1 md:col-span-1">
-<div class="flex items-center gap-4 text-primary mb-6">
-<h2 class="text-lg font-bold">
+<footer class="bg-white dark:bg-background-dark border-t border-primary/10 pt-20 pb-10 mt-20">
+<div class="max-w-7xl mx-auto px-6">
+<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+<div class="space-y-6">
+<div class="flex items-center gap-3">
+<h2 class="text-xl font-extrabold">
     <span class="text-slate-900 dark:text-slate-100">PureLux</span><span class="text-primary"> Beauty Parlour</span>
 </h2>
 </div>
-<p class="text-sm text-slate-500 dark:text-slate-400">Transforming beauty into an art form since 2018. We believe in the power of professional care.</p>
+<p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                     Providing the finest hair and beauty experiences.
+                    </p>
+
 </div>
 <div>
-<h4 class="font-bold mb-6">Quick Links</h4>
-            <ul class="space-y-4 text-sm text-slate-500 dark:text-slate-400">
-                <li><a class="hover:text-primary transition-colors" href="booking.html">Book Appointment</a></li>
-                <li><a class="hover:text-primary transition-colors" href="gallery.html">View Portfolio</a></li>
-                <li><a class="hover:text-primary transition-colors" href="contact.html">Stylist Team</a></li>
-                <li><a class="hover:text-primary transition-colors" href="contact.html">Salon Policy</a></li>
-            </ul>
-</div>
-<div>
-<h4 class="font-bold mb-6">Contact Us</h4>
-<ul class="space-y-4 text-sm text-slate-500 dark:text-slate-400">
-<li class="flex items-center gap-2">
-                                123 Beauty Ave, Manhattan, NY
-                            </li>
-<li class="flex items-center gap-2">
-                                <a class="hover:text-primary transition-colors" href="tel:+15550001122">+1 (555) 000-1122</a>
-                            </li>
-<li class="flex items-center gap-2">
-                                <a class="hover:text-primary transition-colors" href="mailto:hello@purelux.beauty">hello@purelux.beauty</a>
-                            </li>
+<h4 class="text-slate-800 dark:text-slate-100 font-bold mb-6">Quick Links</h4>
+<ul class="space-y-4 text-slate-600 dark:text-slate-400">
+                        <li><a class="hover:text-primary transition-colors" href="../../index.html">Home</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="../../index.html#about">About Us</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="services.html">Services</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="booking.html">Book Now</a></li>
 </ul>
 </div>
 <div>
-<h4 class="font-bold mb-6">Social</h4>
-<div class="flex gap-4">
-                <a class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-background-dark transition-all" href="https://purelux.example.com" aria-label="Website">
-<span class="text-xs font-extrabold tracking-wider">WEB</span>
-</a>
-                <a class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-background-dark transition-all" href="https://youtube.com" aria-label="YouTube">
-<span class="text-xs font-extrabold tracking-wider">YT</span>
-</a>
-                <a class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-background-dark transition-all" href="https://instagram.com" aria-label="Instagram">
-<span class="text-xs font-extrabold tracking-wider">IG</span>
-</a>
+<h4 class="text-slate-800 dark:text-slate-100 font-bold mb-6">Services</h4>
+<ul class="space-y-4 text-slate-600 dark:text-slate-400">
+                        <li><a class="hover:text-primary transition-colors" href="services.html">Artistic Braiding</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="services.html">Couture Styling</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="services.html">Cornrows</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="services.html">Treatments</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-slate-800 dark:text-slate-100 font-bold mb-6">Location</h4>
+<ul class="space-y-4 text-slate-600 dark:text-slate-400">
+<li class="flex items-start gap-3">
+<span>Main Street, Kahawa Wendani<br/>Nairobi, Kenya</span>
+</li>
+                        <li class="flex items-center gap-3">
+                            <a class="hover:text-primary transition-colors" href="tel:+254700000000">+254 700 000 000</a>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <a class="hover:text-primary transition-colors" href="mailto:hello@pureluxbeautyparlour.com">hello@pureluxbeautyparlour.com</a>
+                        </li>
+</ul>
 </div>
 </div>
+<div class="pt-8 border-t border-primary/10 text-center">
+<p class="text-slate-500 text-sm">© 2026 PureLux Beauty Parlour. All rights reserved.</p>
+<p class="mt-2 text-xs text-primary glow-text">Powered by Spectre Tech Limited</p>
 </div>
-<div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-primary/5 text-center text-xs text-slate-500">
-                    © 2026 PureLux Beauty Parlour. All rights reserved.
-                    <div class="mt-2 text-primary glow-text">Powered by Spectre Tech Limited</div>
-                </div>
+</div>
 </footer>
 </div>
 </div>
