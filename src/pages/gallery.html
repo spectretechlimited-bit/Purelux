@@ -30,14 +30,13 @@
 <script src="../../assets/js/theme.js"></script>
 </head>
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
-<!-- Top Navigation Bar -->
-<header class="sticky top-0 z-50 w-full border-b border-primary/10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="flex items-center justify-between h-20">
+<!-- Navigation -->
+<header class="sticky top-0 z-50 w-full border-b border-primary/10 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md">
+<div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
 <div class="flex items-center gap-3">
-<img src="../../assets/img/logo.png" alt="PureLux Logo" class="h-8 w-auto">
-<h1 class="text-xl font-extrabold tracking-tight">
-    <span class="text-slate-900 dark:text-slate-100 uppercase">PureLux</span><span class="text-primary"> Beauty Parlour</span>
+<img src="../../assets/img/logo.png" alt="PureLux Logo" class="h-10 w-auto">
+<h1 class="text-2xl font-extrabold tracking-tight">
+    <span class="text-slate-900 dark:text-slate-100">PureLux</span><span class="text-primary"> Beauty Parlour</span>
 </h1>
 </div>
             <nav class="hidden md:flex items-center gap-10">
@@ -48,20 +47,41 @@
                 <a class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="contact.html">Contact</a>
             </nav>
 <div class="flex items-center gap-4">
-                    <button class="flex items-center gap-2 px-3 py-2 rounded-full border border-primary/30 bg-white/80 text-slate-800 shadow-sm hover:bg-primary/10 transition-colors dark:bg-background-dark/70 dark:text-primary" type="button" data-theme-toggle aria-pressed="true" onclick="window.pureluxToggleTheme()">
+                    <button class="flex items-center gap-2 px-3 py-2 rounded-full border border-primary/30 bg-white shadow-sm hover:bg-primary/10 transition-colors dark:bg-background-dark/70 dark:text-primary" type="button" data-theme-toggle aria-pressed="true" onclick="window.pureluxToggleTheme()">
                         <span class="material-symbols-outlined text-sm" data-theme-icon>dark_mode</span>
                         <span class="text-xs font-semibold" data-theme-label>Dark</span>
                     </button>
-                    <a class="bg-primary hover:bg-primary/90 text-background-dark px-6 py-2.5 rounded-lg text-sm font-bold transition-all shadow-lg shadow-primary/20" href="booking.html">
+                    <a class="hidden sm:block px-6 py-2.5 bg-primary text-background-dark font-bold rounded-full hover:opacity-90 transition-all" href="booking.html">
                         Book Now
                     </a>
-<div class="size-10 rounded-full bg-primary/10 border border-primary/20 overflow-hidden">
-<img class="w-full h-full object-cover" data-alt="User profile avatar portrait" src="../../assets/img/n1.jpeg"/>
-</div>
-</div>
+<button class="md:hidden flex items-center justify-center text-slate-800 dark:text-slate-100" type="button" data-mobile-menu-toggle aria-expanded="false" aria-controls="mobile-menu">
+<span class="material-symbols-outlined">menu</span>
+</button>
 </div>
 </div>
 </header>
+<div class="fixed inset-0 z-40 bg-black/50 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden" data-mobile-menu-backdrop></div>
+<aside class="fixed inset-y-0 left-0 z-50 w-80 max-w-[85vw] -translate-x-full transform bg-white dark:bg-background-dark border-r border-primary/10 shadow-2xl transition-transform duration-300 ease-out md:hidden" data-mobile-menu id="mobile-menu">
+<div class="flex h-full flex-col">
+<div class="flex items-center justify-between border-b border-primary/10 px-6 py-5">
+<div>
+<p class="text-xs font-bold uppercase tracking-[0.3em] text-primary">Menu</p>
+<h2 class="mt-1 text-lg font-extrabold text-slate-900 dark:text-slate-100">PureLux Beauty Parlour</h2>
+</div>
+<button class="rounded-full border border-primary/20 p-2 text-slate-700 dark:text-slate-200" type="button" data-mobile-menu-close aria-label="Close menu">
+<span class="material-symbols-outlined text-sm">close</span>
+</button>
+</div>
+<nav class="flex flex-1 flex-col gap-2 px-4 py-5">
+<a class="rounded-xl px-4 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-primary/10 hover:text-primary dark:text-slate-200" href="../../index.html">Home</a>
+<a class="rounded-xl px-4 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-primary/10 hover:text-primary dark:text-slate-200" href="services.html">Services</a>
+<a class="rounded-xl px-4 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-primary/10 hover:text-primary dark:text-slate-200" href="gallery.html">Gallery</a>
+<a class="rounded-xl px-4 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-primary/10 hover:text-primary dark:text-slate-200" href="contact.html">Contact</a>
+<a class="rounded-xl px-4 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-primary/10 hover:text-primary dark:text-slate-200" href="booking.html">Book</a>
+<a class="mt-4 rounded-xl bg-primary px-4 py-3 text-sm font-bold text-background-dark shadow-lg shadow-primary/20 transition-all hover:opacity-90" href="booking.html">Book Now</a>
+</nav>
+</div>
+</aside>
 <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 <!-- Hero Section -->
 <section class="relative mb-16 overflow-hidden rounded-xl bg-gradient-to-br from-primary/20 via-background-dark to-background-dark border border-primary/10">
@@ -81,90 +101,142 @@
 </div>
 </div>
 </section>
-<!-- Category Filter -->
-<div class="flex flex-wrap items-center gap-3 mb-10 overflow-x-auto pb-4 scrollbar-hide">
-<button class="px-6 py-2.5 rounded-full bg-primary text-background-dark font-bold text-sm whitespace-nowrap">All Work</button>
-<button class="px-6 py-2.5 rounded-full bg-primary/10 hover:bg-primary/20 text-slate-700 dark:text-slate-200 font-bold text-sm border border-primary/10 whitespace-nowrap transition-all">Braiding</button>
-<button class="px-6 py-2.5 rounded-full bg-primary/10 hover:bg-primary/20 text-slate-700 dark:text-slate-200 font-bold text-sm border border-primary/10 whitespace-nowrap transition-all">Coloring</button>
-<button class="px-6 py-2.5 rounded-full bg-primary/10 hover:bg-primary/20 text-slate-700 dark:text-slate-200 font-bold text-sm border border-primary/10 whitespace-nowrap transition-all">Styling</button>
-<button class="px-6 py-2.5 rounded-full bg-primary/10 hover:bg-primary/20 text-slate-700 dark:text-slate-200 font-bold text-sm border border-primary/10 whitespace-nowrap transition-all">Bridal</button>
-<div class="ml-auto flex items-center gap-2 text-slate-400">
-<span class="text-sm font-medium">Showing 12 results</span>
-<span class="material-symbols-outlined">filter_list</span>
-</div>
-</div>
+
 <!-- Responsive Image Grid -->
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-<!-- Card 1 -->
-<div class="gallery-card group relative overflow-hidden rounded-xl bg-background-dark/50 border border-primary/10 aspect-[3/5] cursor-pointer">
-<img class="w-full h-full object-cover transition-transform duration-500" data-alt="Intricate geometric pattern box braids" src="../../assets/img/h1.jpeg"/>
-<div class="overlay absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/20 to-transparent opacity-0 transition-opacity duration-300 flex flex-col justify-end p-6">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-6 auto-rows-[250px]">
+<!-- Card 1 - Large -->
+<div class="gallery-card group relative overflow-hidden rounded-xl bg-background-dark/50 border border-primary/10 cursor-pointer sm:col-span-1 lg:col-span-2 lg:row-span-2 hover:shadow-2xl hover:shadow-primary/50 transition-all duration-500">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Intricate geometric pattern box braids" src="../../assets/img/h1.jpeg"/>
+<div class="overlay absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-6">
 <span class="text-primary text-xs font-bold uppercase tracking-widest mb-2">Braiding</span>
 <h3 class="text-white text-xl font-bold mb-1">Intricate Box Braids</h3>
 <p class="text-slate-300 text-sm line-clamp-2">Precision patterns with silk-finish extensions.</p>
 </div>
 </div>
 <!-- Card 2 -->
-<div class="gallery-card group relative overflow-hidden rounded-xl bg-background-dark/50 border border-primary/10 aspect-[3/5] cursor-pointer">
-<img class="w-full h-full object-cover transition-transform duration-500" data-alt="Vibrant neon purple hair color styling" src="../../assets/img/h2.jpeg"/>
-<div class="overlay absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/20 to-transparent opacity-0 transition-opacity duration-300 flex flex-col justify-end p-6">
+<div class="gallery-card group relative overflow-hidden rounded-xl bg-background-dark/50 border border-primary/10 cursor-pointer hover:shadow-2xl hover:shadow-primary/50 transition-all duration-500">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Vibrant neon purple hair color styling" src="../../assets/img/h2.jpeg"/>
+<div class="overlay absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-6">
 <span class="text-primary text-xs font-bold uppercase tracking-widest mb-2">Coloring</span>
 <h3 class="text-white text-xl font-bold mb-1">Vibrant Ombre</h3>
 <p class="text-slate-300 text-sm line-clamp-2">Seamless transition from deep amethyst to lilac.</p>
 </div>
 </div>
-<!-- Card 3 -->
-<div class="gallery-card group relative overflow-hidden rounded-xl bg-background-dark/50 border border-primary/10 aspect-[3/5] cursor-pointer">
-<img class="w-full h-full object-cover transition-transform duration-500" data-alt="Sleek silk press straight hair" src="../../assets/img/h3.jpeg"/>
-<div class="overlay absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/20 to-transparent opacity-0 transition-opacity duration-300 flex flex-col justify-end p-6">
+<!-- Card 3 - Large -->
+<div class="gallery-card group relative overflow-hidden rounded-xl bg-background-dark/50 border border-primary/10 cursor-pointer lg:col-span-2 lg:row-span-2 hover:shadow-2xl hover:shadow-primary/50 transition-all duration-500">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Sleek silk press straight hair" src="../../assets/img/h3.jpeg"/>
+<div class="overlay absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-6">
 <span class="text-primary text-xs font-bold uppercase tracking-widest mb-2">Styling</span>
 <h3 class="text-white text-xl font-bold mb-1">Sleek Silk Press</h3>
 <p class="text-slate-300 text-sm line-clamp-2">High-gloss, heat-protected botanical finish.</p>
 </div>
 </div>
 <!-- Card 4 -->
-<div class="gallery-card group relative overflow-hidden rounded-xl bg-background-dark/50 border border-primary/10 aspect-[3/5] cursor-pointer">
-<img class="w-full h-full object-cover transition-transform duration-500" data-alt="Bohemian goddess locs with hair jewelry" src="../../assets/img/h4.jpeg"/>
-<div class="overlay absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/20 to-transparent opacity-0 transition-opacity duration-300 flex flex-col justify-end p-6">
+<div class="gallery-card group relative overflow-hidden rounded-xl bg-background-dark/50 border border-primary/10 cursor-pointer hover:shadow-2xl hover:shadow-primary/50 transition-all duration-500">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Bohemian goddess locs with hair jewelry" src="../../assets/img/h4.jpeg"/>
+<div class="overlay absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-6">
 <span class="text-primary text-xs font-bold uppercase tracking-widest mb-2">Braiding</span>
 <h3 class="text-white text-xl font-bold mb-1">Bohemian Locs</h3>
 <p class="text-slate-300 text-sm line-clamp-2">Soft-textured locs with golden accents.</p>
 </div>
 </div>
 <!-- Card 5 -->
-<div class="gallery-card group relative overflow-hidden rounded-xl bg-background-dark/50 border border-primary/10 aspect-[3/5] cursor-pointer">
-<img class="w-full h-full object-cover transition-transform duration-500" data-alt="Pastel balayage hair coloring" src="../../assets/img/h5.jpeg"/>
-<div class="overlay absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/20 to-transparent opacity-0 transition-opacity duration-300 flex flex-col justify-end p-6">
+<div class="gallery-card group relative overflow-hidden rounded-xl bg-background-dark/50 border border-primary/10 cursor-pointer hover:shadow-2xl hover:shadow-primary/50 transition-all duration-500">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Pastel balayage hair coloring" src="../../assets/img/h5.jpeg"/>
+<div class="overlay absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-6">
 <span class="text-primary text-xs font-bold uppercase tracking-widest mb-2">Coloring</span>
 <h3 class="text-white text-xl font-bold mb-1">Pastel Balayage</h3>
 <p class="text-slate-300 text-sm line-clamp-2">Hand-painted pastel highlights for soft dimension.</p>
 </div>
 </div>
-<!-- Card 6 -->
-<div class="gallery-card group relative overflow-hidden rounded-xl bg-background-dark/50 border border-primary/10 aspect-[3/5] cursor-pointer">
-<img class="w-full h-full object-cover transition-transform duration-500" data-alt="Elegant bridal updo with flowers" src="../../assets/img/h6.jpeg"/>
-<div class="overlay absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/20 to-transparent opacity-0 transition-opacity duration-300 flex flex-col justify-end p-6">
+<!-- Card 6 - Large -->
+<div class="gallery-card group relative overflow-hidden rounded-xl bg-background-dark/50 border border-primary/10 cursor-pointer sm:col-span-1 lg:col-span-2 lg:row-span-2 hover:shadow-2xl hover:shadow-primary/50 transition-all duration-500">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Elegant bridal updo with flowers" src="../../assets/img/h6.jpeg"/>
+<div class="overlay absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-6">
 <span class="text-primary text-xs font-bold uppercase tracking-widest mb-2">Styling</span>
 <h3 class="text-white text-xl font-bold mb-1">Bridal Updo</h3>
 <p class="text-slate-300 text-sm line-clamp-2">Timeless elegance for your special day.</p>
 </div>
 </div>
 <!-- Card 7 -->
-<div class="gallery-card group relative overflow-hidden rounded-xl bg-background-dark/50 border border-primary/10 aspect-[3/5] cursor-pointer">
-<img class="w-full h-full object-cover transition-transform duration-500" data-alt="Short bob haircut with bold color" src="../../assets/img/h7.jpeg"/>
-<div class="overlay absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/20 to-transparent opacity-0 transition-opacity duration-300 flex flex-col justify-end p-6">
+<div class="gallery-card group relative overflow-hidden rounded-xl bg-background-dark/50 border border-primary/10 cursor-pointer hover:shadow-2xl hover:shadow-primary/50 transition-all duration-500">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Short bob haircut with bold color" src="../../assets/img/h7.jpeg"/>
+<div class="overlay absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-6">
 <span class="text-primary text-xs font-bold uppercase tracking-widest mb-2">Styling</span>
 <h3 class="text-white text-xl font-bold mb-1">Precision Bob</h3>
 <p class="text-slate-300 text-sm line-clamp-2">Sharp lines and high-contrast color tones.</p>
 </div>
 </div>
 <!-- Card 8 -->
-<div class="gallery-card group relative overflow-hidden rounded-xl bg-background-dark/50 border border-primary/10 aspect-[3/5] cursor-pointer">
-<img class="w-full h-full object-cover transition-transform duration-500" data-alt="Feed-in braids protective style" src="../../assets/img/h8.jpeg"/>
-<div class="overlay absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/20 to-transparent opacity-0 transition-opacity duration-300 flex flex-col justify-end p-6">
+<div class="gallery-card group relative overflow-hidden rounded-xl bg-background-dark/50 border border-primary/10 cursor-pointer hover:shadow-2xl hover:shadow-primary/50 transition-all duration-500">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Feed-in braids protective style" src="../../assets/img/h8.jpeg"/>
+<div class="overlay absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-6">
 <span class="text-primary text-xs font-bold uppercase tracking-widest mb-2">Braiding</span>
 <h3 class="text-white text-xl font-bold mb-1">Feed-in Braids</h3>
 <p class="text-slate-300 text-sm line-clamp-2">Natural-looking extensions with seamless edges.</p>
+</div>
+</div>
+<!-- Card 9 -->
+<div class="gallery-card group relative overflow-hidden rounded-xl bg-background-dark/50 border border-primary/10 cursor-pointer hover:shadow-2xl hover:shadow-primary/50 transition-all duration-500">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Stylish braided look" src="../../assets/img/h9.jpeg"/>
+<div class="overlay absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-6">
+<span class="text-primary text-xs font-bold uppercase tracking-widest mb-2">Braiding</span>
+<h3 class="text-white text-xl font-bold mb-1">Signature Braids</h3>
+<p class="text-slate-300 text-sm line-clamp-2">Clean, detailed braiding with a polished finish.</p>
+</div>
+</div>
+<!-- Card 10 -->
+<div class="gallery-card group relative overflow-hidden rounded-xl bg-background-dark/50 border border-primary/10 cursor-pointer hover:shadow-2xl hover:shadow-primary/50 transition-all duration-500">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Hair styling inspiration" src="../../assets/img/h10.jpeg"/>
+<div class="overlay absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-6">
+<span class="text-primary text-xs font-bold uppercase tracking-widest mb-2">Styling</span>
+<h3 class="text-white text-xl font-bold mb-1">Elegant Styling</h3>
+<p class="text-slate-300 text-sm line-clamp-2">Fresh styling with a premium salon touch.</p>
+</div>
+</div>
+<!-- Card 11 -->
+<div class="gallery-card group relative overflow-hidden rounded-xl bg-background-dark/50 border border-primary/10 cursor-pointer hover:shadow-2xl hover:shadow-primary/50 transition-all duration-500">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Long braid hairstyle" src="../../assets/img/h11.jpeg"/>
+<div class="overlay absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-6">
+<span class="text-primary text-xs font-bold uppercase tracking-widest mb-2">Braiding</span>
+<h3 class="text-white text-xl font-bold mb-1">Long Braids</h3>
+<p class="text-slate-300 text-sm line-clamp-2">Neat length with strong hold and movement.</p>
+</div>
+</div>
+<!-- Card 12 - Large -->
+<div class="gallery-card group relative overflow-hidden rounded-xl bg-background-dark/50 border border-primary/10 cursor-pointer lg:col-span-2 lg:row-span-2 hover:shadow-2xl hover:shadow-primary/50 transition-all duration-500">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Braided style with neat parting" src="../../assets/img/h12.jpeg"/>
+<div class="overlay absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-6">
+<span class="text-primary text-xs font-bold uppercase tracking-widest mb-2">Braiding</span>
+<h3 class="text-white text-xl font-bold mb-1">Neat Parted Braids</h3>
+<p class="text-slate-300 text-sm line-clamp-2">Detailed parting with a smooth, even finish.</p>
+</div>
+</div>
+<!-- Card 13 -->
+<div class="gallery-card group relative overflow-hidden rounded-xl bg-background-dark/50 border border-primary/10 cursor-pointer hover:shadow-2xl hover:shadow-primary/50 transition-all duration-500">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Natural hairstyle gallery image" src="../../assets/img/n1.jpeg"/>
+<div class="overlay absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-6">
+<span class="text-primary text-xs font-bold uppercase tracking-widest mb-2">Styling</span>
+<h3 class="text-white text-xl font-bold mb-1">Natural Finish</h3>
+<p class="text-slate-300 text-sm line-clamp-2">Soft texture and a clean salon polish.</p>
+</div>
+</div>
+<!-- Card 14 -->
+<div class="gallery-card group relative overflow-hidden rounded-xl bg-background-dark/50 border border-primary/10 cursor-pointer hover:shadow-2xl hover:shadow-primary/50 transition-all duration-500">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Braided hairstyle close up" src="../../assets/img/n2.jpeg"/>
+<div class="overlay absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-6">
+<span class="text-primary text-xs font-bold uppercase tracking-widest mb-2">Braiding</span>
+<h3 class="text-white text-xl font-bold mb-1">Close-Up Braids</h3>
+<p class="text-slate-300 text-sm line-clamp-2">Crisp lines and a tidy protective finish.</p>
+</div>
+</div>
+<!-- Card 15 -->
+<div class="gallery-card group relative overflow-hidden rounded-xl bg-background-dark/50 border border-primary/10 cursor-pointer hover:shadow-2xl hover:shadow-primary/50 transition-all duration-500">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Hair style gallery image" src="../../assets/img/n3.jpeg"/>
+<div class="overlay absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-6">
+<span class="text-primary text-xs font-bold uppercase tracking-widest mb-2">Styling</span>
+<h3 class="text-white text-xl font-bold mb-1">Polished Look</h3>
+<p class="text-slate-300 text-sm line-clamp-2">A versatile finish for everyday glam.</p>
 </div>
 </div>
 </div>
@@ -179,7 +251,7 @@
                     Book Appointment
                 </a>
             <a class="w-full sm:w-auto px-10 py-4 bg-transparent border-2 border-primary/30 text-primary font-black rounded-xl hover:bg-primary/10 transition-all text-lg" href="contact.html">
-                    Contact Salon
+                    Contact Us
                 </a>
 </div>
 </section>
@@ -232,7 +304,8 @@
 </div>
 </div>
 <div class="pt-8 border-t border-primary/10 text-center">
-<p class="text-slate-500 text-sm">© 2026 PureLux Beauty Parlour. All rights reserved.</p>
+<p class="text-slate-500 text-sm">Today: <span data-current-date></span></p>
+<p class="text-slate-500 text-sm mt-2">© 2026 PureLux Beauty Parlour. All rights reserved.</p>
 <p class="mt-2 text-xs text-primary glow-text">Powered by Spectre Tech Limited</p>
 </div>
 </div>

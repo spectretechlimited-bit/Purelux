@@ -57,12 +57,34 @@
                     <a class="hidden sm:block px-6 py-2.5 bg-primary text-background-dark font-bold rounded-full hover:opacity-90 transition-all" href="src/pages/booking.html">
                         Book Now
                     </a>
-<button class="md:hidden text-slate-800 dark:text-slate-100">
+<button class="md:hidden flex items-center justify-center text-slate-800 dark:text-slate-100" type="button" data-mobile-menu-toggle aria-expanded="false" aria-controls="mobile-menu">
 <span class="material-symbols-outlined">menu</span>
 </button>
 </div>
 </div>
 </header>
+<div class="fixed inset-0 z-40 bg-black/50 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden" data-mobile-menu-backdrop></div>
+<aside class="fixed inset-y-0 left-0 z-50 w-80 max-w-[85vw] -translate-x-full transform bg-white dark:bg-background-dark border-r border-primary/10 shadow-2xl transition-transform duration-300 ease-out md:hidden" data-mobile-menu id="mobile-menu">
+<div class="flex h-full flex-col">
+<div class="flex items-center justify-between border-b border-primary/10 px-6 py-5">
+<div>
+<p class="text-xs font-bold uppercase tracking-[0.3em] text-primary">Menu</p>
+<h2 class="mt-1 text-lg font-extrabold text-slate-900 dark:text-slate-100">PureLux Beauty Parlour</h2>
+</div>
+<button class="rounded-full border border-primary/20 p-2 text-slate-700 dark:text-slate-200" type="button" data-mobile-menu-close aria-label="Close menu">
+<span class="material-symbols-outlined text-sm">close</span>
+</button>
+</div>
+<nav class="flex flex-1 flex-col gap-2 px-4 py-5">
+<a class="rounded-xl px-4 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-primary/10 hover:text-primary dark:text-slate-200" href="index.html">Home</a>
+<a class="rounded-xl px-4 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-primary/10 hover:text-primary dark:text-slate-200" href="index.html#about">About</a>
+<a class="rounded-xl px-4 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-primary/10 hover:text-primary dark:text-slate-200" href="src/pages/services.html">Services</a>
+<a class="rounded-xl px-4 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-primary/10 hover:text-primary dark:text-slate-200" href="src/pages/gallery.html">Gallery</a>
+<a class="rounded-xl px-4 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-primary/10 hover:text-primary dark:text-slate-200" href="src/pages/contact.html">Contact</a>
+<a class="mt-4 rounded-xl bg-primary px-4 py-3 text-sm font-bold text-background-dark shadow-lg shadow-primary/20 transition-all hover:opacity-90" href="src/pages/booking.html">Book Now</a>
+</nav>
+</div>
+</aside>
 <main>
 <!-- Hero Section -->
 <section class="relative overflow-hidden pt-4 pb-20 lg:pt-8 lg:pb-32">
@@ -435,7 +457,8 @@
 </div>
 </div>
 <div class="pt-8 border-t border-primary/10 text-center">
-<p class="text-slate-500 text-sm">© 2026 PureLux Beauty Parlour. All rights reserved.</p>
+<p class="text-slate-500 text-sm">Today: <span data-current-date></span></p>
+<p class="text-slate-500 text-sm mt-2">© 2026 PureLux Beauty Parlour. All rights reserved.</p>
 <p class="mt-2 text-xs text-primary glow-text">Powered by Spectre Tech Limited</p>
 </div>
 </div>

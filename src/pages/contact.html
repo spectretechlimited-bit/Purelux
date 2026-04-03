@@ -30,38 +30,58 @@
 <link rel="icon" type="image/png" href="../../assets/favicons/favicon-32x32.png"/>
 </head>
 <body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
-<!-- Top Navigation Bar -->
-<header class="sticky top-0 z-50 w-full border-b border-primary/10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="flex items-center justify-between h-20">
+<!-- Navigation -->
+<header class="sticky top-0 z-50 w-full border-b border-primary/10 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md">
+<div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
 <div class="flex items-center gap-3">
-<img src="../../assets/img/logo.png" alt="PureLux Logo" class="h-8 w-auto">
-<h2 class="text-xl font-extrabold tracking-tight">
-    <span class="text-slate-900 dark:text-slate-100 uppercase">PureLux</span><span class="text-primary font-medium"> Beauty Parlour</span>
-</h2>
+<img src="../../assets/img/logo.png" alt="PureLux Logo" class="h-10 w-auto">
+<h1 class="text-2xl font-extrabold tracking-tight">
+    <span class="text-slate-900 dark:text-slate-100">PureLux</span><span class="text-primary"> Beauty Parlour</span>
+</h1>
 </div>
             <nav class="hidden md:flex items-center gap-10">
-                <a class="text-sm font-semibold hover:text-primary transition-colors" href="../../index.html">Home</a>
-                <a class="text-sm font-semibold hover:text-primary transition-colors" href="services.html">Services</a>
-                <a class="text-sm font-semibold hover:text-primary transition-colors" href="gallery.html">Gallery</a>
-                <a class="text-sm font-semibold text-primary transition-colors" href="contact.html">Contact</a>
-                <a class="text-sm font-semibold hover:text-primary transition-colors" href="booking.html">Book</a>
+                <a class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="../../index.html">Home</a>
+                <a class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="services.html">Services</a>
+                <a class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="gallery.html">Gallery</a>
+                <a class="text-sm font-semibold text-primary" href="contact.html">Contact</a>
+                <a class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="booking.html">Book</a>
             </nav>
 <div class="flex items-center gap-4">
-<button class="flex items-center gap-2 px-3 py-2 rounded-full border border-primary/30 bg-white/80 text-slate-800 shadow-sm hover:bg-primary/10 transition-colors dark:bg-background-dark/70 dark:text-primary" type="button" data-theme-toggle aria-pressed="true" onclick="window.pureluxToggleTheme()">
-<span class="material-symbols-outlined text-sm" data-theme-icon>dark_mode</span>
-<span class="text-xs font-semibold" data-theme-label>Dark</span>
+                    <button class="flex items-center gap-2 px-3 py-2 rounded-full border border-primary/30 bg-white shadow-sm hover:bg-primary/10 transition-colors dark:bg-background-dark/70 dark:text-primary" type="button" data-theme-toggle aria-pressed="true" onclick="window.pureluxToggleTheme()">
+                        <span class="material-symbols-outlined text-sm" data-theme-icon>dark_mode</span>
+                        <span class="text-xs font-semibold" data-theme-label>Dark</span>
+                    </button>
+                    <a class="hidden sm:block px-6 py-2.5 bg-primary text-background-dark font-bold rounded-full hover:opacity-90 transition-all" href="booking.html">
+                        Book Now
+                    </a>
+<button class="md:hidden flex items-center justify-center text-slate-800 dark:text-slate-100" type="button" data-mobile-menu-toggle aria-expanded="false" aria-controls="mobile-menu">
+<span class="material-symbols-outlined">menu</span>
 </button>
-<button class="p-2.5 rounded-xl bg-primary/10 text-primary hover:bg-primary/20 transition-all">
-<span class="material-symbols-outlined text-[22px]">person</span>
-</button>
-<button class="p-2.5 rounded-xl bg-primary text-background-dark font-bold hover:opacity-90 transition-all">
-<span class="material-symbols-outlined text-[22px]">shopping_bag</span>
-</button>
-</div>
 </div>
 </div>
 </header>
+<div class="fixed inset-0 z-40 bg-black/50 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden" data-mobile-menu-backdrop></div>
+<aside class="fixed inset-y-0 left-0 z-50 w-80 max-w-[85vw] -translate-x-full transform bg-white dark:bg-background-dark border-r border-primary/10 shadow-2xl transition-transform duration-300 ease-out md:hidden" data-mobile-menu id="mobile-menu">
+<div class="flex h-full flex-col">
+<div class="flex items-center justify-between border-b border-primary/10 px-6 py-5">
+<div>
+<p class="text-xs font-bold uppercase tracking-[0.3em] text-primary">Menu</p>
+<h2 class="mt-1 text-lg font-extrabold text-slate-900 dark:text-slate-100">PureLux Beauty Parlour</h2>
+</div>
+<button class="rounded-full border border-primary/20 p-2 text-slate-700 dark:text-slate-200" type="button" data-mobile-menu-close aria-label="Close menu">
+<span class="material-symbols-outlined text-sm">close</span>
+</button>
+</div>
+<nav class="flex flex-1 flex-col gap-2 px-4 py-5">
+<a class="rounded-xl px-4 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-primary/10 hover:text-primary dark:text-slate-200" href="../../index.html">Home</a>
+<a class="rounded-xl px-4 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-primary/10 hover:text-primary dark:text-slate-200" href="services.html">Services</a>
+<a class="rounded-xl px-4 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-primary/10 hover:text-primary dark:text-slate-200" href="gallery.html">Gallery</a>
+<a class="rounded-xl px-4 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-primary/10 hover:text-primary dark:text-slate-200" href="contact.html">Contact</a>
+<a class="rounded-xl px-4 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-primary/10 hover:text-primary dark:text-slate-200" href="booking.html">Book</a>
+<a class="mt-4 rounded-xl bg-primary px-4 py-3 text-sm font-bold text-background-dark shadow-lg shadow-primary/20 transition-all hover:opacity-90" href="booking.html">Book Now</a>
+</nav>
+</div>
+</aside>
 <main class="min-h-screen">
 <!-- Hero Section -->
 <section class="relative h-[400px] flex items-center justify-center overflow-hidden">
@@ -244,7 +264,8 @@
 </div>
 </div>
 <div class="pt-8 border-t border-primary/10 text-center">
-<p class="text-slate-500 text-sm">© 2026 PureLux Beauty Parlour. All rights reserved.</p>
+<p class="text-slate-500 text-sm">Today: <span data-current-date></span></p>
+<p class="text-slate-500 text-sm mt-2">© 2026 PureLux Beauty Parlour. All rights reserved.</p>
 <p class="mt-2 text-xs text-primary glow-text">Powered by Spectre Tech Limited</p>
 </div>
 </div>

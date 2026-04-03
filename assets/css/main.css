@@ -1,10 +1,107 @@
 body {
     font-family: 'Manrope', sans-serif;
 }
+
+.glass-panel {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(215, 144, 238, 0.14);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    box-shadow: 0 24px 80px rgba(15, 10, 20, 0.08);
+}
+
+html.dark .glass-panel {
+    background: rgba(29, 18, 32, 0.72);
+    border-color: rgba(215, 144, 238, 0.14);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+}
+
 .purple-gradient-bg {
     background: radial-gradient(circle at top right, #3d2645, #1d1220);
 }
 
 .glow-text {
     text-shadow: 0 0 12px currentColor;
+}
+
+.booking-orb {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(70px);
+    opacity: 0.55;
+    pointer-events: none;
+    animation: booking-drift 14s ease-in-out infinite;
+}
+
+.booking-orb-1 {
+    top: 7rem;
+    left: -5rem;
+    width: 18rem;
+    height: 18rem;
+    background: rgba(215, 144, 238, 0.18);
+}
+
+.booking-orb-2 {
+    top: 15rem;
+    right: -4rem;
+    width: 22rem;
+    height: 22rem;
+    background: rgba(255, 255, 255, 0.08);
+    animation-delay: -5s;
+}
+
+.booking-orb-3 {
+    bottom: 2rem;
+    left: 20%;
+    width: 14rem;
+    height: 14rem;
+    background: rgba(215, 144, 238, 0.12);
+    animation-delay: -9s;
+}
+
+.booking-card {
+    animation: booking-rise 700ms ease both;
+}
+
+.booking-entrance {
+    animation: booking-rise 700ms ease 80ms both;
+}
+
+.booking-cta {
+    position: relative;
+    overflow: hidden;
+}
+
+.booking-cta::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.35) 50%, transparent 100%);
+    transform: translateX(-120%);
+    transition: transform 700ms ease;
+}
+
+.booking-cta:hover::after {
+    transform: translateX(120%);
+}
+
+@keyframes booking-rise {
+    from {
+        opacity: 0;
+        transform: translateY(22px) scale(0.985);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes booking-drift {
+    0%,
+    100% {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+        transform: translate3d(0, -18px, 0) scale(1.04);
+    }
 }
