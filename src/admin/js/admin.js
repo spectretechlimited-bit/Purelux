@@ -33,9 +33,7 @@ const AdminApp = {
         this.statBookings = document.getElementById("statBookings");
         this.statServices = document.getElementById("statServices");
         this.statClients = document.getElementById("statClients");
-        this.statBookingsClone = document.getElementById("statBookingsClone");
-        this.statServicesClone = document.getElementById("statServicesClone");
-        this.statMessagesClone = document.getElementById("statMessagesClone");
+
         this.analyticsPeriod = document.getElementById("analyticsPeriod");
         this.analyticsBookingsPeriod = document.getElementById("analyticsBookingsPeriod");
         this.analyticsMessagesPeriod = document.getElementById("analyticsMessagesPeriod");
@@ -153,13 +151,11 @@ const AdminApp = {
             }
         });
 
+        if (id === "overview") {
+            this.renderOverviewCharts();
+        }
         if (id === "analytics") {
             this.renderAnalytics();
-        }
-
-        if (id === "overview") {
-            this.bookingsChart?.resize();
-            this.servicesChart?.resize();
         }
     },
 
@@ -202,43 +198,6 @@ const AdminApp = {
             .replace(/'/g, "&#039;");
     },
 
-    async loadOverviewStats() {
-        const bookingsSnapshot = await getDocs(collection(db, "bookings"));
-        const servicesSnapshot = await getDocs(collection(db, "services"));
-        const messagesSnapshot = await getDocs(collection(db, "messages"));
-
-        this.bookingsDocs = bookingsSnapshot.docs;
-        this.messagesDocs = messagesSnapshot.docs;
-
-        const bookingsCount = bookingsSnapshot.size;
-        const servicesCount = servicesSnapshot.size;
-        const messagesCount = messagesSnapshot.size;
-
-        if (this.statBookings) this.statBookings.textContent = String(bookingsCount);
-        if (this.statServices) this.statServices.textContent = String(servicesCount);
-        if (this.statClients) this.statClients.textContent = String(messagesCount);
-        if (this.statBookingsClone) this.statBookingsClone.textContent = String(bookingsCount);
-        if (this.statServicesClone) this.statServicesClone.textContent = String(servicesCount);
-        if (this.statMessagesClone) this.statMessagesClone.textContent = String(messagesCount);
-
-        // Progress bars
-        const bookingsProgress = Math.min((bookingsCount / 100) * 100, 100);
-        const servicesProgress = Math.min((servicesCount / 50) * 100, 100);
-        const messagesProgress = Math.min((messagesCount / 100) * 100, 100);
-
-        const bookingsProgressBar = document.getElementById("bookingsProgress");
-        const servicesProgressBar = document.getElementById("servicesProgress");
-        const messagesProgressBar = document.getElementById("messagesProgress");
-
-        if (bookingsProgressBar) bookingsProgressBar.style.width = `${bookingsProgress}%`;
-        if (servicesProgressBar) servicesProgressBar.style.width = `${servicesProgress}%`;
-        if (messagesProgressBar) messagesProgressBar.style.width = `${messagesProgress}%`;
-
-        // Initialize charts
-        this.initializeCharts(bookingsSnapshot.docs, servicesSnapshot.docs);
-        this.renderAnalytics();
-    },
-
     getEntryDate(data) {
         const raw = data?.createdAt;
         if (!raw) return null;
@@ -255,173 +214,313 @@ const AdminApp = {
         return date >= threshold;
     },
 
-    renderAnalytics() {
-        const bookingsDocs = this.bookingsDocs || [];
-        const messagesDocs = this.messagesDocs || [];
-        const days = Number(this.analyticsPeriod?.value || 30);
-
-        const bookingEntries = bookingsDocs.map((docSnap) => docSnap.data());
-        const messageEntries = messagesDocs.map((docSnap) => docSnap.data());
-
-        const bookingsInPeriod = bookingEntries.filter((entry) => this.isWithinDays(this.getEntryDate(entry), days)).length;
-        const messagesInPeriod = messageEntries.filter((entry) => this.isWithinDays(this.getEntryDate(entry), days)).length;
-
-        if (this.analyticsBookingsPeriod) this.analyticsBookingsPeriod.textContent = String(bookingsInPeriod);
-        if (this.analyticsMessagesPeriod) this.analyticsMessagesPeriod.textContent = String(messagesInPeriod);
-        if (this.analyticsBookingsTotal) this.analyticsBookingsTotal.textContent = String(bookingEntries.length);
-        if (this.analyticsMessagesTotal) this.analyticsMessagesTotal.textContent = String(messageEntries.length);
-
-        this.renderVolumeChart(days, bookingEntries, messageEntries);
-    },
-
-    renderVolumeChart(days, bookingEntries, messageEntries) {
-        const canvas = document.getElementById("volumeChart");
-        if (!canvas || typeof Chart === "undefined") return;
-
+    aggregateDailyCounts(entries, days) {
         const labels = [];
-        const bookingCounts = [];
-        const messageCounts = [];
-
+        const counts = [];
         const now = new Date();
+
         for (let offset = days - 1; offset >= 0; offset -= 1) {
             const day = new Date(now);
             day.setHours(0, 0, 0, 0);
             day.setDate(day.getDate() - offset);
-
             const dayStart = new Date(day);
             const dayEnd = new Date(day);
             dayEnd.setHours(23, 59, 59, 999);
 
             labels.push(day.toLocaleDateString("en-US", { month: "short", day: "numeric" }));
-            bookingCounts.push(bookingEntries.filter((entry) => {
-                const date = this.getEntryDate(entry);
-                return date && date >= dayStart && date <= dayEnd;
-            }).length);
-            messageCounts.push(messageEntries.filter((entry) => {
+            counts.push(entries.filter((entry) => {
                 const date = this.getEntryDate(entry);
                 return date && date >= dayStart && date <= dayEnd;
             }).length);
         }
 
-        if (this.volumeChart) {
-            this.volumeChart.data.labels = labels;
-            this.volumeChart.data.datasets[0].data = bookingCounts;
-            this.volumeChart.data.datasets[1].data = messageCounts;
-            this.volumeChart.update();
-            return;
-        }
-
-        this.volumeChart = new Chart(canvas, {
-            type: "bar",
-            data: {
-                labels,
-                datasets: [
-                    {
-                        label: "Bookings",
-                        data: bookingCounts,
-                        borderRadius: 6,
-                        backgroundColor: "rgba(215, 144, 238, 0.85)",
-                    },
-                    {
-                        label: "Messages",
-                        data: messageCounts,
-                        borderRadius: 6,
-                        backgroundColor: "rgba(99, 102, 241, 0.75)",
-                    },
-                ],
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                interaction: {
-                    mode: "index",
-                    intersect: false,
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            precision: 0,
-                        },
-                    },
-                },
-                plugins: {
-                    legend: {
-                        position: "bottom",
-                    },
-                },
-            },
-        });
+        return { labels, counts };
     },
 
-    initializeCharts(bookingsDocs, servicesDocs) {
-        if (typeof Chart === "undefined") return;
+    getChartTheme() {
+        const isDark = document.documentElement.classList.contains("dark");
+        return {
+            text: isDark ? "#cbd5e1" : "#64748b",
+            grid: isDark ? "rgba(148, 163, 184, 0.18)" : "rgba(100, 116, 139, 0.15)",
+            primary: "#d790ee",
+            secondary: "#7c83ff",
+            success: "#34d399",
+            warning: "#f59e0b",
+            danger: "#f87171",
+        };
+    },
 
-        const bookingsCanvas = document.getElementById("bookingsChart");
-        if (bookingsCanvas) {
-            const byDay = {};
-            bookingsDocs.forEach((snap) => {
-                const data = snap.data();
-                const date = data.createdAt?.toDate?.() || new Date();
-                const key = date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
-                byDay[key] = (byDay[key] || 0) + 1;
-            });
+    async loadOverviewStats() {
+        const bookingsSnapshot = await getDocs(collection(db, "bookings"));
+        const servicesSnapshot = await getDocs(collection(db, "services"));
+        const messagesSnapshot = await getDocs(collection(db, "messages"));
 
-            const labels = Object.keys(byDay).slice(-7);
-            const values = labels.map((label) => byDay[label]);
+        this.bookingsEntries = bookingsSnapshot.docs.map((snap) => snap.data());
+        this.servicesEntries = servicesSnapshot.docs.map((snap) => snap.data());
+        this.messagesEntries = messagesSnapshot.docs.map((snap) => snap.data());
 
+        const bookingsCount = bookingsSnapshot.size;
+        const servicesCount = servicesSnapshot.size;
+        const messagesCount = messagesSnapshot.size;
+
+        if (this.statBookings) this.statBookings.textContent = String(bookingsCount);
+        if (this.statServices) this.statServices.textContent = String(servicesCount);
+        if (this.statClients) this.statClients.textContent = String(messagesCount);
+
+        const bookingsProgress = Math.min((bookingsCount / 100) * 100, 100);
+        const servicesProgress = Math.min((servicesCount / 50) * 100, 100);
+        const messagesProgress = Math.min((messagesCount / 100) * 100, 100);
+
+        const bookingsProgressBar = document.getElementById("bookingsProgress");
+        const servicesProgressBar = document.getElementById("servicesProgress");
+        const messagesProgressBar = document.getElementById("messagesProgress");
+
+        if (bookingsProgressBar) bookingsProgressBar.style.width = `${bookingsProgress}%`;
+        if (servicesProgressBar) servicesProgressBar.style.width = `${servicesProgress}%`;
+        if (messagesProgressBar) messagesProgressBar.style.width = `${messagesProgress}%`;
+
+        this.renderOverviewCharts();
+        this.renderAnalytics();
+    },
+
+    renderOverviewCharts() {
+        if (typeof window.ApexCharts === "undefined") return;
+
+        const theme = this.getChartTheme();
+        const bookingsEntries = this.bookingsEntries || [];
+
+        const bookingDaily = this.aggregateDailyCounts(bookingsEntries, 14);
+        const bookingsOptions = {
+            chart: {
+                type: "area",
+                height: 260,
+                toolbar: { show: false },
+                sparkline: { enabled: false },
+                fontFamily: "Manrope, sans-serif",
+            },
+            series: [{ name: "Bookings", data: bookingDaily.counts }],
+            xaxis: {
+                categories: bookingDaily.labels,
+                labels: { style: { colors: theme.text, fontSize: "11px" } },
+            },
+            yaxis: {
+                min: 0,
+                labels: { style: { colors: theme.text, fontSize: "11px" } },
+            },
+            stroke: { curve: "smooth", width: 3 },
+            colors: [theme.primary],
+            fill: {
+                type: "gradient",
+                gradient: {
+                    shadeIntensity: 0.3,
+                    opacityFrom: 0.4,
+                    opacityTo: 0.05,
+                },
+            },
+            grid: { borderColor: theme.grid },
+            dataLabels: { enabled: false },
+            tooltip: { theme: document.documentElement.classList.contains("dark") ? "dark" : "light" },
+        };
+
+        const bookingsEl = document.getElementById("bookingsChart");
+        if (bookingsEl) {
             if (this.bookingsChart) {
-                this.bookingsChart.data.labels = labels;
-                this.bookingsChart.data.datasets[0].data = values;
-                this.bookingsChart.update();
+                this.bookingsChart.updateOptions(bookingsOptions, true, true);
             } else {
-                this.bookingsChart = new Chart(bookingsCanvas, {
-                    type: "line",
-                    data: {
-                        labels,
-                        datasets: [{
-                            data: values,
-                            borderColor: "#d790ee",
-                            backgroundColor: "rgba(215, 144, 238, 0.16)",
-                            fill: true,
-                            tension: 0.35,
-                            pointRadius: 4,
-                        }],
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: { legend: { display: false } },
-                    },
-                });
+                this.bookingsChart = new window.ApexCharts(bookingsEl, bookingsOptions);
+                this.bookingsChart.render();
             }
         }
 
-        const servicesCanvas = document.getElementById("servicesChart");
-        if (servicesCanvas) {
-            const labels = servicesDocs.map((snap) => snap.data().name || "Service").slice(0, 8);
-            const values = labels.map(() => 1);
+        const serviceCounts = {};
+        bookingsEntries.forEach((entry) => {
+            const raw = (entry.serviceDescription || "General").trim();
+            const name = raw.length > 18 ? `${raw.slice(0, 18)}...` : raw;
+            serviceCounts[name || "General"] = (serviceCounts[name || "General"] || 0) + 1;
+        });
 
+        const servicePairs = Object.entries(serviceCounts)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 6);
+
+        const serviceOptions = {
+            chart: {
+                type: "donut",
+                height: 260,
+                fontFamily: "Manrope, sans-serif",
+            },
+            labels: servicePairs.map(([label]) => label),
+            series: servicePairs.map(([, count]) => count),
+            colors: ["#d790ee", "#7c83ff", "#34d399", "#f59e0b", "#f87171", "#22d3ee"],
+            legend: {
+                position: "bottom",
+                labels: { colors: theme.text },
+            },
+            dataLabels: { enabled: false },
+            tooltip: { theme: document.documentElement.classList.contains("dark") ? "dark" : "light" },
+            noData: { text: "No booking data yet" },
+        };
+
+        const servicesEl = document.getElementById("servicesChart");
+        if (servicesEl) {
             if (this.servicesChart) {
-                this.servicesChart.data.labels = labels;
-                this.servicesChart.data.datasets[0].data = values;
-                this.servicesChart.update();
+                this.servicesChart.updateOptions(serviceOptions, true, true);
             } else {
-                this.servicesChart = new Chart(servicesCanvas, {
-                    type: "doughnut",
-                    data: {
-                        labels,
-                        datasets: [{
-                            data: values,
-                            backgroundColor: ["#d790ee", "#f5c66b", "#8fc3ff", "#9be3c1", "#f7a6a6", "#b4a7ff", "#f2a0df", "#7ad6cf"],
-                        }],
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: { legend: { position: "bottom" } },
-                    },
-                });
+                this.servicesChart = new window.ApexCharts(servicesEl, serviceOptions);
+                this.servicesChart.render();
+            }
+        }
+    },
+
+    renderAnalytics() {
+        const bookingsEntries = this.bookingsEntries || [];
+        const messagesEntries = this.messagesEntries || [];
+        const days = Number(this.analyticsPeriod?.value || 30);
+
+        const periodBookings = bookingsEntries.filter((entry) => this.isWithinDays(this.getEntryDate(entry), days));
+        const periodMessages = messagesEntries.filter((entry) => this.isWithinDays(this.getEntryDate(entry), days));
+
+        if (this.analyticsBookingsPeriod) this.analyticsBookingsPeriod.textContent = String(periodBookings.length);
+        if (this.analyticsMessagesPeriod) this.analyticsMessagesPeriod.textContent = String(periodMessages.length);
+        if (this.analyticsBookingsTotal) this.analyticsBookingsTotal.textContent = String(bookingsEntries.length);
+        if (this.analyticsMessagesTotal) this.analyticsMessagesTotal.textContent = String(messagesEntries.length);
+
+        this.renderAnalyticsCharts(days, periodBookings, periodMessages);
+    },
+
+    renderAnalyticsCharts(days, periodBookings, periodMessages) {
+        if (typeof window.ApexCharts === "undefined") return;
+        const theme = this.getChartTheme();
+
+        const bookingDaily = this.aggregateDailyCounts(periodBookings, days);
+        const messageDaily = this.aggregateDailyCounts(periodMessages, days);
+
+        const volumeOptions = {
+            chart: {
+                type: "bar",
+                height: 300,
+                stacked: false,
+                toolbar: { show: false },
+                fontFamily: "Manrope, sans-serif",
+            },
+            series: [
+                { name: "Bookings", data: bookingDaily.counts },
+                { name: "Messages", data: messageDaily.counts },
+            ],
+            plotOptions: {
+                bar: {
+                    borderRadius: 6,
+                    columnWidth: "52%",
+                },
+            },
+            xaxis: {
+                categories: bookingDaily.labels,
+                labels: { style: { colors: theme.text, fontSize: "10px" } },
+            },
+            yaxis: {
+                min: 0,
+                labels: { style: { colors: theme.text, fontSize: "11px" } },
+            },
+            colors: [theme.primary, theme.secondary],
+            grid: { borderColor: theme.grid },
+            dataLabels: { enabled: false },
+            legend: { position: "bottom", labels: { colors: theme.text } },
+            tooltip: { theme: document.documentElement.classList.contains("dark") ? "dark" : "light" },
+        };
+
+        const volumeEl = document.getElementById("volumeChart");
+        if (volumeEl) {
+            if (this.volumeChart) {
+                this.volumeChart.updateOptions(volumeOptions, true, true);
+            } else {
+                this.volumeChart = new window.ApexCharts(volumeEl, volumeOptions);
+                this.volumeChart.render();
+            }
+        }
+
+        const statusCounts = { pending: 0, approved: 0, rejected: 0 };
+        periodBookings.forEach((entry) => {
+            const key = String(entry.status || "pending").toLowerCase();
+            if (key === "approved" || key === "rejected") {
+                statusCounts[key] += 1;
+            } else {
+                statusCounts.pending += 1;
+            }
+        });
+
+        const statusOptions = {
+            chart: {
+                type: "donut",
+                height: 280,
+                fontFamily: "Manrope, sans-serif",
+            },
+            labels: ["Pending", "Approved", "Rejected"],
+            series: [statusCounts.pending, statusCounts.approved, statusCounts.rejected],
+            colors: [theme.warning, theme.success, theme.danger],
+            legend: { position: "bottom", labels: { colors: theme.text } },
+            dataLabels: { enabled: false },
+            noData: { text: "No booking data" },
+        };
+
+        const statusEl = document.getElementById("analyticsStatusChart");
+        if (statusEl) {
+            if (this.analyticsStatusChart) {
+                this.analyticsStatusChart.updateOptions(statusOptions, true, true);
+            } else {
+                this.analyticsStatusChart = new window.ApexCharts(statusEl, statusOptions);
+                this.analyticsStatusChart.render();
+            }
+        }
+
+        const methodCounts = { "Phone call": 0, Email: 0, WhatsApp: 0 };
+        periodBookings.forEach((entry) => {
+            const method = String(entry.communicationMethod || "Phone call").trim();
+            if (methodCounts[method] !== undefined) {
+                methodCounts[method] += 1;
+            } else {
+                methodCounts["Phone call"] += 1;
+            }
+        });
+
+        const contactOptions = {
+            chart: {
+                type: "bar",
+                height: 280,
+                toolbar: { show: false },
+                fontFamily: "Manrope, sans-serif",
+            },
+            series: [{
+                name: "Requests",
+                data: [methodCounts["Phone call"], methodCounts.Email, methodCounts.WhatsApp],
+            }],
+            xaxis: {
+                categories: ["Phone", "Email", "WhatsApp"],
+                labels: { style: { colors: theme.text } },
+            },
+            yaxis: {
+                min: 0,
+                labels: { style: { colors: theme.text } },
+            },
+            colors: [theme.primary],
+            plotOptions: {
+                bar: {
+                    borderRadius: 8,
+                    distributed: true,
+                },
+            },
+            grid: { borderColor: theme.grid },
+            dataLabels: { enabled: false },
+            legend: { show: false },
+            tooltip: { theme: document.documentElement.classList.contains("dark") ? "dark" : "light" },
+        };
+
+        const contactEl = document.getElementById("analyticsContactChart");
+        if (contactEl) {
+            if (this.analyticsContactChart) {
+                this.analyticsContactChart.updateOptions(contactOptions, true, true);
+            } else {
+                this.analyticsContactChart = new window.ApexCharts(contactEl, contactOptions);
+                this.analyticsContactChart.render();
             }
         }
     },
