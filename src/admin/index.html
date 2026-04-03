@@ -5,7 +5,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>PureLux Admin Dashboard</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet"/>
     <script id="tailwind-config">
         tailwind.config = {
@@ -60,7 +60,7 @@
 
     <div id="mainContent" class="flex flex-col lg:flex-row min-h-screen blur-sm pointer-events-none">
         <!-- Dashboard Sidebar -->
-        <aside class="w-full lg:w-60 bg-white dark:bg-surface border-r border-primary/20 p-4 lg:p-5 flex flex-col gap-6 sticky top-0 h-screen">
+        <aside class="w-full lg:w-56 bg-white dark:bg-surface border-b lg:border-b-0 lg:border-r border-primary/20 p-3 lg:p-4 flex flex-col gap-4 sticky top-0 z-40 h-auto lg:h-screen">
             <div class="flex items-center justify-between gap-3">
                 <div class="flex items-center gap-3 min-w-0">
                     <img src="../../assets/img/logo.png" alt="PureLux Logo" class="h-9 w-auto shrink-0">
@@ -71,95 +71,86 @@
                 </button>
             </div>
             
-            <nav class="flex flex-col gap-2.5 text-sm">
-                <a href="#" data-section="overview" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl bg-primary text-background-dark font-bold shadow-lg shadow-primary/20 transition-all">
+            <nav class="flex lg:flex-col gap-2 text-xs sm:text-sm overflow-x-auto lg:overflow-visible pb-1 lg:pb-0">
+                <a href="#" data-section="overview" class="nav-link shrink-0 flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-primary text-background-dark font-bold shadow-lg shadow-primary/20 transition-all">
                     <span class="material-symbols-outlined text-[18px]">dashboard</span> Overview
                 </a>
-                <a href="#" data-section="bookings" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-primary/10 transition-all font-semibold">
+                <a href="#" data-section="bookings" class="nav-link shrink-0 flex items-center gap-2.5 px-3 py-2.5 rounded-xl hover:bg-primary/10 transition-all font-semibold">
                     <span class="material-symbols-outlined text-[18px]">calendar_month</span> Bookings
                 </a>
-                <a href="#" data-section="services" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-primary/10 transition-all font-semibold">
+                <a href="#" data-section="services" class="nav-link shrink-0 flex items-center gap-2.5 px-3 py-2.5 rounded-xl hover:bg-primary/10 transition-all font-semibold">
                     <span class="material-symbols-outlined text-[18px]">auto_awesome</span> Services
                 </a>
-                <a href="#" data-section="analytics" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-primary/10 transition-all font-semibold">
+                <a href="#" data-section="analytics" class="nav-link shrink-0 flex items-center gap-2.5 px-3 py-2.5 rounded-xl hover:bg-primary/10 transition-all font-semibold">
                     <span class="material-symbols-outlined text-[18px]">trending_up</span> Analytics
                 </a>
-                <a href="#" data-section="messages" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-primary/10 transition-all font-semibold">
+                <a href="#" data-section="messages" class="nav-link shrink-0 flex items-center gap-2.5 px-3 py-2.5 rounded-xl hover:bg-primary/10 transition-all font-semibold">
                     <span class="material-symbols-outlined text-[18px]">mail</span> Messages
                 </a>
-                <div class="h-px bg-primary/10 my-4"></div>
-                <a href="../../index.html" target="_blank" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-primary/10 transition-all font-semibold">
+                <div class="hidden lg:block h-px bg-primary/10 my-2"></div>
+                <a href="../../index.html" target="_blank" class="nav-link shrink-0 flex items-center gap-2.5 px-3 py-2.5 rounded-xl hover:bg-primary/10 transition-all font-semibold">
                     <span class="material-symbols-outlined text-[18px]">visibility</span> Visit Site
                 </a>
-                <button id="logoutBtn" class="flex items-center gap-3 px-4 py-3 rounded-xl text-rose-500 hover:bg-rose-500/10 transition-all font-bold mt-auto">
+                <button id="logoutBtn" class="shrink-0 flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-rose-500 hover:bg-rose-500/10 transition-all font-bold lg:mt-auto">
                     <span class="material-symbols-outlined text-[18px]">logout</span> Log Out
                 </button>
             </nav>
         </aside>
 
         <!-- Main Workspace -->
-        <main class="flex-1 p-6 lg:p-10">
+        <main class="flex-1 p-4 sm:p-6 lg:p-8">
             <p id="adminActionFeedback" class="hidden"></p>
 
             <!-- OVERVIEW SECTION -->
             <div id="overview" class="admin-section space-y-16">
-                <header class="flex flex-col md:flex-row md:items-center justify-between gap-8">
+                <header class="flex items-center justify-between gap-4">
                     <div>
                         <h1 class="text-2xl md:text-3xl font-black tracking-tight mb-2">Dashboard</h1>
                         <p class="text-slate-500 dark:text-slate-400 text-sm max-w-xl">Overview of bookings and performance.</p>
                     </div>
-                    <div class="flex items-center gap-4 bg-white dark:bg-surface p-4 rounded-3xl border border-primary/20 shadow-sm">
-                        <div class="h-12 w-12 rounded-2xl overflow-hidden border-2 border-primary/30">
-                            <img src="../../assets/img/n1.jpeg" alt="Admin" class="object-cover w-full h-full">
-                        </div>
-                        <div>
-                            <p class="font-black">PureLux Admin</p>
-                            <span class="text-xs bg-primary/20 text-primary px-3 py-1 rounded-full font-black uppercase tracking-widest">Master Manager</span>
-                        </div>
-                    </div>
                 </header>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
                     <!-- Luxury Stat Card: Bookings -->
-                    <div class="bg-gradient-to-br from-white to-slate-50 dark:from-surface dark:to-surface/80 p-8 rounded-[2rem] border border-primary/20 shadow-lg hover:shadow-xl hover:border-primary/40 transition-all duration-300 group">
-                        <div class="flex items-center justify-between mb-6">
-                            <div class="p-4 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 text-primary group-hover:from-primary group-hover:to-primary/80 group-hover:text-background-dark transition-all duration-300">
-                                <span class="material-symbols-outlined text-3xl">calendar_month</span>
+                    <div class="bg-gradient-to-br from-white to-slate-50 dark:from-surface dark:to-surface/80 p-5 rounded-2xl border border-primary/20 shadow-sm hover:shadow-md hover:border-primary/35 transition-all duration-300 group">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="p-3 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 text-primary group-hover:from-primary group-hover:to-primary/80 group-hover:text-background-dark transition-all duration-300">
+                                <span class="material-symbols-outlined text-2xl">calendar_month</span>
                             </div>
-                            <span class="text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">Live</span>
+                            <span class="text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">Live</span>
                         </div>
                         <p class="text-slate-500 dark:text-slate-400 text-xs uppercase font-bold tracking-widest mb-1">Total Bookings</p>
-                        <p id="statBookings" class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-4">0</p>
+                        <p id="statBookings" class="text-2xl md:text-3xl font-black text-slate-900 dark:text-white mb-3">0</p>
                         <div class="h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
                             <div id="bookingsProgress" class="h-full bg-gradient-to-r from-primary to-primary/60 transition-all duration-500" style="width: 0%"></div>
                         </div>
                     </div>
 
                     <!-- Luxury Stat Card: Services -->
-                    <div class="bg-gradient-to-br from-white to-slate-50 dark:from-surface dark:to-surface/80 p-8 rounded-[2rem] border border-primary/20 shadow-lg hover:shadow-xl hover:border-primary/40 transition-all duration-300 group">
-                        <div class="flex items-center justify-between mb-6">
-                            <div class="p-4 rounded-xl bg-gradient-to-br from-amber-500/20 to-amber-500/10 text-amber-600 dark:text-amber-400 group-hover:from-amber-500 group-hover:to-amber-400 group-hover:text-white transition-all duration-300">
-                                <span class="material-symbols-outlined text-3xl">auto_awesome</span>
+                    <div class="bg-gradient-to-br from-white to-slate-50 dark:from-surface dark:to-surface/80 p-5 rounded-2xl border border-primary/20 shadow-sm hover:shadow-md hover:border-primary/35 transition-all duration-300 group">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="p-3 rounded-xl bg-gradient-to-br from-amber-500/20 to-amber-500/10 text-amber-600 dark:text-amber-400 group-hover:from-amber-500 group-hover:to-amber-400 group-hover:text-white transition-all duration-300">
+                                <span class="material-symbols-outlined text-2xl">auto_awesome</span>
                             </div>
-                            <span class="text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-full bg-amber-500/15 text-amber-600 dark:text-amber-400">Active</span>
+                            <span class="text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full bg-amber-500/15 text-amber-600 dark:text-amber-400">Active</span>
                         </div>
                         <p class="text-slate-500 dark:text-slate-400 text-xs uppercase font-bold tracking-widest mb-1">Services Offered</p>
-                        <p id="statServices" class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-4">0</p>
+                        <p id="statServices" class="text-2xl md:text-3xl font-black text-slate-900 dark:text-white mb-3">0</p>
                         <div class="h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
                             <div id="servicesProgress" class="h-full bg-gradient-to-r from-amber-500 to-amber-400 transition-all duration-500" style="width: 0%"></div>
                         </div>
                     </div>
 
                     <!-- Luxury Stat Card: Messages -->
-                    <div class="bg-gradient-to-br from-white to-slate-50 dark:from-surface dark:to-surface/80 p-8 rounded-[2rem] border border-primary/20 shadow-lg hover:shadow-xl hover:border-primary/40 transition-all duration-300 group">
-                        <div class="flex items-center justify-between mb-6">
-                            <div class="p-4 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 text-primary group-hover:from-primary group-hover:to-primary/80 group-hover:text-background-dark transition-all duration-300">
-                                <span class="material-symbols-outlined text-3xl">mail</span>
+                    <div class="bg-gradient-to-br from-white to-slate-50 dark:from-surface dark:to-surface/80 p-5 rounded-2xl border border-primary/20 shadow-sm hover:shadow-md hover:border-primary/35 transition-all duration-300 group">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="p-3 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 text-primary group-hover:from-primary group-hover:to-primary/80 group-hover:text-background-dark transition-all duration-300">
+                                <span class="material-symbols-outlined text-2xl">mail</span>
                             </div>
-                            <span class="text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-full bg-primary/15 text-primary">Inbox</span>
+                            <span class="text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full bg-primary/15 text-primary">Inbox</span>
                         </div>
                         <p class="text-slate-500 dark:text-slate-400 text-xs uppercase font-bold tracking-widest mb-1">Customer Messages</p>
-                        <p id="statClients" class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-4">0</p>
+                        <p id="statClients" class="text-2xl md:text-3xl font-black text-slate-900 dark:text-white mb-3">0</p>
                         <div class="h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
                             <div id="messagesProgress" class="h-full bg-gradient-to-r from-primary to-primary/60 transition-all duration-500" style="width: 0%"></div>
                         </div>
@@ -167,23 +158,23 @@
                 </div>
 
                 <!-- Premium Charts Section -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-8">
                     <!-- Bookings Chart -->
-                    <div class="bg-gradient-to-br from-white to-slate-50 dark:from-surface dark:to-surface/80 p-8 rounded-[2rem] border border-primary/20 shadow-lg">
-                        <div class="mb-6">
+                    <div class="bg-gradient-to-br from-white to-slate-50 dark:from-surface dark:to-surface/80 p-5 rounded-2xl border border-primary/20 shadow-sm">
+                        <div class="mb-4">
                             <h3 class="text-lg font-black text-slate-900 dark:text-white">Bookings Trend</h3>
                             <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">30-day performance overview</p>
                         </div>
-                        <canvas id="bookingsChart" height="300"></canvas>
+                        <div id="bookingsChart" class="h-[260px]"></div>
                     </div>
 
                     <!-- Services Distribution Chart -->
-                    <div class="bg-gradient-to-br from-white to-slate-50 dark:from-surface dark:to-surface/80 p-8 rounded-[2rem] border border-primary/20 shadow-lg">
-                        <div class="mb-6">
+                    <div class="bg-gradient-to-br from-white to-slate-50 dark:from-surface dark:to-surface/80 p-5 rounded-2xl border border-primary/20 shadow-sm">
+                        <div class="mb-4">
                             <h3 class="text-lg font-black text-slate-900 dark:text-white">Services Distribution</h3>
                             <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Popular services breakdown</p>
                         </div>
-                        <canvas id="servicesChart" height="300"></canvas>
+                        <div id="servicesChart" class="h-[260px]"></div>
                     </div>
                 </div>
 
@@ -282,7 +273,7 @@
                 </section>
             </div>
 
-            <div id="analytics" class="admin-section hidden space-y-8">
+            <div id="analytics" class="admin-section hidden space-y-6">
                 <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
                     <div>
                         <h1 class="text-2xl md:text-3xl font-black tracking-tight">Analytics</h1>
@@ -319,11 +310,26 @@
 
                 <section class="rounded-[1.5rem] border border-primary/15 bg-white dark:bg-surface p-5 md:p-6 shadow-sm">
                     <div class="mb-4">
-                        <h2 class="text-lg font-black text-slate-900 dark:text-slate-100">Bookings vs Messages</h2>
+                        <h2 class="text-lg font-black text-slate-900 dark:text-slate-100">Daily Bookings vs Messages</h2>
                         <p class="text-xs text-slate-500 dark:text-slate-400">Daily trend for selected period.</p>
                     </div>
-                    <div class="h-[320px]">
-                        <canvas id="volumeChart"></canvas>
+                    <div id="volumeChart" class="h-[300px]"></div>
+                </section>
+
+                <section class="grid grid-cols-1 xl:grid-cols-2 gap-5">
+                    <div class="rounded-[1.5rem] border border-primary/15 bg-white dark:bg-surface p-5 md:p-6 shadow-sm">
+                        <div class="mb-4">
+                            <h2 class="text-lg font-black text-slate-900 dark:text-slate-100">Booking Status Split</h2>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Pending, approved, rejected in selected period.</p>
+                        </div>
+                        <div id="analyticsStatusChart" class="h-[280px]"></div>
+                    </div>
+                    <div class="rounded-[1.5rem] border border-primary/15 bg-white dark:bg-surface p-5 md:p-6 shadow-sm">
+                        <div class="mb-4">
+                            <h2 class="text-lg font-black text-slate-900 dark:text-slate-100">Contact Method Mix</h2>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">How clients prefer to be contacted.</p>
+                        </div>
+                        <div id="analyticsContactChart" class="h-[280px]"></div>
                     </div>
                 </section>
             </div>
