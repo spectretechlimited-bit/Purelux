@@ -9,8 +9,8 @@ import { getStorage } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-s
 //   In that case, this module will throw unless you provide window.__ENV.
 const env = (typeof import.meta !== 'undefined' && import.meta.env)
     ? import.meta.env
-    : (typeof window !== 'undefined' && window.__ENV)
-        ? window.__ENV
+    : (typeof window !== 'undefined' && (window.__ENV || window.__FIREBASE_ENV))
+        ? (window.__ENV || window.__FIREBASE_ENV)
         : {};
 
 const firebaseConfig = {
@@ -24,7 +24,7 @@ const firebaseConfig = {
 };
 
 if (!firebaseConfig.apiKey || !firebaseConfig.authDomain || !firebaseConfig.projectId) {
-    throw new Error('Firebase environment variables are missing.');
+    throw new Error('Firebase environment variables are missing. For static HTML pages load assets/js/firebase-env.js before using firebase.js.');
 }
 
 const app = initializeApp(firebaseConfig);
