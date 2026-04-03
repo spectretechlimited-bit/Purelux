@@ -168,12 +168,32 @@ const AdminApp = {
         const servicesSnapshot = await getDocs(collection(db, "services"));
         const messagesSnapshot = await getDocs(collection(db, "messages"));
 
-        if (this.statBookings) this.statBookings.textContent = String(bookingsSnapshot.size);
-        if (this.statServices) this.statServices.textContent = String(servicesSnapshot.size);
-        if (this.statClients) this.statClients.textContent = String(messagesSnapshot.size);
-        if (this.statBookingsClone) this.statBookingsClone.textContent = String(bookingsSnapshot.size);
-        if (this.statServicesClone) this.statServicesClone.textContent = String(servicesSnapshot.size);
-        if (this.statMessagesClone) this.statMessagesClone.textContent = String(messagesSnapshot.size);
+        const bookingsCount = bookingsSnapshot.size;
+        const servicesCount = servicesSnapshot.size;
+        const messagesCount = messagesSnapshot.size;
+
+        if (this.statBookings) this.statBookings.textContent = String(bookingsCount);
+        if (this.statServices) this.statServices.textContent = String(servicesCount);
+        if (this.statClients) this.statClients.textContent = String(messagesCount);
+        if (this.statBookingsClone) this.statBookingsClone.textContent = String(bookingsCount);
+        if (this.statServicesClone) this.statServicesClone.textContent = String(servicesCount);
+        if (this.statMessagesClone) this.statMessagesClone.textContent = String(messagesCount);
+
+        // Progress bars
+        const bookingsProgress = Math.min((bookingsCount / 100) * 100, 100);
+        const servicesProgress = Math.min((servicesCount / 50) * 100, 100);
+        const messagesProgress = Math.min((messagesCount / 100) * 100, 100);
+
+        const bookingsProgressBar = document.getElementById("bookingsProgress");
+        const servicesProgressBar = document.getElementById("servicesProgress");
+        const messagesProgressBar = document.getElementById("messagesProgress");
+
+        if (bookingsProgressBar) bookingsProgressBar.style.width = `${bookingsProgress}%`;
+        if (servicesProgressBar) servicesProgressBar.style.width = `${servicesProgress}%`;
+        if (messagesProgressBar) messagesProgressBar.style.width = `${messagesProgress}%`;
+
+        // Initialize charts
+        this.initializeCharts(bookingsSnapshot.docs, servicesSnapshot.docs);
     },
 
     renderStatusBadge(status) {
