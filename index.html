@@ -90,8 +90,8 @@
 <section class="relative overflow-hidden pt-6 pb-20 lg:pt-8 lg:pb-32">
 <div class="max-w-7xl mx-auto px-4 sm:px-6">
 <div class="grid lg:grid-cols-2 gap-16 items-center relative min-h-[560px] lg:min-h-0">
-<div class="relative z-10 flex flex-col gap-4 sm:gap-6 bg-white/80 dark:bg-background-dark/70 backdrop-blur-xl rounded-[2rem] p-5 sm:p-8 border border-white/60 dark:border-white/10 shadow-2xl lg:bg-transparent lg:backdrop-blur-0 lg:rounded-none lg:p-0 lg:border-0 lg:shadow-none lg:order-1">
-<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 w-fit">
+<div class="absolute inset-0 z-10 flex flex-col justify-end gap-4 p-5 sm:p-8 lg:relative lg:inset-auto lg:justify-start lg:gap-6 lg:p-0 lg:order-1">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 border border-primary/30 w-fit backdrop-blur-sm">
 <span class="relative flex h-2 w-2">
 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
 <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
@@ -99,10 +99,10 @@
 <span class="text-xs font-bold uppercase tracking-widest text-primary">Now Open in Kahawa Wendani</span>
 </div>
 <div class="flex flex-col gap-3">
-<h2 class="text-3xl sm:text-4xl lg:text-7xl font-black leading-[1.05] tracking-tight text-slate-800 dark:text-slate-100 min-h-[1.2em] sm:min-h-[2.2em] lg:min-h-[2.2em]">
-                                Professional <br class="hidden lg:block"><span class="text-primary" id="typing-text">Braiding</span>
+<h2 class="text-3xl sm:text-4xl lg:text-7xl font-black leading-[1.05] tracking-tight text-white lg:text-slate-800 dark:lg:text-slate-100 min-h-[2.4em] sm:min-h-[2.2em] lg:min-h-[2.2em]">
+                                Professional<br><span class="text-primary inline-block min-h-[1.1em]" id="typing-text">Braiding</span>
                             </h2>
-<p class="text-base sm:text-lg lg:text-xl text-slate-600 dark:text-slate-300 max-w-lg leading-relaxed">
+<p class="text-base sm:text-lg lg:text-xl text-slate-100/90 lg:text-slate-600 dark:lg:text-slate-300 max-w-lg leading-relaxed">
                                 At PureLux, we combine expert styling, top-tier hygiene and attention to detail. Whether it’s a quick glow-up or a full transformation, we’ve got you covered. Treat yourself now — you deserve it.
                             </p>
 </div>
@@ -166,7 +166,7 @@
 <img alt="Client" class="h-10 w-10 rounded-full border-2 border-white dark:border-background-dark" data-alt="Client testimonial avatar 2" src="assets/img/n2.jpeg"/>
 <img alt="Client" class="h-10 w-10 rounded-full border-2 border-white dark:border-background-dark" data-alt="Client testimonial avatar 3" src="assets/img/n3.jpeg"/>
 </div>
-<p class="text-sm text-slate-500 dark:text-slate-400 font-medium"><span class="text-slate-800 dark:text-slate-100 font-bold">5000+</span> Satisfied Clients</p>
+<p class="text-sm text-slate-100/90 lg:text-slate-500 dark:lg:text-slate-400 font-medium"><span class="text-white lg:text-slate-800 dark:lg:text-slate-100 font-bold">5000+</span> Satisfied Clients</p>
 </div>
 </div>
 <div class="absolute inset-0 lg:static lg:order-2 lg:col-start-2 lg:col-end-3 pointer-events-none lg:pointer-events-auto">
@@ -194,6 +194,7 @@
         <!-- Clone of first slide for seamless loop -->
         <img alt="Nail Art" class="w-full shrink-0 object-cover" src="assets/img/n1.jpeg"/>
     </div>
+    <div class="absolute inset-0 bg-gradient-to-t from-background-dark/75 via-background-dark/35 to-transparent lg:hidden"></div>
     
     <!-- Navigation Arrows -->
     <button onclick="manualMove(-1)" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 backdrop-blur-md text-white p-2 rounded-full transition-all opacity-0 group-hover:opacity-100 hidden lg:flex">
@@ -384,8 +385,8 @@
 <img alt="Gallery 6" class="rounded-2xl w-full h-64 object-cover shadow-lg" data-alt="Macro of hair texture after treatment" src="assets/img/h6.jpeg"/>
 </div>
 <div class="space-y-6 pt-12">
-<img alt="Gallery 7" class="rounded-2xl w-full h-64 object-cover shadow-lg" data-alt="Close up portrait with artistic hair design" src="assets/img/h7.jpeg"/>
-<img alt="Gallery 8" class="rounded-2xl w-full h-80 object-cover shadow-lg" data-alt="Woman checking hair in a mirror" src="assets/img/h8.jpeg"/>
+<img alt="Gallery 7" class="rounded-2xl w-full h-52 sm:h-64 object-cover shadow-lg" data-alt="Close up portrait with artistic hair design" src="assets/img/h7.jpeg"/>
+<img alt="Gallery 8" class="rounded-2xl w-full h-64 sm:h-80 object-cover shadow-lg" data-alt="Woman checking hair in a mirror" src="assets/img/h8.jpeg"/>
 </div>
 </div>
 </div>
@@ -393,14 +394,14 @@
 <!-- CTA Section -->
 <section class="py-24">
 <div class="max-w-7xl mx-auto px-6">
-<div class="relative bg-primary p-12 lg:p-20 rounded-[2rem] overflow-hidden text-center">
+<div class="relative bg-primary p-7 sm:p-10 lg:p-20 rounded-[2rem] overflow-hidden text-center">
 <div class="absolute inset-0 opacity-10" style="background-image: url('assets/img/h1.jpeg');"></div>
 <div class="relative flex flex-col items-center gap-8">
-<h2 class="text-4xl lg:text-5xl font-black text-background-dark max-w-3xl">Ready to Elevate Your Look to the Next Level?</h2>
-<p class="text-background-dark/80 text-lg font-medium max-w-xl">
+<h2 class="text-2xl sm:text-3xl lg:text-5xl font-black text-background-dark max-w-3xl">Ready to Elevate Your Look to the Next Level?</h2>
+<p class="text-background-dark/80 text-base sm:text-lg font-medium max-w-xl">
                             Join the hundreds of satisfied clients who trust Purelux for their beauty needs.
                         </p>
-            <a class="px-10 py-5 bg-background-dark text-primary font-black rounded-2xl text-xl hover:scale-105 transition-all shadow-2xl" href="src/pages/booking.html">
+            <a class="px-6 py-3.5 sm:px-8 sm:py-4 lg:px-10 lg:py-5 bg-background-dark text-primary font-black rounded-2xl text-base sm:text-lg lg:text-xl hover:scale-105 transition-all shadow-2xl" href="src/pages/booking.html">
                             Schedule Your Visit Now
                         </a>
 </div>
@@ -415,7 +416,7 @@
 <div class="space-y-6 col-span-2 md:col-span-1">
 <div class="flex items-center gap-3">
 <img src="assets/img/logo.png" alt="PureLux Logo" class="h-10 w-auto shrink-0">
-<h2 class="hidden sm:block text-xl font-extrabold">
+<h2 class="text-base sm:text-xl font-extrabold">
     <span class="text-slate-900 dark:text-slate-100">PureLux</span><span class="text-primary"> Beauty Parlour</span>
 </h2>
 </div>
