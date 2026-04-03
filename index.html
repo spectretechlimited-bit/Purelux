@@ -66,7 +66,11 @@
 <div class="fixed inset-0 z-40 bg-black/50 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden" data-mobile-menu-backdrop></div>
 <aside class="fixed inset-y-0 left-0 z-50 w-80 max-w-[85vw] -translate-x-full transform bg-white dark:bg-background-dark border-r border-primary/10 shadow-2xl transition-transform duration-300 ease-out md:hidden" data-mobile-menu id="mobile-menu">
 <div class="flex h-full flex-col">
-<div class="flex justify-end border-b border-primary/10 px-6 py-5">
+<div class="flex items-center justify-between border-b border-primary/10 px-6 py-5">
+<div class="flex items-center gap-3 min-w-0">
+<img src="assets/img/logo.png" alt="PureLux Logo" class="h-9 w-auto shrink-0">
+<h2 class="text-base font-extrabold text-slate-900 dark:text-slate-100 truncate">PureLux</h2>
+</div>
 <button class="rounded-full border border-primary/20 p-2 text-slate-700 dark:text-slate-200" type="button" data-mobile-menu-close aria-label="Close menu">
 <span class="material-symbols-outlined text-sm">close</span>
 </button>
@@ -86,7 +90,7 @@
 <section class="relative overflow-hidden pt-6 pb-20 lg:pt-8 lg:pb-32">
 <div class="max-w-7xl mx-auto px-4 sm:px-6">
 <div class="grid lg:grid-cols-2 gap-16 items-center relative min-h-[560px] lg:min-h-0">
-<div class="absolute inset-0 lg:static lg:order-2 lg:col-start-2 lg:col-end-3">
+<div class="relative z-10 flex flex-col gap-4 sm:gap-6 bg-white/80 dark:bg-background-dark/70 backdrop-blur-xl rounded-[2rem] p-5 sm:p-8 border border-white/60 dark:border-white/10 shadow-2xl lg:bg-transparent lg:backdrop-blur-0 lg:rounded-none lg:p-0 lg:border-0 lg:shadow-none lg:order-1">
 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 w-fit">
 <span class="relative flex h-2 w-2">
 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
@@ -94,7 +98,6 @@
 </span>
 <span class="text-xs font-bold uppercase tracking-widest text-primary">Now Open in Kahawa Wendani</span>
 </div>
-<div class="relative z-10 flex flex-col gap-4 sm:gap-6 bg-white/80 dark:bg-background-dark/70 backdrop-blur-xl rounded-[2rem] p-5 sm:p-8 border border-white/60 dark:border-white/10 shadow-2xl lg:bg-transparent lg:backdrop-blur-0 lg:rounded-none lg:p-0 lg:border-0 lg:shadow-none">
 <div class="flex flex-col gap-3">
 <h2 class="text-3xl sm:text-4xl lg:text-7xl font-black leading-[1.05] tracking-tight text-slate-800 dark:text-slate-100 min-h-[1.2em] sm:min-h-[2.2em] lg:min-h-[2.2em]">
                                 Professional <br class="hidden lg:block"><span class="text-primary" id="typing-text">Braiding</span>
@@ -149,11 +152,11 @@
         type();
     });
 </script>
-<div class="flex flex-wrap gap-4 mt-2">
-                        <a class="px-8 py-4 bg-primary text-background-dark font-bold rounded-xl text-lg hover:shadow-[0_0_20px_rgba(215,144,238,0.4)] transition-all" href="src/pages/booking.html">
+<div class="mt-2 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:gap-4">
+                        <a class="w-full px-4 py-3 sm:w-auto sm:px-8 sm:py-4 bg-primary text-background-dark font-bold rounded-xl text-sm sm:text-lg hover:shadow-[0_0_20px_rgba(215,144,238,0.4)] transition-all text-center" href="src/pages/booking.html">
                                 Book Now
                             </a>
-                        <a class="px-8 py-4 bg-white dark:bg-surface border border-primary/20 text-slate-800 dark:text-slate-100 font-bold rounded-xl text-lg hover:bg-primary/10 transition-all" href="src/pages/services.html">
+                        <a class="w-full px-4 py-3 sm:w-auto sm:px-8 sm:py-4 bg-white dark:bg-surface border border-primary/20 text-slate-800 dark:text-slate-100 font-bold rounded-xl text-sm sm:text-lg hover:bg-primary/10 transition-all text-center" href="src/pages/services.html">
                                 View Services
                             </a>
 </div>
@@ -166,8 +169,8 @@
 <p class="text-sm text-slate-500 dark:text-slate-400 font-medium"><span class="text-slate-800 dark:text-slate-100 font-bold">5000+</span> Satisfied Clients</p>
 </div>
 </div>
-<div class="relative">
-<div class="absolute -inset-4 bg-primary/20 blur-3xl rounded-full"></div>
+<div class="absolute inset-0 lg:static lg:order-2 lg:col-start-2 lg:col-end-3 pointer-events-none lg:pointer-events-auto">
+<div class="absolute -inset-4 bg-primary/20 blur-3xl rounded-full hidden lg:block"></div>
 <div class="relative rounded-3xl overflow-hidden border border-primary/20 shadow-2xl bg-surface group h-full lg:h-auto">
     <div id="hero-slider" class="relative w-full h-full aspect-[4/4.2] lg:aspect-[4/4.2] flex transition-transform duration-700 ease-in-out">
         <img alt="Nail Art" class="w-full shrink-0 object-cover" src="assets/img/n1.jpeg"/>
