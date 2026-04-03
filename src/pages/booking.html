@@ -90,16 +90,16 @@
 <main class="relative overflow-hidden">
 <section class="relative py-12 sm:py-14 lg:py-16">
 <div class="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-background-dark/10 dark:from-primary/10 dark:via-transparent dark:to-background-dark/40 pointer-events-none"></div>
-<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+<div class="max-w-5xl xl:max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 <div class="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
 <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 w-fit mx-auto text-xs font-bold uppercase tracking-widest text-primary">Booking</span>
 <h2 class="mt-4 text-3xl sm:text-4xl lg:text-5xl font-black leading-tight tracking-tight text-slate-900 dark:text-slate-100">Book your glam session</h2>
 <p class="mt-3 text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">Choose your details below and we’ll send a confirmation by phone or email.</p>
 </div>
 
-<div class="rounded-[2rem] border border-primary/10 bg-white dark:bg-slate-900 shadow-[0_20px_70px_rgba(15,10,20,0.08)] dark:shadow-[0_20px_70px_rgba(0,0,0,0.35)] p-5 sm:p-6 lg:p-8 max-w-4xl mx-auto">
-<form class="grid gap-5 sm:gap-6" data-booking-form>
-<div class="rounded-[1.5rem] border border-primary/15 bg-primary/5 dark:bg-primary/10 px-4 py-4">
+<div class="w-full rounded-[2rem] border border-primary/10 bg-white dark:bg-slate-900 shadow-[0_20px_70px_rgba(15,10,20,0.08)] dark:shadow-[0_20px_70px_rgba(0,0,0,0.35)] p-5 sm:p-6 lg:p-8">
+<form class="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6" data-booking-form>
+<div class="rounded-[1.5rem] border border-primary/15 bg-primary/5 dark:bg-primary/10 px-4 py-4 lg:col-span-2">
 <div class="flex items-start gap-3">
 <span class="material-symbols-outlined text-primary mt-0.5">schedule</span>
 <div>
@@ -110,16 +110,14 @@
 </div>
 </div>
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
 <label class="flex flex-col gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300">
 <span>Full Name</span>
 <input name="clientName" required class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-base text-slate-900 placeholder:text-slate-400 outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:placeholder:text-slate-500" placeholder="Jane Doe" type="text"/>
 </label>
 <label class="flex flex-col gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300">
 <span>Phone Number</span>
-<input name="phone" required class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-base text-slate-900 placeholder:text-slate-400 outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:placeholder:text-slate-500" placeholder="+254 700 000 000" type="tel"/>
+<input name="phone" required class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-base text-slate-900 placeholder:text-slate-400 outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:placeholder:text-slate-500" placeholder="0741695450" type="tel"/>
 </label>
-</div>
 
 <label class="flex flex-col gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300">
 <span>Email Address</span>
@@ -132,7 +130,6 @@
 <input name="location" required class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-base text-slate-900 placeholder:text-slate-400 outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:placeholder:text-slate-500" placeholder="Your location" type="text"/>
 </label>
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
 <label class="flex flex-col gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300">
 <span>Appointment Date</span>
 <input name="date" required class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-base text-slate-900 outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100" type="date"/>
@@ -141,7 +138,6 @@
 <span>Preferred Time</span>
 <input name="time" required class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-base text-slate-900 outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100" type="time" step="900"/>
 </label>
-</div>
 
 <label class="flex flex-col gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300">
 <span>Preferred Communication Method</span>
@@ -152,12 +148,12 @@
 </select>
 </label>
 
-<label class="flex flex-col gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300">
+<label class="flex flex-col gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300 lg:col-span-2">
 <span>Service Description</span>
 <textarea name="serviceDescription" required class="w-full min-h-32 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-base text-slate-900 placeholder:text-slate-400 outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:placeholder:text-slate-500" placeholder="Tell us what style or treatment you want..."></textarea>
 </label>
 
-<div class="rounded-[1.5rem] border border-primary/15 bg-primary/5 dark:bg-primary/10 px-4 py-4">
+<div class="rounded-[1.5rem] border border-primary/15 bg-primary/5 dark:bg-primary/10 px-4 py-4 lg:col-span-2">
 <div class="flex items-start gap-3">
 <span class="material-symbols-outlined text-primary mt-0.5">mail</span>
 <div>
@@ -167,7 +163,7 @@
 </div>
 </div>
 
-<div class="flex items-center justify-between gap-4 pt-2">
+<div class="flex items-center justify-between gap-4 pt-2 lg:col-span-2">
 <p class="text-sm sm:text-base text-slate-600 dark:text-slate-400">Please provide accurate details so we can review your request quickly.</p>
 <button class="inline-flex items-center justify-center gap-2 rounded-2xl bg-primary px-7 py-4 font-extrabold text-background-dark shadow-xl shadow-primary/20 transition-all hover:-translate-y-0.5 hover:bg-primary/90" type="submit">
 Submit Booking
@@ -235,13 +231,13 @@ Submit Booking
 <h4 class="text-slate-800 dark:text-slate-100 font-bold mb-6">Location</h4>
 <ul class="space-y-4 text-slate-600 dark:text-slate-400">
 <li class="flex items-start gap-3">
-<span>Main Street, Kahawa Wendani<br/>Nairobi, Kenya</span>
+<span>Kahawa Wendani<br/>Nairobi, Kenya</span>
 </li>
                         <li class="flex items-center gap-3">
-                            <a class="hover:text-primary transition-colors" href="tel:+254700000000">+254 700 000 000</a>
+                            <a class="hover:text-primary transition-colors" href="tel:0741695450">0741695450</a>
                         </li>
                         <li class="flex items-center gap-3">
-                            <a class="hover:text-primary transition-colors" href="mailto:hello@pureluxbeautyparlour.com">hello@pureluxbeautyparlour.com</a>
+                            <a class="hover:text-primary transition-colors" href="mailto:mugendipurity003@gmail.com">mugendipurity003@gmail.com</a>
                         </li>
 </ul>
 </div>

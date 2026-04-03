@@ -10,6 +10,37 @@ const form = document.querySelector("[data-contact-form]");
 if (form) {
     const submitButton = form.querySelector("button[type='submit']");
     const feedback = document.getElementById("contactFormFeedback");
+    const successModal = document.getElementById("contactSuccessModal");
+    const successText = document.getElementById("contactSuccessText");
+    const successIcon = document.getElementById("contactSuccessIcon");
+    const closeButtons = successModal ? successModal.querySelectorAll("[data-close-contact-modal]") : [];
+
+    const closeModal = () => {
+        if (!successModal) return;
+        successModal.classList.add("hidden");
+        successModal.setAttribute("aria-hidden", "true");
+    };
+
+    const openModal = () => {
+        if (!successModal) return;
+        successModal.classList.remove("hidden");
+        successModal.setAttribute("aria-hidden", "false");
+
+        if (successIcon) {
+            successIcon.classList.remove("contact-success-play");
+            void successIcon.offsetWidth;
+            successIcon.classList.add("contact-success-play");
+        }
+    };
+
+    closeButtons.forEach((btn) => btn.addEventListener("click", closeModal));
+    if (successModal) {
+        successModal.addEventListener("click", (event) => {
+            if (event.target === successModal) {
+                closeModal();
+            }
+        });
+    }
 
     form.addEventListener("submit", async (event) => {
         event.preventDefault();
@@ -39,8 +70,14 @@ if (form) {
         try {
             await addDoc(collection(db, "messages"), payload);
             form.reset();
+
+            if (successText) {
+                successText.textContent = "Your message has been sent and is under review. We will get back to you shortly.";
+            }
+            openModal();
+
             if (feedback) {
-                feedback.textContent = "Message sent successfully. Our team will get back to you shortly.";
+                feedback.textContent = "Message sent and under review.";
                 feedback.className = "mt-4 rounded-xl border border-emerald-400/30 bg-emerald-500/10 px-4 py-3 text-sm font-semibold text-emerald-600 dark:text-emerald-300";
             } else {
                 alert("Message sent successfully.");

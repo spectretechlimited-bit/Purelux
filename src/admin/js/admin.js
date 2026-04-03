@@ -36,6 +36,11 @@ const AdminApp = {
         this.statBookingsClone = document.getElementById("statBookingsClone");
         this.statServicesClone = document.getElementById("statServicesClone");
         this.statMessagesClone = document.getElementById("statMessagesClone");
+        this.analyticsPeriod = document.getElementById("analyticsPeriod");
+        this.analyticsBookingsPeriod = document.getElementById("analyticsBookingsPeriod");
+        this.analyticsMessagesPeriod = document.getElementById("analyticsMessagesPeriod");
+        this.analyticsBookingsTotal = document.getElementById("analyticsBookingsTotal");
+        this.analyticsMessagesTotal = document.getElementById("analyticsMessagesTotal");
 
         this.bookingsTableBody = document.getElementById("bookingsTableBody");
         this.allBookingsTableBody = document.getElementById("allBookingsTableBody");
@@ -44,6 +49,7 @@ const AdminApp = {
         this.addServiceForm = document.getElementById("addServiceForm");
         this.serviceFormFeedback = document.getElementById("serviceFormFeedback");
         this.servicesAdminList = document.getElementById("servicesAdminList");
+        this.actionFeedback = document.getElementById("adminActionFeedback");
     },
 
     bindEvents() {
@@ -71,6 +77,17 @@ const AdminApp = {
             if (!target) return;
             const serviceId = target.getAttribute("data-delete-service");
             await this.deleteService(serviceId);
+        });
+
+        this.messagesTableBody?.addEventListener("click", async (event) => {
+            const target = event.target.closest("[data-delete-message]");
+            if (!target) return;
+            const messageId = target.getAttribute("data-delete-message");
+            await this.deleteMessage(messageId);
+        });
+
+        this.analyticsPeriod?.addEventListener("change", () => {
+            this.renderAnalytics();
         });
     },
 
@@ -135,16 +152,38 @@ const AdminApp = {
                 link.classList.add("hover:bg-primary/10");
             }
         });
+
+        if (id === "analytics") {
+            this.renderAnalytics();
+        }
+
+        if (id === "overview") {
+            this.bookingsChart?.resize();
+            this.servicesChart?.resize();
+        }
     },
 
     async loadAllData() {
-        await Promise.all([
+        await Promise.allSettled([
             this.loadOverviewStats(),
             this.loadRecentBookings(),
             this.loadAllBookings(),
             this.loadServicesAdminList(),
             this.loadMessages(),
         ]);
+    },
+
+    showActionFeedback(message, tone = "success") {
+        if (!this.actionFeedback) return;
+        this.actionFeedback.textContent = message;
+        this.actionFeedback.className = tone === "success"
+            ? "mb-6 rounded-xl border border-emerald-400/30 bg-emerald-500/10 px-4 py-3 text-sm font-semibold text-emerald-600"
+            : "mb-6 rounded-xl border border-rose-400/30 bg-rose-500/10 px-4 py-3 text-sm font-semibold text-rose-600";
+        this.actionFeedback.classList.remove("hidden");
+        window.clearTimeout(this.feedbackTimeout);
+        this.feedbackTimeout = window.setTimeout(() => {
+            this.actionFeedback?.classList.add("hidden");
+        }, 3500);
     },
 
     formatTimestamp(timestamp) {
@@ -167,6 +206,9 @@ const AdminApp = {
         const bookingsSnapshot = await getDocs(collection(db, "bookings"));
         const servicesSnapshot = await getDocs(collection(db, "services"));
         const messagesSnapshot = await getDocs(collection(db, "messages"));
+
+        this.bookingsDocs = bookingsSnapshot.docs;
+        this.messagesDocs = messagesSnapshot.docs;
 
         const bookingsCount = bookingsSnapshot.size;
         const servicesCount = servicesSnapshot.size;
@@ -194,6 +236,194 @@ const AdminApp = {
 
         // Initialize charts
         this.initializeCharts(bookingsSnapshot.docs, servicesSnapshot.docs);
+        this.renderAnalytics();
+    },
+
+    getEntryDate(data) {
+        const raw = data?.createdAt;
+        if (!raw) return null;
+        const date = typeof raw.toDate === "function" ? raw.toDate() : new Date(raw);
+        return Number.isNaN(date.getTime()) ? null : date;
+    },
+
+    isWithinDays(date, days) {
+        if (!date) return false;
+        const now = new Date();
+        const threshold = new Date(now);
+        threshold.setHours(0, 0, 0, 0);
+        threshold.setDate(threshold.getDate() - (days - 1));
+        return date >= threshold;
+    },
+
+    renderAnalytics() {
+        const bookingsDocs = this.bookingsDocs || [];
+        const messagesDocs = this.messagesDocs || [];
+        const days = Number(this.analyticsPeriod?.value || 30);
+
+        const bookingEntries = bookingsDocs.map((docSnap) => docSnap.data());
+        const messageEntries = messagesDocs.map((docSnap) => docSnap.data());
+
+        const bookingsInPeriod = bookingEntries.filter((entry) => this.isWithinDays(this.getEntryDate(entry), days)).length;
+        const messagesInPeriod = messageEntries.filter((entry) => this.isWithinDays(this.getEntryDate(entry), days)).length;
+
+        if (this.analyticsBookingsPeriod) this.analyticsBookingsPeriod.textContent = String(bookingsInPeriod);
+        if (this.analyticsMessagesPeriod) this.analyticsMessagesPeriod.textContent = String(messagesInPeriod);
+        if (this.analyticsBookingsTotal) this.analyticsBookingsTotal.textContent = String(bookingEntries.length);
+        if (this.analyticsMessagesTotal) this.analyticsMessagesTotal.textContent = String(messageEntries.length);
+
+        this.renderVolumeChart(days, bookingEntries, messageEntries);
+    },
+
+    renderVolumeChart(days, bookingEntries, messageEntries) {
+        const canvas = document.getElementById("volumeChart");
+        if (!canvas || typeof Chart === "undefined") return;
+
+        const labels = [];
+        const bookingCounts = [];
+        const messageCounts = [];
+
+        const now = new Date();
+        for (let offset = days - 1; offset >= 0; offset -= 1) {
+            const day = new Date(now);
+            day.setHours(0, 0, 0, 0);
+            day.setDate(day.getDate() - offset);
+
+            const dayStart = new Date(day);
+            const dayEnd = new Date(day);
+            dayEnd.setHours(23, 59, 59, 999);
+
+            labels.push(day.toLocaleDateString("en-US", { month: "short", day: "numeric" }));
+            bookingCounts.push(bookingEntries.filter((entry) => {
+                const date = this.getEntryDate(entry);
+                return date && date >= dayStart && date <= dayEnd;
+            }).length);
+            messageCounts.push(messageEntries.filter((entry) => {
+                const date = this.getEntryDate(entry);
+                return date && date >= dayStart && date <= dayEnd;
+            }).length);
+        }
+
+        if (this.volumeChart) {
+            this.volumeChart.data.labels = labels;
+            this.volumeChart.data.datasets[0].data = bookingCounts;
+            this.volumeChart.data.datasets[1].data = messageCounts;
+            this.volumeChart.update();
+            return;
+        }
+
+        this.volumeChart = new Chart(canvas, {
+            type: "bar",
+            data: {
+                labels,
+                datasets: [
+                    {
+                        label: "Bookings",
+                        data: bookingCounts,
+                        borderRadius: 6,
+                        backgroundColor: "rgba(215, 144, 238, 0.85)",
+                    },
+                    {
+                        label: "Messages",
+                        data: messageCounts,
+                        borderRadius: 6,
+                        backgroundColor: "rgba(99, 102, 241, 0.75)",
+                    },
+                ],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: "index",
+                    intersect: false,
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0,
+                        },
+                    },
+                },
+                plugins: {
+                    legend: {
+                        position: "bottom",
+                    },
+                },
+            },
+        });
+    },
+
+    initializeCharts(bookingsDocs, servicesDocs) {
+        if (typeof Chart === "undefined") return;
+
+        const bookingsCanvas = document.getElementById("bookingsChart");
+        if (bookingsCanvas) {
+            const byDay = {};
+            bookingsDocs.forEach((snap) => {
+                const data = snap.data();
+                const date = data.createdAt?.toDate?.() || new Date();
+                const key = date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+                byDay[key] = (byDay[key] || 0) + 1;
+            });
+
+            const labels = Object.keys(byDay).slice(-7);
+            const values = labels.map((label) => byDay[label]);
+
+            if (this.bookingsChart) {
+                this.bookingsChart.data.labels = labels;
+                this.bookingsChart.data.datasets[0].data = values;
+                this.bookingsChart.update();
+            } else {
+                this.bookingsChart = new Chart(bookingsCanvas, {
+                    type: "line",
+                    data: {
+                        labels,
+                        datasets: [{
+                            data: values,
+                            borderColor: "#d790ee",
+                            backgroundColor: "rgba(215, 144, 238, 0.16)",
+                            fill: true,
+                            tension: 0.35,
+                            pointRadius: 4,
+                        }],
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                    },
+                });
+            }
+        }
+
+        const servicesCanvas = document.getElementById("servicesChart");
+        if (servicesCanvas) {
+            const labels = servicesDocs.map((snap) => snap.data().name || "Service").slice(0, 8);
+            const values = labels.map(() => 1);
+
+            if (this.servicesChart) {
+                this.servicesChart.data.labels = labels;
+                this.servicesChart.data.datasets[0].data = values;
+                this.servicesChart.update();
+            } else {
+                this.servicesChart = new Chart(servicesCanvas, {
+                    type: "doughnut",
+                    data: {
+                        labels,
+                        datasets: [{
+                            data: values,
+                            backgroundColor: ["#d790ee", "#f5c66b", "#8fc3ff", "#9be3c1", "#f7a6a6", "#b4a7ff", "#f2a0df", "#7ad6cf"],
+                        }],
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { position: "bottom" } },
+                    },
+                });
+            }
+        }
     },
 
     renderStatusBadge(status) {
@@ -271,8 +501,14 @@ const AdminApp = {
     async deleteBooking(bookingId) {
         const confirmed = window.confirm("Delete this booking permanently?");
         if (!confirmed) return;
-        await deleteDoc(doc(db, "bookings", bookingId));
-        await this.loadAllData();
+        try {
+            await deleteDoc(doc(db, "bookings", bookingId));
+            this.showActionFeedback("Booking deleted successfully.");
+            await this.loadAllData();
+        } catch (error) {
+            console.error("Failed to delete booking", error);
+            this.showActionFeedback("Could not delete booking. Check your admin permissions.", "error");
+        }
     },
 
     async handleAddService(event) {
@@ -295,6 +531,7 @@ const AdminApp = {
                 this.serviceFormFeedback.textContent = "Service added successfully.";
                 this.serviceFormFeedback.className = "mt-4 rounded-xl border border-emerald-400/30 bg-emerald-500/10 px-4 py-3 text-sm font-semibold text-emerald-600";
             }
+            this.showActionFeedback("Service created successfully.");
             await this.loadAllData();
         } catch (error) {
             console.error("Failed to add service", error);
@@ -302,6 +539,7 @@ const AdminApp = {
                 this.serviceFormFeedback.textContent = "Failed to add service.";
                 this.serviceFormFeedback.className = "mt-4 rounded-xl border border-rose-400/30 bg-rose-500/10 px-4 py-3 text-sm font-semibold text-rose-600";
             }
+            this.showActionFeedback("Could not create service. Check your admin permissions.", "error");
         }
     },
 
@@ -339,8 +577,14 @@ const AdminApp = {
     async deleteService(serviceId) {
         const confirmed = window.confirm("Delete this service?");
         if (!confirmed) return;
-        await deleteDoc(doc(db, "services", serviceId));
-        await this.loadAllData();
+        try {
+            await deleteDoc(doc(db, "services", serviceId));
+            this.showActionFeedback("Service deleted successfully.");
+            await this.loadAllData();
+        } catch (error) {
+            console.error("Failed to delete service", error);
+            this.showActionFeedback("Could not delete service. Check your admin permissions.", "error");
+        }
     },
 
     async loadMessages() {
@@ -362,13 +606,29 @@ const AdminApp = {
                     <td class="px-6 py-4">${this.escapeHtml(data.subject || "General")}</td>
                     <td class="px-6 py-4 max-w-xs break-words">${this.escapeHtml(data.message || "")}</td>
                     <td class="px-6 py-4 text-xs text-slate-400">${this.escapeHtml(this.formatTimestamp(data.createdAt))}</td>
+                    <td class="px-6 py-4 text-right">
+                        <button data-delete-message="${row.id}" class="rounded-lg bg-rose-500/10 px-3 py-2 text-xs font-black uppercase tracking-widest text-rose-500 hover:bg-rose-500/20">Delete</button>
+                    </td>
                 </tr>
                 `,
             );
         });
 
         if (snapshot.empty) {
-            this.messagesTableBody.innerHTML = '<tr><td colspan="6" class="px-8 py-8 text-center text-slate-400 font-semibold">No contact messages yet.</td></tr>';
+            this.messagesTableBody.innerHTML = '<tr><td colspan="7" class="px-8 py-8 text-center text-slate-400 font-semibold">No contact messages yet.</td></tr>';
+        }
+    },
+
+    async deleteMessage(messageId) {
+        const confirmed = window.confirm("Delete this message?");
+        if (!confirmed) return;
+        try {
+            await deleteDoc(doc(db, "messages", messageId));
+            this.showActionFeedback("Message deleted successfully.");
+            await this.loadAllData();
+        } catch (error) {
+            console.error("Failed to delete message", error);
+            this.showActionFeedback("Could not delete message. Check your admin permissions.", "error");
         }
     },
 };
