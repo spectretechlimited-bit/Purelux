@@ -7,12 +7,14 @@
     <meta http-equiv="refresh" content="2; url=../src/admin/index.html"/>
     <style>
         :root {
-            --bg: #f5f1f8;
-            --surface: #ffffff;
-            --ink: #1f1631;
-            --muted: #6b6480;
+            --bg: #14111a;
+            --surface: rgba(255, 255, 255, 0.08);
+            --surface-strong: rgba(255, 255, 255, 0.14);
+            --ink: #f7f4fb;
+            --muted: #c9c2d7;
             --accent: #d790ee;
-            --accent-soft: rgba(215, 144, 238, 0.28);
+            --accent-2: #7c83ff;
+            --accent-soft: rgba(215, 144, 238, 0.22);
         }
 
         * {
@@ -27,21 +29,32 @@
             font-family: Manrope, Segoe UI, sans-serif;
             color: var(--ink);
             background:
-                radial-gradient(circle at 20% 15%, var(--accent-soft), transparent 32%),
-                radial-gradient(circle at 80% 85%, rgba(124, 131, 255, 0.18), transparent 35%),
+                radial-gradient(circle at 20% 15%, rgba(215, 144, 238, 0.16), transparent 30%),
+                radial-gradient(circle at 80% 85%, rgba(124, 131, 255, 0.16), transparent 34%),
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05), transparent 45%),
                 var(--bg);
             overflow: hidden;
         }
 
         .loader-shell {
-            width: min(92vw, 430px);
-            background: color-mix(in srgb, var(--surface) 86%, white 14%);
-            border: 1px solid rgba(215, 144, 238, 0.28);
-            border-radius: 24px;
-            padding: 28px 24px;
-            box-shadow: 0 28px 70px rgba(31, 22, 49, 0.12);
-            backdrop-filter: blur(8px);
+            width: min(92vw, 460px);
+            background: linear-gradient(180deg, var(--surface-strong), var(--surface));
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 28px;
+            padding: 30px 26px 26px;
+            box-shadow: 0 28px 80px rgba(0, 0, 0, 0.38);
+            backdrop-filter: blur(18px);
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loader-shell::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(215, 144, 238, 0.12), transparent 40%, rgba(124, 131, 255, 0.08));
+            pointer-events: none;
         }
 
         .brand {
@@ -49,24 +62,76 @@
             align-items: center;
             gap: 12px;
             font-weight: 900;
-            font-size: 1.2rem;
+            font-size: 1.08rem;
             letter-spacing: 0.01em;
             margin-bottom: 18px;
+            position: relative;
+            z-index: 1;
+            color: #fff;
         }
 
-        .brand-dot {
-            width: 14px;
-            height: 14px;
+        .spinner-wrap {
+            width: 110px;
+            height: 110px;
+            margin: 6px auto 22px;
+            display: grid;
+            place-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .spinner-ring {
+            position: absolute;
+            inset: 0;
             border-radius: 999px;
-            background: var(--accent);
-            box-shadow: 0 0 0 0 rgba(215, 144, 238, 0.7);
-            animation: pulse 1.8s ease-out infinite;
+            border: 2px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .spinner-ring:nth-child(2) {
+            inset: 12px;
+            border-color: rgba(215, 144, 238, 0.22);
+        }
+
+        .spinner-ring:nth-child(3) {
+            inset: 24px;
+            border-color: rgba(124, 131, 255, 0.2);
+        }
+
+        .spinner-core {
+            width: 34px;
+            height: 34px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            box-shadow: 0 0 0 10px rgba(215, 144, 238, 0.12);
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+        }
+
+        .spinner-core img {
+            width: 24px;
+            height: 24px;
+            display: block;
+            filter: brightness(0) invert(1);
+            opacity: 0.95;
+        }
+
+        .spinner-arc {
+            position: absolute;
+            inset: 0;
+            border-radius: 999px;
+            border: 2px solid transparent;
+            border-top-color: var(--accent);
+            border-right-color: rgba(124, 131, 255, 0.95);
+            animation: spin 1s linear infinite;
         }
 
         .headline {
             margin: 0;
             font-size: 1.05rem;
             font-weight: 800;
+            position: relative;
+            z-index: 1;
         }
 
         .sub {
@@ -74,28 +139,46 @@
             color: var(--muted);
             font-size: 0.93rem;
             line-height: 1.5;
+            position: relative;
+            z-index: 1;
         }
 
         .track {
-            height: 8px;
+            height: 7px;
             width: 100%;
             border-radius: 999px;
-            background: rgba(107, 100, 128, 0.15);
+            background: rgba(255, 255, 255, 0.08);
             overflow: hidden;
+            position: relative;
+            z-index: 1;
         }
 
         .bar {
             height: 100%;
             width: 0%;
             border-radius: inherit;
-            background: linear-gradient(90deg, #c578e8, #e3b0f4);
+            background: linear-gradient(90deg, var(--accent), #f0c5fb 55%, var(--accent-2));
             animation: fill 2s ease-out forwards;
+            box-shadow: 0 0 18px rgba(215, 144, 238, 0.45);
         }
 
         .tiny {
             margin-top: 14px;
             color: var(--muted);
             font-size: 0.8rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tiny a {
+            color: #fff;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.45);
+        }
+
+        .title-row {
+            position: relative;
+            z-index: 1;
         }
 
         @keyframes fill {
@@ -103,18 +186,24 @@
             to { width: 100%; }
         }
 
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(215, 144, 238, 0.7); }
-            70% { box-shadow: 0 0 0 14px rgba(215, 144, 238, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(215, 144, 238, 0); }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
     <div class="loader-shell" role="status" aria-live="polite">
-        <div class="brand">
-            <span class="brand-dot" aria-hidden="true"></span>
+        <div class="brand title-row">
             <span>PureLux Admin</span>
+        </div>
+        <div class="spinner-wrap" aria-hidden="true">
+            <span class="spinner-ring"></span>
+            <span class="spinner-ring"></span>
+            <span class="spinner-ring"></span>
+            <span class="spinner-arc"></span>
+            <span class="spinner-core">
+                <img src="../assets/img/logo.png" alt="" aria-hidden="true"/>
+            </span>
         </div>
         <p class="headline">Preparing your dashboard</p>
         <p class="sub">Loading secure workspace and redirecting to the admin control panel.</p>
