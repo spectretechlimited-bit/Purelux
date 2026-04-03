@@ -1,5 +1,6 @@
 [build]
   publish = "."
+  command = "bash scripts/build.sh"
 
 [context.production.environment]
   NODE_ENV = "production"
