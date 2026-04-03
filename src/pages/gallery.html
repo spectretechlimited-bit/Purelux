@@ -35,8 +35,8 @@
 <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
 <div class="flex items-center gap-3">
 <img src="../../assets/img/logo.png" alt="PureLux Logo" class="h-10 w-auto">
-<h1 class="text-2xl font-extrabold tracking-tight">
-    <span class="text-slate-900 dark:text-slate-100">PureLux</span><span class="text-primary"> Beauty Parlour</span>
+<h1 class="text-lg sm:text-2xl font-extrabold tracking-tight truncate">
+    <span class="text-slate-900 dark:text-slate-100">PureLux</span><span class="hidden sm:inline text-primary"> Beauty Parlour</span>
 </h1>
 </div>
             <nav class="hidden md:flex items-center gap-10">
@@ -49,7 +49,7 @@
 <div class="flex items-center gap-4">
                     <button class="flex items-center gap-2 px-3 py-2 rounded-full border border-primary/30 bg-white shadow-sm hover:bg-primary/10 transition-colors dark:bg-background-dark/70 dark:text-primary" type="button" data-theme-toggle aria-pressed="true" onclick="window.pureluxToggleTheme()">
                         <span class="material-symbols-outlined text-sm" data-theme-icon>dark_mode</span>
-                        <span class="text-xs font-semibold" data-theme-label>Dark</span>
+                        <span class="hidden sm:inline text-xs font-semibold" data-theme-label>Dark</span>
                     </button>
                     <a class="hidden sm:block px-6 py-2.5 bg-primary text-background-dark font-bold rounded-full hover:opacity-90 transition-all" href="booking.html">
                         Book Now
@@ -63,11 +63,7 @@
 <div class="fixed inset-0 z-40 bg-black/50 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden" data-mobile-menu-backdrop></div>
 <aside class="fixed inset-y-0 left-0 z-50 w-80 max-w-[85vw] -translate-x-full transform bg-white dark:bg-background-dark border-r border-primary/10 shadow-2xl transition-transform duration-300 ease-out md:hidden" data-mobile-menu id="mobile-menu">
 <div class="flex h-full flex-col">
-<div class="flex items-center justify-between border-b border-primary/10 px-6 py-5">
-<div>
-<p class="text-xs font-bold uppercase tracking-[0.3em] text-primary">Menu</p>
-<h2 class="mt-1 text-lg font-extrabold text-slate-900 dark:text-slate-100">PureLux Beauty Parlour</h2>
-</div>
+<div class="flex justify-end border-b border-primary/10 px-6 py-5">
 <button class="rounded-full border border-primary/20 p-2 text-slate-700 dark:text-slate-200" type="button" data-mobile-menu-close aria-label="Close menu">
 <span class="material-symbols-outlined text-sm">close</span>
 </button>
@@ -258,10 +254,11 @@
 </main>
 <footer class="bg-white dark:bg-background-dark border-t border-primary/10 pt-20 pb-10">
 <div class="max-w-7xl mx-auto px-6">
-<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-<div class="space-y-6">
+<div class="grid grid-cols-2 gap-8 md:grid-cols-4 mb-16">
+<div class="space-y-6 col-span-2 md:col-span-1">
 <div class="flex items-center gap-3">
-<h2 class="text-xl font-extrabold">
+<img src="../../assets/img/logo.png" alt="PureLux Logo" class="h-10 w-auto shrink-0">
+<h2 class="hidden sm:block text-xl font-extrabold">
     <span class="text-slate-900 dark:text-slate-100">PureLux</span><span class="text-primary"> Beauty Parlour</span>
 </h2>
 </div>
@@ -304,7 +301,7 @@
 </div>
 </div>
 <div class="pt-8 border-t border-primary/10 text-center">
-<p class="text-slate-500 text-sm">Today: <span data-current-date></span></p>
+<p class="text-slate-500 text-sm"><span data-current-date></span></p>
 <p class="text-slate-500 text-sm mt-2">© 2026 PureLux Beauty Parlour. All rights reserved.</p>
 <p class="mt-2 text-xs text-primary glow-text">Powered by Spectre Tech Limited</p>
 </div>
