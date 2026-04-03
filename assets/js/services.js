@@ -1,0 +1,70 @@
+import { db } from "../../src/database/firebase.js";
+import {
+    collection,
+    getDocs,
+    orderBy,
+    query,
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+const dynamicContainer = document.getElementById("dynamicServicesGrid");
+const adminServicesSection = document.getElementById("adminServicesSection");
+
+const escapeHtml = (value) => String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/\"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+const renderDynamicService = (service) => {
+    const name = escapeHtml(service.name || "New Service");
+    const description = escapeHtml(service.description || "Premium service available now.");
+    const price = escapeHtml(service.priceLabel || "KSh 50+");
+    const duration = escapeHtml(service.duration || "60 min");
+    const imageUrl = escapeHtml(service.imageUrl || "../../assets/img/h6.jpeg");
+
+    return `
+    <div class="group relative flex flex-col bg-white dark:bg-slate-900/50 rounded-xl overflow-hidden border border-primary/20 hover:border-primary/50 transition-all">
+        <div class="aspect-square w-full relative overflow-hidden">
+            <img alt="${name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="${imageUrl}"/>
+            <div class="absolute top-4 right-4 bg-background-dark/80 backdrop-blur-md px-3 py-1 rounded-lg text-primary text-sm font-bold">${price}</div>
+        </div>
+        <div class="p-6 flex flex-col grow">
+            <span class="text-xs font-bold uppercase text-primary tracking-widest mb-2">Admin Added</span>
+            <h3 class="text-xl font-bold mb-2">${name}</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6 grow">${description}</p>
+            <div class="flex items-center justify-between gap-4">
+                <div class="flex items-center text-xs text-slate-400">
+                    <span class="material-symbols-outlined text-sm mr-1">schedule</span> ${duration}
+                </div>
+                <a class="bg-primary text-background-dark font-bold px-6 py-2.5 rounded-lg text-sm hover:brightness-110 transition-all" href="booking.html">Book Now</a>
+            </div>
+        </div>
+    </div>`;
+};
+
+const initDynamicServices = async () => {
+    if (!dynamicContainer) return;
+
+    try {
+        const q = query(collection(db, "services"), orderBy("createdAt", "desc"));
+        const snapshot = await getDocs(q);
+
+        if (snapshot.empty) {
+            dynamicContainer.innerHTML = "";
+            dynamicContainer.classList.add("hidden");
+            if (adminServicesSection) adminServicesSection.classList.add("hidden");
+            return;
+        }
+
+        if (adminServicesSection) adminServicesSection.classList.remove("hidden");
+        dynamicContainer.classList.remove("hidden");
+        dynamicContainer.innerHTML = snapshot.docs.map((doc) => renderDynamicService(doc.data())).join("");
+    } catch (error) {
+        console.error("Could not load dynamic services", error);
+        dynamicContainer.classList.add("hidden");
+        if (adminServicesSection) adminServicesSection.classList.add("hidden");
+    }
+};
+
+initDynamicServices();

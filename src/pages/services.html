@@ -26,6 +26,7 @@
             },
         }
     </script><link rel="stylesheet" href="../../assets/css/main.css">
+<script src="../../assets/js/firebase-env.js"></script>
 <script src="../../assets/js/theme.js"></script>
 </head>
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
@@ -248,6 +249,14 @@
 </div>
 </div>
 </div>
+
+<section id="adminServicesSection" class="mt-12 hidden">
+<div class="mb-6 flex items-center justify-between gap-4">
+<h2 class="text-2xl font-black">New Services Added By Admin</h2>
+<span class="rounded-full bg-primary/10 px-4 py-1 text-xs font-black uppercase tracking-[0.2em] text-primary">Live</span>
+</div>
+<div id="dynamicServicesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+</section>
 <!-- Footer -->
 <footer class="bg-white dark:bg-background-dark border-t border-primary/10 pt-20 pb-10 mt-20">
 <div class="max-w-7xl mx-auto px-6">
@@ -306,4 +315,5 @@
 </footer>
 </div>
 </div>
+<script type="module" src="../../assets/js/services.js"></script>
 </body></html>
