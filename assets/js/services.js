@@ -6,8 +6,8 @@ import {
     query,
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
+const mainServicesGrid = document.querySelector('.grid.grid-cols-1.md\\:grid-cols-2.lg\\:grid-cols-3.gap-8');
 const dynamicContainer = document.getElementById("dynamicServicesGrid");
-const adminServicesSection = document.getElementById("adminServicesSection");
 
 const escapeHtml = (value) => String(value || "")
     .replace(/&/g, "&amp;")
@@ -44,26 +44,19 @@ const renderDynamicService = (service) => {
 };
 
 const initDynamicServices = async () => {
-    if (!dynamicContainer) return;
+    if (!mainServicesGrid) return;
 
     try {
         const q = query(collection(db, "services"), orderBy("createdAt", "desc"));
         const snapshot = await getDocs(q);
 
-        if (snapshot.empty) {
-            dynamicContainer.innerHTML = "";
-            dynamicContainer.classList.add("hidden");
-            if (adminServicesSection) adminServicesSection.classList.add("hidden");
-            return;
-        }
+        if (snapshot.empty) return;
 
-        if (adminServicesSection) adminServicesSection.classList.remove("hidden");
-        dynamicContainer.classList.remove("hidden");
-        dynamicContainer.innerHTML = snapshot.docs.map((doc) => renderDynamicService(doc.data())).join("");
+        // Append admin-added services to the main grid
+        const adminServicesHtml = snapshot.docs.map((doc) => renderDynamicService(doc.data())).join("");
+        mainServicesGrid.innerHTML += adminServicesHtml;
     } catch (error) {
         console.error("Could not load dynamic services", error);
-        dynamicContainer.classList.add("hidden");
-        if (adminServicesSection) adminServicesSection.classList.add("hidden");
     }
 };
 
