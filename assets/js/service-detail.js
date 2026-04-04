@@ -8,6 +8,30 @@ import {
 
 const fallbackServices = [
     {
+        slug: "artistic-braiding-120-min",
+        name: "Artistic Braiding",
+        duration: "120 min",
+        priceLabel: "KSh 45+",
+        imageUrl: "../../assets/img/h6.jpeg",
+        description: "Masterfully crafted braids that last and protect your natural hair while keeping the look polished and comfortable.",
+    },
+    {
+        slug: "couture-hair-styling-60-min",
+        name: "Couture Hair Styling",
+        duration: "60 min",
+        priceLabel: "KSh 60+",
+        imageUrl: "../../assets/img/h7.jpeg",
+        description: "Bespoke styling for weddings, galas, and everyday elegance with a finish tailored to your look and occasion.",
+    },
+    {
+        slug: "luxury-nail-art-75-min",
+        name: "Luxury Nail Art",
+        duration: "75 min",
+        priceLabel: "KSh 25+",
+        imageUrl: "../../assets/img/n3.jpeg",
+        description: "Premium manicures and creative gel art for a refined finish that feels polished and expressive.",
+    },
+    {
         slug: "intricate-braiding-120-min",
         name: "Intricate Braiding",
         duration: "120 min",
