@@ -16,12 +16,34 @@ const escapeHtml = (value) => String(value || "")
     .replace(/\"/g, "&quot;")
     .replace(/'/g, "&#039;");
 
+const makeSlug = (value) => String(value || "")
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 80);
+
+const shortText = (value, max = 84) => {
+    const text = String(value || "").trim();
+    if (text.length <= max) return text;
+    return `${text.slice(0, max).trim()}...`;
+};
+
+const deriveCategory = (service) => {
+    const source = `${service.category || ""} ${service.name || ""} ${service.description || ""}`.toLowerCase();
+    if (/nail|manicure|pedicure|gel|acrylic|polish/.test(source)) return "Nails";
+    if (/facial|makeup|lashes|brow|wax|spa/.test(source)) return "Beauty";
+    return "Hair";
+};
+
 const renderDynamicService = (service) => {
     const name = escapeHtml(service.name || "New Service");
-    const description = escapeHtml(service.description || "Premium service available now.");
+    const description = escapeHtml(shortText(service.description || "Premium service available now.", 66));
     const price = escapeHtml(service.priceLabel || "KSh 50+");
     const duration = escapeHtml(service.duration || "60 min");
     const imageUrl = escapeHtml(service.imageDataUrl || service.imageUrl || "../../assets/img/h6.jpeg");
+    const slug = encodeURIComponent(service.slug || makeSlug(`${service.name || "service"}-${service.duration || "60-min"}`));
+    const category = encodeURIComponent(deriveCategory(service));
 
     return `
     <div class="group relative flex flex-col bg-white dark:bg-slate-900/50 rounded-xl overflow-hidden border border-primary/20 hover:border-primary/50 transition-all">
@@ -36,7 +58,10 @@ const renderDynamicService = (service) => {
                 <div class="flex items-center text-xs text-slate-400">
                     <span class="material-symbols-outlined text-sm mr-1">schedule</span> ${duration}
                 </div>
-                <a class="bg-primary text-background-dark font-bold px-6 py-2.5 rounded-lg text-sm hover:brightness-110 transition-all" href="booking.html">Book Now</a>
+                <div class="flex items-center gap-2">
+                    <a class="rounded-lg border border-primary/30 px-4 py-2 text-xs font-black uppercase tracking-widest text-primary hover:bg-primary/10 transition-all" href="service-detail.html?slug=${slug}">Learn More</a>
+                    <a class="bg-primary text-background-dark font-bold px-5 py-2.5 rounded-lg text-sm hover:brightness-110 transition-all" href="booking.html?service=${encodeURIComponent(service.name || "Service")}&category=${category}">Book</a>
+                </div>
             </div>
         </div>
     </div>`;
@@ -52,7 +77,7 @@ const initDynamicServices = async () => {
         if (snapshot.empty) return;
 
         // Append admin-added services to the main grid
-        const adminServicesHtml = snapshot.docs.map((doc) => renderDynamicService(doc.data())).join("");
+        const adminServicesHtml = snapshot.docs.map((doc) => renderDynamicService({ id: doc.id, ...doc.data() })).join("");
         mainServicesGrid.innerHTML += adminServicesHtml;
     } catch (error) {
         console.error("Could not load dynamic services", error);

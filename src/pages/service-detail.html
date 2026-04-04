@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Service Detail | PureLux Beauty Parlour</title>
+<link rel="icon" type="image/png" href="../../assets/favicons/favicon-32x32.png"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#d790ee",
+                        "background-light": "#ffffff",
+                        "background-dark": "#1d1220",
+                        "surface": "#2d1b34",
+                    },
+                    fontFamily: { "display": ["Manrope", "sans-serif"] },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<link rel="stylesheet" href="../../assets/css/main.css">
+<script src="../../assets/js/firebase-env.js"></script>
+<script src="../../assets/js/theme.js"></script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<header class="sticky top-0 z-50 w-full border-b border-primary/10 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md">
+<div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<img src="../../assets/img/logo.png" alt="PureLux Logo" class="h-10 w-auto">
+<h1 class="text-lg sm:text-2xl font-extrabold tracking-tight truncate"><span class="text-slate-900 dark:text-slate-100">PureLux</span><span class="hidden sm:inline text-primary"> Beauty Parlour</span></h1>
+</div>
+<nav class="hidden md:flex items-center gap-10">
+<a class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="../../index.html">Home</a>
+<a class="text-sm font-semibold text-primary" href="services.html">Services</a>
+<a class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="trending.html">Trending</a>
+<a class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="reviews.html">Reviews</a>
+<a class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="gallery.html">Gallery</a>
+<a class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="contact.html">Contact</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-2 px-3 py-2 rounded-full border border-primary/30 bg-white shadow-sm hover:bg-primary/10 transition-colors dark:bg-background-dark/70 dark:text-primary" type="button" data-theme-toggle aria-pressed="true" onclick="window.pureluxToggleTheme()">
+<span class="material-symbols-outlined text-sm" data-theme-icon>dark_mode</span>
+<span class="hidden sm:inline text-xs font-semibold" data-theme-label>Dark</span>
+</button>
+<a class="hidden sm:block px-6 py-2.5 bg-primary text-background-dark font-bold rounded-full hover:opacity-90 transition-all" href="booking.html">Book Now</a>
+<button class="md:hidden flex items-center justify-center text-slate-800 dark:text-slate-100" type="button" data-mobile-menu-toggle aria-expanded="false" aria-controls="mobile-menu"><span class="material-symbols-outlined">menu</span></button>
+</div>
+</div>
+</header>
+<div class="fixed inset-0 z-40 bg-black/50 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden" data-mobile-menu-backdrop></div>
+<aside class="fixed inset-y-0 left-0 z-50 w-80 max-w-[85vw] -translate-x-full transform bg-white dark:bg-background-dark border-r border-primary/10 shadow-2xl transition-transform duration-300 ease-out md:hidden" data-mobile-menu id="mobile-menu">
+<div class="flex h-full flex-col">
+<div class="flex items-center justify-between border-b border-primary/10 px-6 py-5">
+<div class="flex items-center gap-3 min-w-0">
+<img src="../../assets/img/logo.png" alt="PureLux Logo" class="h-9 w-auto shrink-0">
+<h2 class="text-base font-extrabold text-slate-900 dark:text-slate-100 truncate">PureLux Beauty Parlour</h2>
+</div>
+<button class="rounded-full border border-primary/20 p-2 text-slate-700 dark:text-slate-200" type="button" data-mobile-menu-close aria-label="Close menu"><span class="material-symbols-outlined text-sm">close</span></button>
+</div>
+<nav class="flex flex-1 flex-col gap-2 px-4 py-5">
+<a class="rounded-xl px-4 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-primary/10 hover:text-primary dark:text-slate-200" href="../../index.html">Home</a>
+<a class="rounded-xl px-4 py-3 text-sm font-semibold text-primary bg-primary/10" href="services.html">Services</a>
+<a class="rounded-xl px-4 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-primary/10 hover:text-primary dark:text-slate-200" href="trending.html">Trending</a>
+<a class="rounded-xl px-4 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-primary/10 hover:text-primary dark:text-slate-200" href="reviews.html">Reviews</a>
+<a class="rounded-xl px-4 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-primary/10 hover:text-primary dark:text-slate-200" href="gallery.html">Gallery</a>
+<a class="rounded-xl px-4 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-primary/10 hover:text-primary dark:text-slate-200" href="contact.html">Contact</a>
+<a class="mt-4 rounded-xl bg-primary px-4 py-3 text-sm font-bold text-background-dark shadow-lg shadow-primary/20 transition-all hover:opacity-90" href="booking.html">Book Now</a>
+</nav>
+</div>
+</aside>
+
+<main class="max-w-7xl mx-auto px-6 py-10">
+<a href="services.html" class="text-sm font-bold text-primary">← Back to Services</a>
+<section class="mt-4 grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+<div class="rounded-3xl border border-primary/15 bg-white dark:bg-surface/70 p-4">
+<img id="detailImage" src="../../assets/img/h6.jpeg" alt="Service" class="w-full h-[420px] sm:h-[520px] object-contain rounded-2xl bg-slate-100 dark:bg-background-dark/40" />
+</div>
+<div class="rounded-3xl border border-primary/15 bg-white dark:bg-surface/80 p-8">
+<p id="detailCategory" class="text-xs font-black uppercase tracking-widest text-primary">Hair</p>
+<h1 id="detailTitle" class="mt-2 text-3xl sm:text-4xl font-black">Service</h1>
+<p id="detailDescription" class="mt-4 text-slate-600 dark:text-slate-300 leading-relaxed"></p>
+<div class="mt-6 flex flex-wrap gap-3">
+<span id="detailDuration" class="rounded-full bg-primary/10 px-4 py-2 text-xs font-black uppercase tracking-widest text-primary">60 min</span>
+<span id="detailPrice" class="rounded-full bg-background-dark/10 px-4 py-2 text-xs font-black uppercase tracking-widest">KSh 50+</span>
+</div>
+<a id="detailBookBtn" href="booking.html" class="mt-8 inline-flex items-center rounded-xl bg-primary px-6 py-3 text-sm font-black text-background-dark">Proceed to Booking</a>
+</div>
+</section>
+</main>
+
+<footer class="bg-white dark:bg-background-dark border-t border-primary/10 pt-20 pb-10">
+<div class="max-w-7xl mx-auto px-6">
+<div class="grid grid-cols-2 gap-8 md:grid-cols-4 mb-16">
+<div class="space-y-6 col-span-2 md:col-span-1">
+<div class="flex items-center gap-3">
+<img src="../../assets/img/logo.png" alt="PureLux Logo" class="h-10 w-auto shrink-0">
+<h2 class="text-base sm:text-xl font-extrabold"><span class="text-slate-900 dark:text-slate-100">PureLux</span><span class="text-primary"> Beauty Parlour</span></h2>
+</div>
+<p class="text-slate-600 dark:text-slate-400 leading-relaxed">Providing the finest hair and beauty experiences.</p>
+</div>
+<div><h4 class="text-slate-800 dark:text-slate-100 font-bold mb-6">Quick Links</h4><ul class="space-y-4 text-slate-600 dark:text-slate-400"><li><a class="hover:text-primary transition-colors" href="../../index.html">Home</a></li><li><a class="hover:text-primary transition-colors" href="services.html">Services</a></li><li><a class="hover:text-primary transition-colors" href="trending.html">Trending</a></li><li><a class="hover:text-primary transition-colors" href="reviews.html">Reviews</a></li></ul></div>
+<div><h4 class="text-slate-800 dark:text-slate-100 font-bold mb-6">Discover</h4><ul class="space-y-4 text-slate-600 dark:text-slate-400"><li><a class="hover:text-primary transition-colors" href="gallery.html">Gallery</a></li><li><a class="hover:text-primary transition-colors" href="booking.html">Book Now</a></li><li><a class="hover:text-primary transition-colors" href="contact.html">Contact</a></li></ul></div>
+<div><h4 class="text-slate-800 dark:text-slate-100 font-bold mb-6">Location</h4><ul class="space-y-4 text-slate-600 dark:text-slate-400"><li>Kahawa Wendani<br/>Nairobi, Kenya</li><li><a class="hover:text-primary transition-colors" href="tel:0741695450">0741695450</a></li><li><a class="hover:text-primary transition-colors" href="mailto:mugendipurity003@gmail.com">mugendipurity003@gmail.com</a></li></ul></div>
+</div>
+<div class="pt-8 border-t border-primary/10 text-center"><p class="text-slate-500 text-sm"><span data-current-date></span></p><p class="text-slate-500 text-sm mt-2">© 2026 PureLux Beauty Parlour. All rights reserved.</p></div>
+</div>
+</footer>
+
+<script type="module" src="../../assets/js/service-detail.js"></script>
+</body></html>

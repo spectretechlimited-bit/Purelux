@@ -21,16 +21,31 @@ const escapeHtml = (value) => String(value || "")
     .replace(/\"/g, "&quot;")
     .replace(/'/g, "&#039;");
 
+const makeSlug = (value) => String(value || "")
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 80);
+
+const shortText = (value, max = 88) => {
+    const text = String(value || "").trim();
+    if (text.length <= max) return text;
+    return `${text.slice(0, max).trim()}...`;
+};
+
 const buildServiceQuery = (trend) => encodeURIComponent(trend.title || "Trending Style");
 
 const renderTrendCard = (trend, index) => {
     const title = escapeHtml(trend.title || "Trending Style");
     const category = escapeHtml(trend.category || "Beauty");
-    const description = escapeHtml(trend.description || "A fresh trending look is now available.");
+    const description = escapeHtml(shortText(trend.description || "A fresh trending look is now available."));
     const duration = escapeHtml(trend.duration || "60 min");
     const price = escapeHtml(trend.priceLabel || "KSh 50+");
     const image = escapeHtml(trend.imageDataUrl || trend.imageUrl || "../../assets/img/h6.jpeg");
     const service = buildServiceQuery(trend);
+    const bookingCategory = encodeURIComponent(trend.category || "Beauty");
+    const slug = encodeURIComponent(trend.slug || makeSlug(`${trend.title || "trend"}-${trend.category || "beauty"}`));
 
     return `
     <article class="group relative overflow-hidden rounded-3xl border border-primary/15 bg-white/90 shadow-sm transition-all hover:-translate-y-1 hover:shadow-2xl dark:bg-surface/80" style="animation-delay:${index * 60}ms">
@@ -45,7 +60,10 @@ const renderTrendCard = (trend, index) => {
             <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">${description}</p>
             <div class="flex items-center justify-between gap-3">
                 <span class="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-black uppercase tracking-widest text-primary">${duration}</span>
-                <a href="booking.html?service=${service}" class="rounded-xl bg-primary px-5 py-2.5 text-sm font-black text-background-dark transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/30">Book This</a>
+                <div class="flex items-center gap-2">
+                    <a href="trend-detail.html?slug=${slug}" class="rounded-lg border border-primary/30 px-4 py-2 text-xs font-black uppercase tracking-widest text-primary hover:bg-primary/10 transition-all">Learn More</a>
+                    <a href="booking.html?service=${service}&category=${bookingCategory}" class="rounded-xl bg-primary px-4 py-2.5 text-sm font-black text-background-dark transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/30">Book</a>
+                </div>
             </div>
         </div>
     </article>`;
@@ -110,7 +128,7 @@ const initTrendingPage = async () => {
     try {
         const trendQuery = query(collection(db, "trending"), orderBy("createdAt", "desc"));
         const snapshot = await getDocs(trendQuery);
-        allTrends = snapshot.docs.map((docItem) => docItem.data());
+        allTrends = snapshot.docs.map((docItem) => ({ id: docItem.id, ...docItem.data() }));
 
         if (!allTrends.length) {
             if (trendCount) {

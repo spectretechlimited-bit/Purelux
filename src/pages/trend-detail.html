@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html class="dark" lang="en">
-<head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Trending Styles | PureLux Beauty Parlour</title>
-    <link rel="icon" type="image/png" href="../../assets/favicons/favicon-32x32.png"/>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-    <script id="tailwind-config">
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Trending Detail | PureLux Beauty Parlour</title>
+<link rel="icon" type="image/png" href="../../assets/favicons/favicon-32x32.png"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
@@ -19,19 +18,17 @@
                         "background-dark": "#1d1220",
                         "surface": "#2d1b34",
                     },
-                    fontFamily: {
-                        "display": ["Manrope", "sans-serif"]
-                    },
+                    fontFamily: { "display": ["Manrope", "sans-serif"] },
                     borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
                 },
             },
         }
     </script>
-    <link rel="stylesheet" href="../../assets/css/main.css">
-    <script src="../../assets/js/firebase-env.js"></script>
-    <script src="../../assets/js/theme.js"></script>
+<link rel="stylesheet" href="../../assets/css/main.css">
+<script src="../../assets/js/firebase-env.js"></script>
+<script src="../../assets/js/theme.js"></script>
 </head>
-<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased overflow-x-hidden">
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
 <header class="sticky top-0 z-50 w-full border-b border-primary/10 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md">
 <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
 <div class="flex items-center gap-3">
@@ -78,26 +75,22 @@
 </div>
 </aside>
 
-<main class="max-w-7xl mx-auto px-6 py-12">
-<section class="relative overflow-hidden rounded-[2rem] border border-primary/20 bg-gradient-to-br from-[#f4ecff] via-white to-[#ffe9f4] p-8 shadow-sm dark:from-[#2f1d36] dark:via-surface dark:to-[#3a2237]">
-<div class="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-primary/25 blur-3xl"></div>
-<div class="pointer-events-none absolute -left-20 -bottom-20 h-64 w-64 rounded-full bg-rose-300/25 blur-3xl dark:bg-rose-700/20"></div>
-<h2 class="mt-3 text-3xl sm:text-5xl font-black tracking-tight">Style Board: Hair and Nails People Are Booking</h2>
-<p class="mt-3 text-sm font-semibold text-slate-600 dark:text-slate-300">Get inspo.</p>
-<div class="mt-6 flex flex-wrap items-center gap-3">
-<button data-trend-filter="All" class="rounded-full border border-primary bg-primary px-5 py-2 text-xs font-black uppercase tracking-widest text-background-dark">All</button>
-<button data-trend-filter="Hair" class="rounded-full border border-primary/30 bg-white/80 px-5 py-2 text-xs font-black uppercase tracking-widest text-slate-700 transition-colors hover:border-primary hover:text-primary dark:bg-background-dark/60 dark:text-slate-200">Hair</button>
-<button data-trend-filter="Nails" class="rounded-full border border-primary/30 bg-white/80 px-5 py-2 text-xs font-black uppercase tracking-widest text-slate-700 transition-colors hover:border-primary hover:text-primary dark:bg-background-dark/60 dark:text-slate-200">Nails</button>
-<button data-trend-filter="Beauty" class="rounded-full border border-primary/30 bg-white/80 px-5 py-2 text-xs font-black uppercase tracking-widest text-slate-700 transition-colors hover:border-primary hover:text-primary dark:bg-background-dark/60 dark:text-slate-200">Beauty</button>
+<main class="max-w-7xl mx-auto px-6 py-10">
+<a href="trending.html" class="text-sm font-bold text-primary">← Back to Trending</a>
+<section class="mt-4 grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+<div class="rounded-3xl border border-primary/15 bg-white dark:bg-surface/70 p-4">
+<img id="detailImage" src="../../assets/img/h6.jpeg" alt="Trending style" class="w-full h-[420px] sm:h-[520px] object-contain rounded-2xl bg-slate-100 dark:bg-background-dark/40" />
 </div>
-<div class="mt-4 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
-<p id="trendCount" class="text-sm font-bold text-primary">Loading trends...</p>
-<p id="heroPreview" class="text-sm font-semibold text-slate-500 dark:text-slate-300"></p>
+<div class="rounded-3xl border border-primary/15 bg-white dark:bg-surface/80 p-8">
+<p id="detailCategory" class="text-xs font-black uppercase tracking-widest text-primary">Beauty</p>
+<h1 id="detailTitle" class="mt-2 text-3xl sm:text-4xl font-black">Trending Style</h1>
+<p id="detailDescription" class="mt-4 text-slate-600 dark:text-slate-300 leading-relaxed"></p>
+<div class="mt-6 flex flex-wrap gap-3">
+<span id="detailDuration" class="rounded-full bg-primary/10 px-4 py-2 text-xs font-black uppercase tracking-widest text-primary">60 min</span>
+<span id="detailPrice" class="rounded-full bg-background-dark/10 px-4 py-2 text-xs font-black uppercase tracking-widest">KSh 50+</span>
 </div>
-</section>
-
-<section class="mt-10">
-<div id="trendingGrid" class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3"></div>
+<a id="detailBookBtn" href="booking.html" class="mt-8 inline-flex items-center rounded-xl bg-primary px-6 py-3 text-sm font-black text-background-dark">Proceed to Booking</a>
+</div>
 </section>
 </main>
 
@@ -111,39 +104,13 @@
 </div>
 <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Providing the finest hair and beauty experiences.</p>
 </div>
-<div>
-<h4 class="text-slate-800 dark:text-slate-100 font-bold mb-6">Quick Links</h4>
-<ul class="space-y-4 text-slate-600 dark:text-slate-400">
-<li><a class="hover:text-primary transition-colors" href="../../index.html">Home</a></li>
-<li><a class="hover:text-primary transition-colors" href="services.html">Services</a></li>
-<li><a class="hover:text-primary transition-colors" href="trending.html">Trending</a></li>
-<li><a class="hover:text-primary transition-colors" href="reviews.html">Reviews</a></li>
-</ul>
+<div><h4 class="text-slate-800 dark:text-slate-100 font-bold mb-6">Quick Links</h4><ul class="space-y-4 text-slate-600 dark:text-slate-400"><li><a class="hover:text-primary transition-colors" href="../../index.html">Home</a></li><li><a class="hover:text-primary transition-colors" href="services.html">Services</a></li><li><a class="hover:text-primary transition-colors" href="trending.html">Trending</a></li><li><a class="hover:text-primary transition-colors" href="reviews.html">Reviews</a></li></ul></div>
+<div><h4 class="text-slate-800 dark:text-slate-100 font-bold mb-6">Discover</h4><ul class="space-y-4 text-slate-600 dark:text-slate-400"><li><a class="hover:text-primary transition-colors" href="gallery.html">Gallery</a></li><li><a class="hover:text-primary transition-colors" href="booking.html">Book Now</a></li><li><a class="hover:text-primary transition-colors" href="contact.html">Contact</a></li></ul></div>
+<div><h4 class="text-slate-800 dark:text-slate-100 font-bold mb-6">Location</h4><ul class="space-y-4 text-slate-600 dark:text-slate-400"><li>Kahawa Wendani<br/>Nairobi, Kenya</li><li><a class="hover:text-primary transition-colors" href="tel:0741695450">0741695450</a></li><li><a class="hover:text-primary transition-colors" href="mailto:mugendipurity003@gmail.com">mugendipurity003@gmail.com</a></li></ul></div>
 </div>
-<div>
-<h4 class="text-slate-800 dark:text-slate-100 font-bold mb-6">Discover</h4>
-<ul class="space-y-4 text-slate-600 dark:text-slate-400">
-<li><a class="hover:text-primary transition-colors" href="gallery.html">Gallery</a></li>
-<li><a class="hover:text-primary transition-colors" href="booking.html">Book Now</a></li>
-<li><a class="hover:text-primary transition-colors" href="contact.html">Contact</a></li>
-</ul>
-</div>
-<div>
-<h4 class="text-slate-800 dark:text-slate-100 font-bold mb-6">Location</h4>
-<ul class="space-y-4 text-slate-600 dark:text-slate-400">
-<li>Kahawa Wendani<br/>Nairobi, Kenya</li>
-<li><a class="hover:text-primary transition-colors" href="tel:0741695450">0741695450</a></li>
-<li><a class="hover:text-primary transition-colors" href="mailto:mugendipurity003@gmail.com">mugendipurity003@gmail.com</a></li>
-</ul>
-</div>
-</div>
-<div class="pt-8 border-t border-primary/10 text-center">
-<p class="text-slate-500 text-sm"><span data-current-date></span></p>
-<p class="text-slate-500 text-sm mt-2">© 2026 PureLux Beauty Parlour. All rights reserved.</p>
-</div>
+<div class="pt-8 border-t border-primary/10 text-center"><p class="text-slate-500 text-sm"><span data-current-date></span></p><p class="text-slate-500 text-sm mt-2">© 2026 PureLux Beauty Parlour. All rights reserved.</p></div>
 </div>
 </footer>
 
-<script type="module" src="../../assets/js/trending.js"></script>
-</body>
-</html>
+<script type="module" src="../../assets/js/trend-detail.js"></script>
+</body></html>

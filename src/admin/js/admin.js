@@ -10,6 +10,7 @@ import {
     orderBy,
     query,
     serverTimestamp,
+    updateDoc,
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 const DEFAULT_IMAGE = "../../assets/img/h6.jpeg";
@@ -56,10 +57,12 @@ const AdminApp = {
         this.addServiceForm = document.getElementById("addServiceForm");
         this.serviceFormFeedback = document.getElementById("serviceFormFeedback");
         this.servicesAdminList = document.getElementById("servicesAdminList");
+        this.serviceSlugInput = this.addServiceForm?.querySelector("input[name='serviceSlug']") || null;
 
         this.addTrendingForm = document.getElementById("addTrendingForm");
         this.trendingFormFeedback = document.getElementById("trendingFormFeedback");
         this.trendingAdminList = document.getElementById("trendingAdminList");
+        this.trendSlugInput = this.addTrendingForm?.querySelector("input[name='trendSlug']") || null;
 
         this.actionFeedback = document.getElementById("adminActionFeedback");
     },
@@ -73,6 +76,9 @@ const AdminApp = {
         this.sidebarCloseBtn?.addEventListener("click", () => this.closeSidebar());
         this.sidebarBackdrop?.addEventListener("click", () => this.closeSidebar());
 
+        this.initSlugPreview(this.addServiceForm, "serviceSlug", ["serviceName", "serviceDuration"]);
+        this.initSlugPreview(this.addTrendingForm, "trendSlug", ["trendTitle", "trendCategory"]);
+
         this.navLinks.forEach((link) => {
             link.addEventListener("click", (event) => {
                 event.preventDefault();
@@ -83,6 +89,14 @@ const AdminApp = {
         });
 
         this.allBookingsTableBody?.addEventListener("click", async (event) => {
+            const statusButton = event.target.closest("[data-set-booking-status]");
+            if (statusButton) {
+                const bookingId = statusButton.getAttribute("data-set-booking-status");
+                const statusValue = statusButton.getAttribute("data-status-value");
+                await this.updateBookingStatus(bookingId, statusValue);
+                return;
+            }
+
             const target = event.target.closest("[data-delete-booking]");
             if (!target) return;
             const bookingId = target.getAttribute("data-delete-booking");
@@ -259,6 +273,49 @@ const AdminApp = {
             .replace(/'/g, "&#039;");
     },
 
+    createSlug(value) {
+        return String(value || "")
+            .toLowerCase()
+            .trim()
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/^-+|-+$/g, "")
+            .slice(0, 80);
+    },
+
+    initSlugPreview(form, slugFieldName, sourceFieldNames) {
+        if (!form) return;
+        const slugInput = form.querySelector(`input[name='${slugFieldName}']`);
+        if (!slugInput) return;
+
+        const recalc = () => {
+            if (slugInput.dataset.manual === "1") return;
+            const seed = sourceFieldNames
+                .map((name) => String(form.elements[name]?.value || "").trim())
+                .filter(Boolean)
+                .join("-");
+            slugInput.value = this.createSlug(seed);
+        };
+
+        sourceFieldNames.forEach((name) => {
+            form.elements[name]?.addEventListener("input", recalc);
+            form.elements[name]?.addEventListener("change", recalc);
+        });
+
+        slugInput.addEventListener("input", () => {
+            slugInput.dataset.manual = "1";
+        });
+
+        slugInput.addEventListener("blur", () => {
+            if (!slugInput.value.trim()) {
+                slugInput.dataset.manual = "0";
+                recalc();
+            }
+        });
+
+        slugInput.dataset.manual = "0";
+        recalc();
+    },
+
     getEntryDate(data) {
         const raw = data?.createdAt;
         if (!raw) return null;
@@ -323,24 +380,12 @@ const AdminApp = {
         this.reviewsEntries = reviewsSnapshot.docs.map((snap) => snap.data());
 
         const bookingsCount = bookingsSnapshot.size;
-        const servicesCount = servicesSnapshot.size;
+        const approvedBookingsCount = this.bookingsEntries.filter((entry) => String(entry.status || "pending").toLowerCase() === "approved").length;
         const messagesCount = messagesSnapshot.size;
 
         if (this.statBookings) this.statBookings.textContent = String(bookingsCount);
-        if (this.statServices) this.statServices.textContent = String(servicesCount);
+        if (this.statServices) this.statServices.textContent = String(approvedBookingsCount);
         if (this.statClients) this.statClients.textContent = String(messagesCount);
-
-        const bookingsProgress = Math.min((bookingsCount / 100) * 100, 100);
-        const servicesProgress = Math.min((servicesCount / 50) * 100, 100);
-        const messagesProgress = Math.min((messagesCount / 100) * 100, 100);
-
-        const bookingsProgressBar = document.getElementById("bookingsProgress");
-        const servicesProgressBar = document.getElementById("servicesProgress");
-        const messagesProgressBar = document.getElementById("messagesProgress");
-
-        if (bookingsProgressBar) bookingsProgressBar.style.width = `${bookingsProgress}%`;
-        if (servicesProgressBar) servicesProgressBar.style.width = `${servicesProgress}%`;
-        if (messagesProgressBar) messagesProgressBar.style.width = `${messagesProgress}%`;
 
         this.renderOverviewCharts();
         this.renderAnalytics();
@@ -397,9 +442,8 @@ const AdminApp = {
 
         const serviceCounts = {};
         bookingsEntries.forEach((entry) => {
-            const raw = (entry.serviceDescription || "General").trim();
-            const name = raw.length > 18 ? `${raw.slice(0, 18)}...` : raw;
-            serviceCounts[name || "General"] = (serviceCounts[name || "General"] || 0) + 1;
+            const category = entry.serviceCategory || this.deriveCategoryFromText(entry.serviceDescription);
+            serviceCounts[category] = (serviceCounts[category] || 0) + 1;
         });
 
         const servicePairs = Object.entries(serviceCounts)
@@ -412,7 +456,7 @@ const AdminApp = {
                 height: 260,
                 fontFamily: "Manrope, sans-serif",
             },
-            labels: servicePairs.map(([label]) => label),
+            labels: servicePairs.map(([label]) => `${label} Bookings`),
             series: servicePairs.map(([, count]) => count),
             colors: ["#d790ee", "#7c83ff", "#34d399", "#f59e0b", "#f87171", "#22d3ee"],
             legend: {
@@ -645,6 +689,14 @@ const AdminApp = {
         return '<span class="px-3 py-1 bg-amber-500/10 text-amber-500 rounded-lg text-xs font-bold uppercase tracking-widest">Pending</span>';
     },
 
+    deriveCategoryFromText(text) {
+        const value = String(text || "").toLowerCase();
+        if (/hair|braid|cornrow|twist|silk|blow|loc/.test(value)) return "Hair";
+        if (/nail|manicure|pedicure|gel|acrylic|polish/.test(value)) return "Nails";
+        if (/facial|makeup|lashes|brow|wax|spa/.test(value)) return "Beauty";
+        return "Other";
+    },
+
     renderStars(rating) {
         const safeRating = Math.max(1, Math.min(5, Number(rating || 1)));
         return "★".repeat(safeRating) + "☆".repeat(5 - safeRating);
@@ -695,11 +747,18 @@ const AdminApp = {
                 <tr class="hover:bg-primary/5 transition-colors">
                     <td class="px-6 py-4 font-semibold">${this.escapeHtml(data.clientName || "N/A")}</td>
                     <td class="px-6 py-4">${this.escapeHtml(data.phone || "N/A")}</td>
-                    <td class="px-6 py-4">${this.escapeHtml(data.serviceDescription || "N/A")}</td>
+                    <td class="px-6 py-4">
+                        <div class="font-semibold">${this.escapeHtml(data.serviceDescription || "N/A")}</div>
+                        <div class="mt-1 text-xs font-bold uppercase tracking-widest text-primary">${this.escapeHtml(data.serviceCategory || this.deriveCategoryFromText(data.serviceDescription))}</div>
+                    </td>
                     <td class="px-6 py-4">${this.escapeHtml(`${data.date || ""} ${data.time || ""}`.trim())}</td>
                     <td class="px-6 py-4">${this.renderStatusBadge(data.status)}</td>
                     <td class="px-6 py-4 text-right">
-                        <button data-delete-booking="${row.id}" class="rounded-lg bg-rose-500/10 px-3 py-2 text-xs font-black uppercase tracking-widest text-rose-500 hover:bg-rose-500/20">Delete</button>
+                        <div class="flex items-center justify-end gap-2">
+                            <button data-set-booking-status="${row.id}" data-status-value="approved" class="rounded-lg bg-emerald-500/10 px-3 py-2 text-xs font-black uppercase tracking-widest text-emerald-600 hover:bg-emerald-500/20">Approve</button>
+                            <button data-set-booking-status="${row.id}" data-status-value="rejected" class="rounded-lg bg-amber-500/10 px-3 py-2 text-xs font-black uppercase tracking-widest text-amber-600 hover:bg-amber-500/20">Reject</button>
+                            <button data-delete-booking="${row.id}" class="rounded-lg bg-rose-500/10 px-3 py-2 text-xs font-black uppercase tracking-widest text-rose-500 hover:bg-rose-500/20">Delete</button>
+                        </div>
                     </td>
                 </tr>
                 `,
@@ -721,6 +780,20 @@ const AdminApp = {
         } catch (error) {
             console.error("Failed to delete booking", error);
             this.showActionFeedback("Could not delete booking. Check your admin permissions.", "error");
+        }
+    },
+
+    async updateBookingStatus(bookingId, status) {
+        const safeStatus = String(status || "").toLowerCase();
+        if (!["approved", "rejected", "pending"].includes(safeStatus)) return;
+
+        try {
+            await updateDoc(doc(db, "bookings", bookingId), { status: safeStatus });
+            this.showActionFeedback(`Booking marked ${safeStatus}.`);
+            await this.loadAllData();
+        } catch (error) {
+            console.error("Failed to update booking status", error);
+            this.showActionFeedback("Could not update booking status. Check your admin permissions.", "error");
         }
     },
 
@@ -787,12 +860,17 @@ const AdminApp = {
             imageUrl: imagePayload.imageUrl,
             imageDataUrl: imagePayload.imageDataUrl,
             description: String(formData.get("serviceDescription") || "").trim(),
+            slug: this.createSlug(String(formData.get("serviceSlug") || "").trim() || `${String(formData.get("serviceName") || "").trim()}-${String(formData.get("serviceDuration") || "").trim()}`),
             createdAt: serverTimestamp(),
         };
 
         try {
             await addDoc(collection(db, "services"), payload);
             this.addServiceForm.reset();
+            if (this.serviceSlugInput) {
+                this.serviceSlugInput.dataset.manual = "0";
+                this.serviceSlugInput.value = "";
+            }
             if (this.serviceFormFeedback) {
                 this.serviceFormFeedback.textContent = "Service added successfully.";
                 this.serviceFormFeedback.className = "mt-4 rounded-xl border border-emerald-400/30 bg-emerald-500/10 px-4 py-3 text-sm font-semibold text-emerald-600";
@@ -873,12 +951,17 @@ const AdminApp = {
             imageUrl: imagePayload.imageUrl,
             imageDataUrl: imagePayload.imageDataUrl,
             description: String(formData.get("trendDescription") || "").trim(),
+            slug: this.createSlug(String(formData.get("trendSlug") || "").trim() || `${String(formData.get("trendTitle") || "").trim()}-${String(formData.get("trendCategory") || "").trim()}`),
             createdAt: serverTimestamp(),
         };
 
         try {
             await addDoc(collection(db, "trending"), payload);
             this.addTrendingForm.reset();
+            if (this.trendSlugInput) {
+                this.trendSlugInput.dataset.manual = "0";
+                this.trendSlugInput.value = "";
+            }
             if (this.trendingFormFeedback) {
                 this.trendingFormFeedback.textContent = "Trending style added successfully.";
                 this.trendingFormFeedback.className = "mt-4 rounded-xl border border-emerald-400/30 bg-emerald-500/10 px-4 py-3 text-sm font-semibold text-emerald-600";

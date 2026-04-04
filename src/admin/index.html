@@ -58,7 +58,7 @@
         </div>
     </div>
 
-    <button id="sidebarOpenBtn" class="fixed left-4 top-4 z-50 flex h-11 w-11 items-center justify-center rounded-full border border-primary/20 bg-white text-slate-700 shadow-lg shadow-black/10 dark:bg-surface dark:text-slate-100 lg:hidden" type="button" aria-label="Open sidebar">
+    <button id="sidebarOpenBtn" class="fixed right-4 top-4 z-50 flex h-11 w-11 items-center justify-center rounded-full border border-primary/20 bg-white text-slate-700 shadow-lg shadow-black/10 dark:bg-surface dark:text-slate-100 lg:hidden" type="button" aria-label="Open sidebar">
         <span class="material-symbols-outlined text-lg">menu</span>
     </button>
 
@@ -70,19 +70,19 @@
             <div class="flex items-center justify-between gap-3">
                 <div class="flex items-center gap-3 min-w-0">
                     <img src="../../assets/img/logo.png" alt="PureLux Logo" class="h-9 w-auto shrink-0">
-                    <h2 class="text-lg font-extrabold tracking-tight truncate">PureLux <span class="text-primary italic">Admin</span></h2>
+                    <h2 class="text-base sm:text-lg font-extrabold tracking-tight whitespace-nowrap">PureLux <span class="text-primary uppercase">ADMIN</span></h2>
                 </div>
                 <div class="flex items-center gap-2">
                     <button id="sidebarCloseBtn" class="flex h-9 w-9 items-center justify-center rounded-full border border-primary/30 bg-white text-slate-700 shadow-sm hover:bg-primary/10 transition-colors dark:bg-background-dark/70 dark:text-primary lg:hidden" type="button" aria-label="Close sidebar">
                         <span class="material-symbols-outlined text-base">close</span>
                     </button>
-                    <button class="flex h-9 w-9 items-center justify-center rounded-full border border-primary/30 bg-white text-slate-700 shadow-sm hover:bg-primary/10 transition-colors dark:bg-background-dark/70 dark:text-primary" type="button" data-theme-toggle aria-pressed="true" aria-label="Toggle theme" onclick="window.pureluxToggleTheme()">
+                    <button class="flex h-9 w-9 items-center justify-center rounded-full border border-primary/30 bg-white text-slate-700 shadow-sm hover:bg-primary/10 transition-colors dark:bg-background-dark/70 dark:text-primary lg:hidden" type="button" data-theme-toggle aria-pressed="true" aria-label="Toggle theme" onclick="window.pureluxToggleTheme()">
                         <span class="material-symbols-outlined text-base" data-theme-icon>dark_mode</span>
                     </button>
                 </div>
             </div>
             
-            <nav class="flex lg:flex-col gap-2 text-xs sm:text-sm overflow-x-auto lg:overflow-visible pb-1 lg:pb-0">
+            <nav class="flex flex-col gap-2 text-sm overflow-y-auto pb-1">
                 <a href="#" data-section="overview" class="nav-link shrink-0 flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-primary text-background-dark font-bold shadow-lg shadow-primary/20 transition-all">
                     <span class="material-symbols-outlined text-[18px]">dashboard</span> Overview
                 </a>
@@ -116,6 +116,9 @@
 
         <!-- Main Workspace -->
         <main class="flex-1 p-4 sm:p-6 lg:p-8">
+            <button class="fixed right-4 top-4 z-50 hidden h-10 w-10 items-center justify-center rounded-full border border-primary/30 bg-white text-slate-700 shadow-sm hover:bg-primary/10 transition-colors dark:bg-background-dark/70 dark:text-primary lg:flex" type="button" data-theme-toggle aria-pressed="true" aria-label="Toggle theme" onclick="window.pureluxToggleTheme()">
+                <span class="material-symbols-outlined text-base" data-theme-icon>dark_mode</span>
+            </button>
             <p id="adminActionFeedback" class="hidden"></p>
 
             <!-- OVERVIEW SECTION -->
@@ -136,7 +139,7 @@
 
                     <!-- Luxury Stat Card: Services -->
                     <div class="bg-gradient-to-br from-white to-slate-50 dark:from-surface dark:to-surface/80 p-5 rounded-2xl border border-primary/20 shadow-sm hover:shadow-md hover:border-primary/35 transition-all duration-300">
-                        <p class="text-slate-500 dark:text-slate-400 text-xs uppercase font-bold tracking-widest mb-1">Services Offered</p>
+                        <p class="text-slate-500 dark:text-slate-400 text-xs uppercase font-bold tracking-widest mb-1">Approved Bookings</p>
                         <p id="statServices" class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white">0</p>
                     </div>
 
@@ -211,7 +214,7 @@
                                     <th class="px-6 py-5">Service</th>
                                     <th class="px-6 py-5">Schedule</th>
                                     <th class="px-6 py-5">Status</th>
-                                    <th class="px-6 py-5 text-right">Delete</th>
+                                    <th class="px-6 py-5 text-right">Actions</th>
                                 </tr>
                             </thead>
                             <tbody id="allBookingsTableBody" class="divide-y divide-primary/5"></tbody>
@@ -233,6 +236,11 @@
                             <div>
                                 <label class="block text-xs font-black uppercase tracking-widest mb-2">Service Name</label>
                                 <input name="serviceName" required class="w-full rounded-2xl border border-slate-300 dark:border-primary/30 bg-slate-50 dark:bg-background-dark/60 px-4 py-3" placeholder="Luxury Twist Braids" type="text">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-black uppercase tracking-widest mb-2">Slug (editable)</label>
+                                <input name="serviceSlug" class="w-full rounded-2xl border border-slate-300 dark:border-primary/30 bg-slate-50 dark:bg-background-dark/60 px-4 py-3" placeholder="luxury-twist-braids-120-min" type="text">
+                                <p class="mt-1 text-[11px] font-semibold text-slate-500 dark:text-slate-400">Used for service detail URL.</p>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
@@ -279,6 +287,11 @@
                             <div>
                                 <label class="block text-xs font-black uppercase tracking-widest mb-2">Title</label>
                                 <input name="trendTitle" required class="w-full rounded-2xl border border-slate-300 dark:border-primary/30 bg-slate-50 dark:bg-background-dark/60 px-4 py-3" placeholder="Chrome French Nails" type="text">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-black uppercase tracking-widest mb-2">Slug (editable)</label>
+                                <input name="trendSlug" class="w-full rounded-2xl border border-slate-300 dark:border-primary/30 bg-slate-50 dark:bg-background-dark/60 px-4 py-3" placeholder="chrome-french-nails-nails" type="text">
+                                <p class="mt-1 text-[11px] font-semibold text-slate-500 dark:text-slate-400">Used for trend detail URL.</p>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>

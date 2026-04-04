@@ -10,10 +10,21 @@ const bookingForm = document.querySelector("[data-booking-form]");
 if (bookingForm) {
     const params = new URLSearchParams(window.location.search);
     const presetService = params.get("service");
+    const presetCategory = params.get("category");
     if (presetService) {
         const serviceField = bookingForm.querySelector("textarea[name='serviceDescription']");
         if (serviceField && !serviceField.value.trim()) {
             serviceField.value = presetService;
+        }
+    }
+    if (presetCategory) {
+        const categoryField = bookingForm.querySelector("select[name='serviceCategory']");
+        if (categoryField) {
+            const normalized = String(presetCategory).trim();
+            const hasOption = Array.from(categoryField.options).some((opt) => opt.value === normalized);
+            if (hasOption) {
+                categoryField.value = normalized;
+            }
         }
     }
 
@@ -103,6 +114,7 @@ if (bookingForm) {
             date: formData.get("date") || "",
             time: formData.get("time") || "",
             communicationMethod: formData.get("communicationMethod") || "Phone call",
+            serviceCategory: formData.get("serviceCategory") || "Hair",
             serviceDescription: (formData.get("serviceDescription") || "").trim(),
             status: "pending",
             createdAt: serverTimestamp(),
