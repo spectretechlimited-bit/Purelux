@@ -12,6 +12,8 @@ import {
     serverTimestamp,
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
+const DEFAULT_IMAGE = "../../assets/img/h6.jpeg";
+
 const AdminApp = {
     init() {
         this.cacheDOM();
@@ -26,6 +28,10 @@ const AdminApp = {
         this.loginError = document.getElementById("loginError");
         this.logoutBtn = document.getElementById("logoutBtn");
         this.mainContent = document.getElementById("mainContent");
+        this.adminSidebar = document.getElementById("adminSidebar");
+        this.sidebarBackdrop = document.getElementById("sidebarBackdrop");
+        this.sidebarOpenBtn = document.getElementById("sidebarOpenBtn");
+        this.sidebarCloseBtn = document.getElementById("sidebarCloseBtn");
 
         this.navLinks = document.querySelectorAll(".nav-link");
         this.sections = document.querySelectorAll(".admin-section");
@@ -39,14 +45,22 @@ const AdminApp = {
         this.analyticsMessagesPeriod = document.getElementById("analyticsMessagesPeriod");
         this.analyticsBookingsTotal = document.getElementById("analyticsBookingsTotal");
         this.analyticsMessagesTotal = document.getElementById("analyticsMessagesTotal");
+        this.analyticsReviewsPeriod = document.getElementById("analyticsReviewsPeriod");
+        this.analyticsReviewsTotal = document.getElementById("analyticsReviewsTotal");
 
         this.bookingsTableBody = document.getElementById("bookingsTableBody");
         this.allBookingsTableBody = document.getElementById("allBookingsTableBody");
         this.messagesTableBody = document.getElementById("messagesTableBody");
+        this.reviewsTableBody = document.getElementById("reviewsTableBody");
 
         this.addServiceForm = document.getElementById("addServiceForm");
         this.serviceFormFeedback = document.getElementById("serviceFormFeedback");
         this.servicesAdminList = document.getElementById("servicesAdminList");
+
+        this.addTrendingForm = document.getElementById("addTrendingForm");
+        this.trendingFormFeedback = document.getElementById("trendingFormFeedback");
+        this.trendingAdminList = document.getElementById("trendingAdminList");
+
         this.actionFeedback = document.getElementById("adminActionFeedback");
     },
 
@@ -54,12 +68,17 @@ const AdminApp = {
         this.loginForm?.addEventListener("submit", (event) => this.handleLogin(event));
         this.logoutBtn?.addEventListener("click", () => this.handleLogout());
         this.addServiceForm?.addEventListener("submit", (event) => this.handleAddService(event));
+        this.addTrendingForm?.addEventListener("submit", (event) => this.handleAddTrending(event));
+        this.sidebarOpenBtn?.addEventListener("click", () => this.openSidebar());
+        this.sidebarCloseBtn?.addEventListener("click", () => this.closeSidebar());
+        this.sidebarBackdrop?.addEventListener("click", () => this.closeSidebar());
 
         this.navLinks.forEach((link) => {
             link.addEventListener("click", (event) => {
                 event.preventDefault();
                 const sectionId = link.getAttribute("data-section");
                 this.showSection(sectionId);
+                this.closeSidebar();
             });
         });
 
@@ -77,11 +96,25 @@ const AdminApp = {
             await this.deleteService(serviceId);
         });
 
+        this.trendingAdminList?.addEventListener("click", async (event) => {
+            const target = event.target.closest("[data-delete-trend]");
+            if (!target) return;
+            const trendId = target.getAttribute("data-delete-trend");
+            await this.deleteTrend(trendId);
+        });
+
         this.messagesTableBody?.addEventListener("click", async (event) => {
             const target = event.target.closest("[data-delete-message]");
             if (!target) return;
             const messageId = target.getAttribute("data-delete-message");
             await this.deleteMessage(messageId);
+        });
+
+        this.reviewsTableBody?.addEventListener("click", async (event) => {
+            const target = event.target.closest("[data-delete-review]");
+            if (!target) return;
+            const reviewId = target.getAttribute("data-delete-review");
+            await this.deleteReview(reviewId);
         });
 
         this.analyticsPeriod?.addEventListener("change", () => {
@@ -157,6 +190,32 @@ const AdminApp = {
         if (id === "analytics") {
             this.renderAnalytics();
         }
+
+        if (window.innerWidth < 1024) {
+            this.closeSidebar();
+        }
+    },
+
+    openSidebar() {
+        if (!this.adminSidebar || !this.sidebarBackdrop) return;
+        this.adminSidebar.classList.remove("-translate-x-full");
+        this.adminSidebar.classList.add("translate-x-0");
+        this.sidebarBackdrop.classList.remove("hidden", "opacity-0");
+        this.sidebarBackdrop.classList.add("block", "opacity-100");
+        document.body.classList.add("overflow-hidden");
+    },
+
+    closeSidebar() {
+        if (!this.adminSidebar || !this.sidebarBackdrop) return;
+        this.adminSidebar.classList.add("-translate-x-full");
+        this.adminSidebar.classList.remove("translate-x-0");
+        this.sidebarBackdrop.classList.add("opacity-0");
+        this.sidebarBackdrop.classList.remove("opacity-100");
+        window.setTimeout(() => {
+            this.sidebarBackdrop.classList.add("hidden");
+            this.sidebarBackdrop.classList.remove("block");
+        }, 250);
+        document.body.classList.remove("overflow-hidden");
     },
 
     async loadAllData() {
@@ -165,7 +224,9 @@ const AdminApp = {
             this.loadRecentBookings(),
             this.loadAllBookings(),
             this.loadServicesAdminList(),
+            this.loadTrendingAdminList(),
             this.loadMessages(),
+            this.loadReviews(),
         ]);
     },
 
@@ -254,10 +315,12 @@ const AdminApp = {
         const bookingsSnapshot = await getDocs(collection(db, "bookings"));
         const servicesSnapshot = await getDocs(collection(db, "services"));
         const messagesSnapshot = await getDocs(collection(db, "messages"));
+        const reviewsSnapshot = await getDocs(collection(db, "reviews"));
 
         this.bookingsEntries = bookingsSnapshot.docs.map((snap) => snap.data());
         this.servicesEntries = servicesSnapshot.docs.map((snap) => snap.data());
         this.messagesEntries = messagesSnapshot.docs.map((snap) => snap.data());
+        this.reviewsEntries = reviewsSnapshot.docs.map((snap) => snap.data());
 
         const bookingsCount = bookingsSnapshot.size;
         const servicesCount = servicesSnapshot.size;
@@ -375,20 +438,24 @@ const AdminApp = {
     renderAnalytics() {
         const bookingsEntries = this.bookingsEntries || [];
         const messagesEntries = this.messagesEntries || [];
+        const reviewsEntries = this.reviewsEntries || [];
         const days = Number(this.analyticsPeriod?.value || 30);
 
         const periodBookings = bookingsEntries.filter((entry) => this.isWithinDays(this.getEntryDate(entry), days));
         const periodMessages = messagesEntries.filter((entry) => this.isWithinDays(this.getEntryDate(entry), days));
+        const periodReviews = reviewsEntries.filter((entry) => this.isWithinDays(this.getEntryDate(entry), days));
 
         if (this.analyticsBookingsPeriod) this.analyticsBookingsPeriod.textContent = String(periodBookings.length);
         if (this.analyticsMessagesPeriod) this.analyticsMessagesPeriod.textContent = String(periodMessages.length);
         if (this.analyticsBookingsTotal) this.analyticsBookingsTotal.textContent = String(bookingsEntries.length);
         if (this.analyticsMessagesTotal) this.analyticsMessagesTotal.textContent = String(messagesEntries.length);
+        if (this.analyticsReviewsPeriod) this.analyticsReviewsPeriod.textContent = String(periodReviews.length);
+        if (this.analyticsReviewsTotal) this.analyticsReviewsTotal.textContent = String(reviewsEntries.length);
 
-        this.renderAnalyticsCharts(days, periodBookings, periodMessages);
+        this.renderAnalyticsCharts(days, periodBookings, periodMessages, periodReviews);
     },
 
-    renderAnalyticsCharts(days, periodBookings, periodMessages) {
+    renderAnalyticsCharts(days, periodBookings, periodMessages, periodReviews) {
         if (typeof window.ApexCharts === "undefined") return;
         const theme = this.getChartTheme();
 
@@ -523,6 +590,48 @@ const AdminApp = {
                 this.analyticsContactChart.render();
             }
         }
+
+        const reviewBuckets = [0, 0, 0, 0, 0];
+        periodReviews.forEach((entry) => {
+            const rating = Number(entry.rating || 0);
+            if (rating >= 1 && rating <= 5) {
+                reviewBuckets[rating - 1] += 1;
+            }
+        });
+
+        const reviewOptions = {
+            chart: {
+                type: "bar",
+                height: 280,
+                toolbar: { show: false },
+                fontFamily: "Manrope, sans-serif",
+            },
+            series: [{ name: "Reviews", data: reviewBuckets }],
+            xaxis: {
+                categories: ["1 Star", "2 Stars", "3 Stars", "4 Stars", "5 Stars"],
+                labels: { style: { colors: theme.text } },
+            },
+            yaxis: {
+                min: 0,
+                labels: { style: { colors: theme.text } },
+            },
+            colors: [theme.primary],
+            plotOptions: { bar: { borderRadius: 8 } },
+            grid: { borderColor: theme.grid },
+            dataLabels: { enabled: false },
+            legend: { show: false },
+            tooltip: { theme: document.documentElement.classList.contains("dark") ? "dark" : "light" },
+        };
+
+        const reviewEl = document.getElementById("analyticsReviewChart");
+        if (reviewEl) {
+            if (this.analyticsReviewChart) {
+                this.analyticsReviewChart.updateOptions(reviewOptions, true, true);
+            } else {
+                this.analyticsReviewChart = new window.ApexCharts(reviewEl, reviewOptions);
+                this.analyticsReviewChart.render();
+            }
+        }
     },
 
     renderStatusBadge(status) {
@@ -534,6 +643,11 @@ const AdminApp = {
             return '<span class="px-3 py-1 bg-rose-500/10 text-rose-500 rounded-lg text-xs font-bold uppercase tracking-widest">Rejected</span>';
         }
         return '<span class="px-3 py-1 bg-amber-500/10 text-amber-500 rounded-lg text-xs font-bold uppercase tracking-widest">Pending</span>';
+    },
+
+    renderStars(rating) {
+        const safeRating = Math.max(1, Math.min(5, Number(rating || 1)));
+        return "★".repeat(safeRating) + "☆".repeat(5 - safeRating);
     },
 
     async loadRecentBookings() {
@@ -610,15 +724,68 @@ const AdminApp = {
         }
     },
 
+    async resizeImageToDataUrl(file, maxEdge = 1200, quality = 0.82) {
+        const reader = new FileReader();
+        const dataUrl = await new Promise((resolve, reject) => {
+            reader.onload = () => resolve(String(reader.result || ""));
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+        });
+
+        const image = new Image();
+        await new Promise((resolve, reject) => {
+            image.onload = resolve;
+            image.onerror = reject;
+            image.src = dataUrl;
+        });
+
+        let { width, height } = image;
+        if (width > maxEdge || height > maxEdge) {
+            const scale = Math.min(maxEdge / width, maxEdge / height);
+            width = Math.round(width * scale);
+            height = Math.round(height * scale);
+        }
+
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return dataUrl;
+
+        ctx.drawImage(image, 0, 0, width, height);
+        return canvas.toDataURL("image/jpeg", quality);
+    },
+
+    async resolveImagePayload(urlValue, fileInput) {
+        const imageUrl = String(urlValue || "").trim();
+        const file = fileInput?.files?.[0];
+
+        if (file) {
+            const imageDataUrl = await this.resizeImageToDataUrl(file);
+            return { imageUrl: "", imageDataUrl };
+        }
+
+        if (imageUrl) {
+            return { imageUrl, imageDataUrl: "" };
+        }
+
+        return { imageUrl: DEFAULT_IMAGE, imageDataUrl: "" };
+    },
+
     async handleAddService(event) {
         event.preventDefault();
         const formData = new FormData(this.addServiceForm);
+        const imagePayload = await this.resolveImagePayload(
+            formData.get("serviceImage"),
+            this.addServiceForm.querySelector("input[name='serviceImageFile']"),
+        );
 
         const payload = {
             name: String(formData.get("serviceName") || "").trim(),
             priceLabel: String(formData.get("servicePrice") || "").trim(),
             duration: String(formData.get("serviceDuration") || "").trim(),
-            imageUrl: String(formData.get("serviceImage") || "").trim(),
+            imageUrl: imagePayload.imageUrl,
+            imageDataUrl: imagePayload.imageDataUrl,
             description: String(formData.get("serviceDescription") || "").trim(),
             createdAt: serverTimestamp(),
         };
@@ -651,15 +818,19 @@ const AdminApp = {
 
         snapshot.forEach((row) => {
             const data = row.data();
+            const imageSource = data.imageDataUrl || data.imageUrl || DEFAULT_IMAGE;
             this.servicesAdminList.insertAdjacentHTML(
                 "beforeend",
                 `
                 <div class="rounded-2xl border border-primary/10 bg-white dark:bg-background-dark/40 p-5">
                     <div class="flex items-start justify-between gap-4">
-                        <div>
-                            <h4 class="text-lg font-black">${this.escapeHtml(data.name || "Unnamed Service")}</h4>
-                            <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">${this.escapeHtml(data.description || "No description")}</p>
-                            <p class="mt-3 text-xs font-black uppercase tracking-wider text-primary">${this.escapeHtml(data.priceLabel || "")}${data.duration ? ` • ${this.escapeHtml(data.duration)}` : ""}</p>
+                        <div class="flex items-start gap-3">
+                            <img src="${this.escapeHtml(imageSource)}" alt="Service image" class="h-16 w-16 rounded-xl object-cover border border-primary/10" />
+                            <div>
+                                <h4 class="text-lg font-black">${this.escapeHtml(data.name || "Unnamed Service")}</h4>
+                                <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">${this.escapeHtml(data.description || "No description")}</p>
+                                <p class="mt-3 text-xs font-black uppercase tracking-wider text-primary">${this.escapeHtml(data.priceLabel || "")}${data.duration ? ` • ${this.escapeHtml(data.duration)}` : ""}</p>
+                            </div>
                         </div>
                         <button data-delete-service="${row.id}" class="rounded-lg bg-rose-500/10 px-3 py-2 text-xs font-black uppercase tracking-widest text-rose-500 hover:bg-rose-500/20">Delete</button>
                     </div>
@@ -683,6 +854,93 @@ const AdminApp = {
         } catch (error) {
             console.error("Failed to delete service", error);
             this.showActionFeedback("Could not delete service. Check your admin permissions.", "error");
+        }
+    },
+
+    async handleAddTrending(event) {
+        event.preventDefault();
+        const formData = new FormData(this.addTrendingForm);
+        const imagePayload = await this.resolveImagePayload(
+            formData.get("trendImage"),
+            this.addTrendingForm.querySelector("input[name='trendImageFile']"),
+        );
+
+        const payload = {
+            title: String(formData.get("trendTitle") || "").trim(),
+            category: String(formData.get("trendCategory") || "").trim(),
+            priceLabel: String(formData.get("trendPrice") || "").trim(),
+            duration: String(formData.get("trendDuration") || "").trim(),
+            imageUrl: imagePayload.imageUrl,
+            imageDataUrl: imagePayload.imageDataUrl,
+            description: String(formData.get("trendDescription") || "").trim(),
+            createdAt: serverTimestamp(),
+        };
+
+        try {
+            await addDoc(collection(db, "trending"), payload);
+            this.addTrendingForm.reset();
+            if (this.trendingFormFeedback) {
+                this.trendingFormFeedback.textContent = "Trending style added successfully.";
+                this.trendingFormFeedback.className = "mt-4 rounded-xl border border-emerald-400/30 bg-emerald-500/10 px-4 py-3 text-sm font-semibold text-emerald-600";
+            }
+            this.showActionFeedback("Trending style created successfully.");
+            await this.loadAllData();
+        } catch (error) {
+            console.error("Failed to add trending style", error);
+            if (this.trendingFormFeedback) {
+                this.trendingFormFeedback.textContent = "Failed to add trending style.";
+                this.trendingFormFeedback.className = "mt-4 rounded-xl border border-rose-400/30 bg-rose-500/10 px-4 py-3 text-sm font-semibold text-rose-600";
+            }
+            this.showActionFeedback("Could not create trending style. Check your admin permissions.", "error");
+        }
+    },
+
+    async loadTrendingAdminList() {
+        if (!this.trendingAdminList) return;
+        const q = query(collection(db, "trending"), orderBy("createdAt", "desc"));
+        const snapshot = await getDocs(q);
+
+        this.trendingAdminList.innerHTML = "";
+
+        snapshot.forEach((row) => {
+            const data = row.data();
+            const imageSource = data.imageDataUrl || data.imageUrl || DEFAULT_IMAGE;
+            this.trendingAdminList.insertAdjacentHTML(
+                "beforeend",
+                `
+                <div class="rounded-2xl border border-primary/10 bg-white dark:bg-background-dark/40 p-5">
+                    <div class="flex items-start justify-between gap-4">
+                        <div class="flex items-start gap-3">
+                            <img src="${this.escapeHtml(imageSource)}" alt="Trending style image" class="h-16 w-16 rounded-xl object-cover border border-primary/10" />
+                            <div>
+                                <h4 class="text-lg font-black">${this.escapeHtml(data.title || "Untitled Trend")}</h4>
+                                <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">${this.escapeHtml(data.description || "No description")}</p>
+                                <p class="mt-2 text-xs font-black uppercase tracking-wider text-primary">${this.escapeHtml(data.category || "Beauty")} • ${this.escapeHtml(data.priceLabel || "")} • ${this.escapeHtml(data.duration || "")}</p>
+                                <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Booking label: ${this.escapeHtml(data.title || "N/A")}</p>
+                            </div>
+                        </div>
+                        <button data-delete-trend="${row.id}" class="rounded-lg bg-rose-500/10 px-3 py-2 text-xs font-black uppercase tracking-widest text-rose-500 hover:bg-rose-500/20">Delete</button>
+                    </div>
+                </div>
+                `,
+            );
+        });
+
+        if (snapshot.empty) {
+            this.trendingAdminList.innerHTML = '<div class="rounded-2xl border border-primary/10 bg-white dark:bg-background-dark/40 p-5 text-sm font-semibold text-slate-400">No trending styles created yet.</div>';
+        }
+    },
+
+    async deleteTrend(trendId) {
+        const confirmed = window.confirm("Delete this trending style?");
+        if (!confirmed) return;
+        try {
+            await deleteDoc(doc(db, "trending", trendId));
+            this.showActionFeedback("Trending style deleted successfully.");
+            await this.loadAllData();
+        } catch (error) {
+            console.error("Failed to delete trending style", error);
+            this.showActionFeedback("Could not delete trending style. Check your admin permissions.", "error");
         }
     },
 
@@ -728,6 +986,50 @@ const AdminApp = {
         } catch (error) {
             console.error("Failed to delete message", error);
             this.showActionFeedback("Could not delete message. Check your admin permissions.", "error");
+        }
+    },
+
+    async loadReviews() {
+        if (!this.reviewsTableBody) return;
+        const q = query(collection(db, "reviews"), orderBy("createdAt", "desc"), limit(150));
+        const snapshot = await getDocs(q);
+
+        this.reviewsTableBody.innerHTML = "";
+
+        snapshot.forEach((row) => {
+            const data = row.data();
+            const name = data.isAnonymous ? "Anonymous" : (data.authorName || "Anonymous");
+            this.reviewsTableBody.insertAdjacentHTML(
+                "beforeend",
+                `
+                <tr class="hover:bg-primary/5 transition-colors">
+                    <td class="px-6 py-4 font-semibold">${this.escapeHtml(name)}</td>
+                    <td class="px-6 py-4 text-amber-500 font-bold">${this.escapeHtml(this.renderStars(data.rating))}</td>
+                    <td class="px-6 py-4 max-w-lg break-words">${this.escapeHtml(data.comment || "")}</td>
+                    <td class="px-6 py-4 text-xs text-slate-400">${this.escapeHtml(this.formatTimestamp(data.createdAt))}</td>
+                    <td class="px-6 py-4 text-right">
+                        <button data-delete-review="${row.id}" class="rounded-lg bg-rose-500/10 px-3 py-2 text-xs font-black uppercase tracking-widest text-rose-500 hover:bg-rose-500/20">Delete</button>
+                    </td>
+                </tr>
+                `,
+            );
+        });
+
+        if (snapshot.empty) {
+            this.reviewsTableBody.innerHTML = '<tr><td colspan="5" class="px-8 py-8 text-center text-slate-400 font-semibold">No reviews submitted yet.</td></tr>';
+        }
+    },
+
+    async deleteReview(reviewId) {
+        const confirmed = window.confirm("Delete this review?");
+        if (!confirmed) return;
+        try {
+            await deleteDoc(doc(db, "reviews", reviewId));
+            this.showActionFeedback("Review deleted successfully.");
+            await this.loadAllData();
+        } catch (error) {
+            console.error("Failed to delete review", error);
+            this.showActionFeedback("Could not delete review. Check your admin permissions.", "error");
         }
     },
 };

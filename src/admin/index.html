@@ -58,17 +58,28 @@
         </div>
     </div>
 
+    <button id="sidebarOpenBtn" class="fixed left-4 top-4 z-50 flex h-11 w-11 items-center justify-center rounded-full border border-primary/20 bg-white text-slate-700 shadow-lg shadow-black/10 dark:bg-surface dark:text-slate-100 lg:hidden" type="button" aria-label="Open sidebar">
+        <span class="material-symbols-outlined text-lg">menu</span>
+    </button>
+
+    <div id="sidebarBackdrop" class="fixed inset-0 z-30 hidden bg-black/50 opacity-0 transition-opacity duration-300 lg:hidden"></div>
+
     <div id="mainContent" class="flex flex-col lg:flex-row min-h-screen blur-sm pointer-events-none">
         <!-- Dashboard Sidebar -->
-        <aside class="w-full lg:w-56 bg-white dark:bg-surface border-b lg:border-b-0 lg:border-r border-primary/20 p-3 lg:p-4 flex flex-col gap-4 sticky top-0 z-40 h-auto lg:h-screen">
+        <aside id="adminSidebar" class="fixed inset-y-0 left-0 z-40 w-80 max-w-[86vw] -translate-x-full transform bg-white dark:bg-surface border-r border-primary/20 p-4 flex flex-col gap-4 transition-transform duration-300 ease-out lg:sticky lg:top-0 lg:z-40 lg:w-56 lg:max-w-none lg:translate-x-0 lg:h-screen">
             <div class="flex items-center justify-between gap-3">
                 <div class="flex items-center gap-3 min-w-0">
                     <img src="../../assets/img/logo.png" alt="PureLux Logo" class="h-9 w-auto shrink-0">
                     <h2 class="text-lg font-extrabold tracking-tight truncate">PureLux <span class="text-primary italic">Admin</span></h2>
                 </div>
-                <button class="flex h-9 w-9 items-center justify-center rounded-full border border-primary/30 bg-white text-slate-700 shadow-sm hover:bg-primary/10 transition-colors dark:bg-background-dark/70 dark:text-primary" type="button" data-theme-toggle aria-pressed="true" aria-label="Toggle theme" onclick="window.pureluxToggleTheme()">
-                    <span class="material-symbols-outlined text-base" data-theme-icon>dark_mode</span>
-                </button>
+                <div class="flex items-center gap-2">
+                    <button id="sidebarCloseBtn" class="flex h-9 w-9 items-center justify-center rounded-full border border-primary/30 bg-white text-slate-700 shadow-sm hover:bg-primary/10 transition-colors dark:bg-background-dark/70 dark:text-primary lg:hidden" type="button" aria-label="Close sidebar">
+                        <span class="material-symbols-outlined text-base">close</span>
+                    </button>
+                    <button class="flex h-9 w-9 items-center justify-center rounded-full border border-primary/30 bg-white text-slate-700 shadow-sm hover:bg-primary/10 transition-colors dark:bg-background-dark/70 dark:text-primary" type="button" data-theme-toggle aria-pressed="true" aria-label="Toggle theme" onclick="window.pureluxToggleTheme()">
+                        <span class="material-symbols-outlined text-base" data-theme-icon>dark_mode</span>
+                    </button>
+                </div>
             </div>
             
             <nav class="flex lg:flex-col gap-2 text-xs sm:text-sm overflow-x-auto lg:overflow-visible pb-1 lg:pb-0">
@@ -81,11 +92,17 @@
                 <a href="#" data-section="services" class="nav-link shrink-0 flex items-center gap-2.5 px-3 py-2.5 rounded-xl hover:bg-primary/10 transition-all font-semibold">
                     <span class="material-symbols-outlined text-[18px]">auto_awesome</span> Services
                 </a>
+                <a href="#" data-section="trending" class="nav-link shrink-0 flex items-center gap-2.5 px-3 py-2.5 rounded-xl hover:bg-primary/10 transition-all font-semibold">
+                    <span class="material-symbols-outlined text-[18px]">whatshot</span> Trending
+                </a>
                 <a href="#" data-section="analytics" class="nav-link shrink-0 flex items-center gap-2.5 px-3 py-2.5 rounded-xl hover:bg-primary/10 transition-all font-semibold">
                     <span class="material-symbols-outlined text-[18px]">trending_up</span> Analytics
                 </a>
                 <a href="#" data-section="messages" class="nav-link shrink-0 flex items-center gap-2.5 px-3 py-2.5 rounded-xl hover:bg-primary/10 transition-all font-semibold">
                     <span class="material-symbols-outlined text-[18px]">mail</span> Messages
+                </a>
+                <a href="#" data-section="reviews" class="nav-link shrink-0 flex items-center gap-2.5 px-3 py-2.5 rounded-xl hover:bg-primary/10 transition-all font-semibold">
+                    <span class="material-symbols-outlined text-[18px]">reviews</span> Reviews
                 </a>
                 <div class="hidden lg:block h-px bg-primary/10 my-2"></div>
                 <a href="../../index.html" target="_blank" class="nav-link shrink-0 flex items-center gap-2.5 px-3 py-2.5 rounded-xl hover:bg-primary/10 transition-all font-semibold">
@@ -112,48 +129,21 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
                     <!-- Luxury Stat Card: Bookings -->
-                    <div class="bg-gradient-to-br from-white to-slate-50 dark:from-surface dark:to-surface/80 p-5 rounded-2xl border border-primary/20 shadow-sm hover:shadow-md hover:border-primary/35 transition-all duration-300 group">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="p-3 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 text-primary group-hover:from-primary group-hover:to-primary/80 group-hover:text-background-dark transition-all duration-300">
-                                <span class="material-symbols-outlined text-2xl">calendar_month</span>
-                            </div>
-                            <span class="text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">Live</span>
-                        </div>
+                    <div class="bg-gradient-to-br from-white to-slate-50 dark:from-surface dark:to-surface/80 p-5 rounded-2xl border border-primary/20 shadow-sm hover:shadow-md hover:border-primary/35 transition-all duration-300">
                         <p class="text-slate-500 dark:text-slate-400 text-xs uppercase font-bold tracking-widest mb-1">Total Bookings</p>
-                        <p id="statBookings" class="text-2xl md:text-3xl font-black text-slate-900 dark:text-white mb-3">0</p>
-                        <div class="h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
-                            <div id="bookingsProgress" class="h-full bg-gradient-to-r from-primary to-primary/60 transition-all duration-500" style="width: 0%"></div>
-                        </div>
+                        <p id="statBookings" class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white">0</p>
                     </div>
 
                     <!-- Luxury Stat Card: Services -->
-                    <div class="bg-gradient-to-br from-white to-slate-50 dark:from-surface dark:to-surface/80 p-5 rounded-2xl border border-primary/20 shadow-sm hover:shadow-md hover:border-primary/35 transition-all duration-300 group">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="p-3 rounded-xl bg-gradient-to-br from-amber-500/20 to-amber-500/10 text-amber-600 dark:text-amber-400 group-hover:from-amber-500 group-hover:to-amber-400 group-hover:text-white transition-all duration-300">
-                                <span class="material-symbols-outlined text-2xl">auto_awesome</span>
-                            </div>
-                            <span class="text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full bg-amber-500/15 text-amber-600 dark:text-amber-400">Active</span>
-                        </div>
+                    <div class="bg-gradient-to-br from-white to-slate-50 dark:from-surface dark:to-surface/80 p-5 rounded-2xl border border-primary/20 shadow-sm hover:shadow-md hover:border-primary/35 transition-all duration-300">
                         <p class="text-slate-500 dark:text-slate-400 text-xs uppercase font-bold tracking-widest mb-1">Services Offered</p>
-                        <p id="statServices" class="text-2xl md:text-3xl font-black text-slate-900 dark:text-white mb-3">0</p>
-                        <div class="h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
-                            <div id="servicesProgress" class="h-full bg-gradient-to-r from-amber-500 to-amber-400 transition-all duration-500" style="width: 0%"></div>
-                        </div>
+                        <p id="statServices" class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white">0</p>
                     </div>
 
                     <!-- Luxury Stat Card: Messages -->
-                    <div class="bg-gradient-to-br from-white to-slate-50 dark:from-surface dark:to-surface/80 p-5 rounded-2xl border border-primary/20 shadow-sm hover:shadow-md hover:border-primary/35 transition-all duration-300 group">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="p-3 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 text-primary group-hover:from-primary group-hover:to-primary/80 group-hover:text-background-dark transition-all duration-300">
-                                <span class="material-symbols-outlined text-2xl">mail</span>
-                            </div>
-                            <span class="text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full bg-primary/15 text-primary">Inbox</span>
-                        </div>
-                        <p class="text-slate-500 dark:text-slate-400 text-xs uppercase font-bold tracking-widest mb-1">Customer Messages</p>
-                        <p id="statClients" class="text-2xl md:text-3xl font-black text-slate-900 dark:text-white mb-3">0</p>
-                        <div class="h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
-                            <div id="messagesProgress" class="h-full bg-gradient-to-r from-primary to-primary/60 transition-all duration-500" style="width: 0%"></div>
-                        </div>
+                    <div class="bg-gradient-to-br from-white to-slate-50 dark:from-surface dark:to-surface/80 p-5 rounded-2xl border border-primary/20 shadow-sm hover:shadow-md hover:border-primary/35 transition-all duration-300">
+                        <p class="text-slate-500 dark:text-slate-400 text-xs uppercase font-bold tracking-widest mb-1">Total Messages</p>
+                        <p id="statClients" class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white">0</p>
                     </div>
                 </div>
 
@@ -255,8 +245,12 @@
                                 </div>
                             </div>
                             <div>
-                                <label class="block text-xs font-black uppercase tracking-widest mb-2">Image URL</label>
-                                <input name="serviceImage" required class="w-full rounded-2xl border border-slate-300 dark:border-primary/30 bg-slate-50 dark:bg-background-dark/60 px-4 py-3" placeholder="https://example.com/image.jpg" type="text">
+                                <label class="block text-xs font-black uppercase tracking-widest mb-2">Image URL (optional)</label>
+                                <input name="serviceImage" class="w-full rounded-2xl border border-slate-300 dark:border-primary/30 bg-slate-50 dark:bg-background-dark/60 px-4 py-3" placeholder="https://example.com/image.jpg" type="text">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-black uppercase tracking-widest mb-2">Upload Local Image (optional)</label>
+                                <input name="serviceImageFile" accept="image/*" class="w-full rounded-2xl border border-dashed border-slate-300 dark:border-primary/30 bg-slate-50 dark:bg-background-dark/60 px-4 py-3 text-sm" type="file">
                             </div>
                             <div>
                                 <label class="block text-xs font-black uppercase tracking-widest mb-2">Description</label>
@@ -269,6 +263,62 @@
                     <div class="bg-white dark:bg-surface p-8 rounded-3xl border border-primary/10 shadow-sm">
                         <h2 class="text-xl font-black mb-6">Existing Services</h2>
                         <div id="servicesAdminList" class="space-y-4"></div>
+                    </div>
+                </section>
+            </div>
+
+            <div id="trending" class="admin-section hidden space-y-8">
+                <div>
+                    <h1 class="text-2xl font-black tracking-tight">Trending Styles</h1>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Create trending hair and nail inspiration cards that users can book directly.</p>
+                </div>
+                <section class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+                    <div class="bg-white dark:bg-surface p-8 rounded-3xl border border-primary/10 shadow-sm">
+                        <h2 class="text-xl font-black mb-6">Add Trending Style</h2>
+                        <form id="addTrendingForm" class="space-y-5">
+                            <div>
+                                <label class="block text-xs font-black uppercase tracking-widest mb-2">Title</label>
+                                <input name="trendTitle" required class="w-full rounded-2xl border border-slate-300 dark:border-primary/30 bg-slate-50 dark:bg-background-dark/60 px-4 py-3" placeholder="Chrome French Nails" type="text">
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-black uppercase tracking-widest mb-2">Category</label>
+                                    <select name="trendCategory" required class="w-full rounded-2xl border border-slate-300 dark:border-primary/30 bg-slate-50 dark:bg-background-dark/60 px-4 py-3">
+                                        <option value="Hair">Hair</option>
+                                        <option value="Nails">Nails</option>
+                                        <option value="Beauty">Beauty</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-black uppercase tracking-widest mb-2">Duration</label>
+                                    <input name="trendDuration" required class="w-full rounded-2xl border border-slate-300 dark:border-primary/30 bg-slate-50 dark:bg-background-dark/60 px-4 py-3" placeholder="90 min" type="text">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-black uppercase tracking-widest mb-2">Price Label</label>
+                                    <input name="trendPrice" required class="w-full rounded-2xl border border-slate-300 dark:border-primary/30 bg-slate-50 dark:bg-background-dark/60 px-4 py-3" placeholder="KSh 140+" type="text">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-black uppercase tracking-widest mb-2">Image URL (optional)</label>
+                                <input name="trendImage" class="w-full rounded-2xl border border-slate-300 dark:border-primary/30 bg-slate-50 dark:bg-background-dark/60 px-4 py-3" placeholder="https://example.com/trend.jpg" type="text">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-black uppercase tracking-widest mb-2">Upload Local Image (optional)</label>
+                                <input name="trendImageFile" accept="image/*" class="w-full rounded-2xl border border-dashed border-slate-300 dark:border-primary/30 bg-slate-50 dark:bg-background-dark/60 px-4 py-3 text-sm" type="file">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-black uppercase tracking-widest mb-2">Description</label>
+                                <textarea name="trendDescription" required rows="4" class="w-full rounded-2xl border border-slate-300 dark:border-primary/30 bg-slate-50 dark:bg-background-dark/60 px-4 py-3" placeholder="Describe this trend and who it fits best."></textarea>
+                            </div>
+                            <button type="submit" class="w-full rounded-2xl bg-primary py-3.5 text-sm font-black uppercase tracking-widest text-background-dark">Add Trending Style</button>
+                            <p id="trendingFormFeedback" class="hidden"></p>
+                        </form>
+                    </div>
+                    <div class="bg-white dark:bg-surface p-8 rounded-3xl border border-primary/10 shadow-sm">
+                        <h2 class="text-xl font-black mb-6">Trending Feed Items</h2>
+                        <div id="trendingAdminList" class="space-y-4"></div>
                     </div>
                 </section>
             </div>
@@ -306,6 +356,14 @@
                         <p class="text-[11px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Total Messages</p>
                         <p id="analyticsMessagesTotal" class="mt-2 text-3xl font-black text-slate-900 dark:text-slate-100">0</p>
                     </div>
+                    <div class="rounded-2xl border border-primary/15 bg-white dark:bg-surface p-5">
+                        <p class="text-[11px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Reviews in Period</p>
+                        <p id="analyticsReviewsPeriod" class="mt-2 text-3xl font-black text-slate-900 dark:text-slate-100">0</p>
+                    </div>
+                    <div class="rounded-2xl border border-primary/15 bg-white dark:bg-surface p-5">
+                        <p class="text-[11px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Total Reviews</p>
+                        <p id="analyticsReviewsTotal" class="mt-2 text-3xl font-black text-slate-900 dark:text-slate-100">0</p>
+                    </div>
                 </div>
 
                 <section class="rounded-[1.5rem] border border-primary/15 bg-white dark:bg-surface p-5 md:p-6 shadow-sm">
@@ -331,6 +389,13 @@
                         </div>
                         <div id="analyticsContactChart" class="h-[280px]"></div>
                     </div>
+                    <div class="rounded-[1.5rem] border border-primary/15 bg-white dark:bg-surface p-5 md:p-6 shadow-sm xl:col-span-2">
+                        <div class="mb-4">
+                            <h2 class="text-lg font-black text-slate-900 dark:text-slate-100">Review Rating Distribution</h2>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Count of 1-star to 5-star ratings in selected period.</p>
+                        </div>
+                        <div id="analyticsReviewChart" class="h-[280px]"></div>
+                    </div>
                 </section>
             </div>
 
@@ -352,6 +417,29 @@
                                 </tr>
                             </thead>
                             <tbody id="messagesTableBody" class="divide-y divide-primary/5"></tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+
+            <div id="reviews" class="admin-section hidden space-y-8">
+                <div>
+                    <h1 class="text-2xl font-black tracking-tight">Reviews</h1>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">View and moderate public ratings and comments from clients.</p>
+                </div>
+                <section class="bg-white dark:bg-surface rounded-[2rem] border border-primary/20 shadow-sm overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead class="bg-primary/5 text-slate-500 dark:text-slate-400 uppercase text-xs font-black tracking-widest">
+                                <tr>
+                                    <th class="px-6 py-5">Name</th>
+                                    <th class="px-6 py-5">Rating</th>
+                                    <th class="px-6 py-5">Comment</th>
+                                    <th class="px-6 py-5">Submitted</th>
+                                    <th class="px-6 py-5 text-right">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody id="reviewsTableBody" class="divide-y divide-primary/5"></tbody>
                         </table>
                     </div>
                 </section>

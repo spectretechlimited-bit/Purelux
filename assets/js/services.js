@@ -21,7 +21,7 @@ const renderDynamicService = (service) => {
     const description = escapeHtml(service.description || "Premium service available now.");
     const price = escapeHtml(service.priceLabel || "KSh 50+");
     const duration = escapeHtml(service.duration || "60 min");
-    const imageUrl = escapeHtml(service.imageUrl || "../../assets/img/h6.jpeg");
+    const imageUrl = escapeHtml(service.imageDataUrl || service.imageUrl || "../../assets/img/h6.jpeg");
 
     return `
     <div class="group relative flex flex-col bg-white dark:bg-slate-900/50 rounded-xl overflow-hidden border border-primary/20 hover:border-primary/50 transition-all">
@@ -30,7 +30,6 @@ const renderDynamicService = (service) => {
             <div class="absolute top-4 right-4 bg-background-dark/80 backdrop-blur-md px-3 py-1 rounded-lg text-primary text-sm font-bold">${price}</div>
         </div>
         <div class="p-6 flex flex-col grow">
-            <span class="text-xs font-bold uppercase text-primary tracking-widest mb-2">Admin Added</span>
             <h3 class="text-xl font-bold mb-2">${name}</h3>
             <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6 grow">${description}</p>
             <div class="flex items-center justify-between gap-4">

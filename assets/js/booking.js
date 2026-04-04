@@ -8,6 +8,15 @@ import {
 const bookingForm = document.querySelector("[data-booking-form]");
 
 if (bookingForm) {
+    const params = new URLSearchParams(window.location.search);
+    const presetService = params.get("service");
+    if (presetService) {
+        const serviceField = bookingForm.querySelector("textarea[name='serviceDescription']");
+        if (serviceField && !serviceField.value.trim()) {
+            serviceField.value = presetService;
+        }
+    }
+
     const submitButton = bookingForm.querySelector("button[type='submit']");
     const successModal = document.getElementById("bookingSuccessModal");
     const successText = document.getElementById("bookingSuccessText");
