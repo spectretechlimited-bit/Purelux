@@ -8,6 +8,162 @@ import {
 const bookingForm = document.querySelector("[data-booking-form]");
 
 if (bookingForm) {
+    const initializeTimePicker = () => {
+        const timeInput = bookingForm.querySelector("[data-time-input]");
+        const timeTrigger = bookingForm.querySelector("[data-time-trigger]");
+        const timePanel = bookingForm.querySelector("[data-time-panel]");
+        const previewValue = bookingForm.querySelector("[data-time-preview]");
+        const hourValue = bookingForm.querySelector("[data-time-hour]");
+        const minuteValue = bookingForm.querySelector("[data-time-minute]");
+        const periodValue = bookingForm.querySelector("[data-time-period-display]");
+        const hourUp = bookingForm.querySelector("[data-time-hour-up]");
+        const hourDown = bookingForm.querySelector("[data-time-hour-down]");
+        const minuteUp = bookingForm.querySelector("[data-time-minute-up]");
+        const minuteDown = bookingForm.querySelector("[data-time-minute-down]");
+        const minuteStepButtons = bookingForm.querySelectorAll("[data-time-step]");
+        const periodUp = bookingForm.querySelector("[data-time-period-up]");
+        const periodDown = bookingForm.querySelector("[data-time-period-down]");
+        const applyButton = bookingForm.querySelector("[data-time-apply]");
+        const cancelButton = bookingForm.querySelector("[data-time-cancel]");
+
+        if (!timeInput || !timeTrigger || !timePanel || !previewValue || !hourValue || !minuteValue || !periodValue) return;
+
+        let selectedHour = 8;
+        let selectedMinute = 0;
+        let selectedPeriod = "AM";
+        let selectedMinuteStep = 5;
+
+        const padMinute = (value) => String(value).padStart(2, "0");
+        const normalizeHour = (value) => ((value - 1 + 12) % 12) + 1;
+        const normalizeMinute = (value) => (value + 60) % 60;
+        const togglePeriod = () => {
+            selectedPeriod = selectedPeriod === "AM" ? "PM" : "AM";
+        };
+
+        const renderValues = () => {
+            hourValue.textContent = String(selectedHour);
+            minuteValue.textContent = padMinute(selectedMinute);
+            periodValue.textContent = selectedPeriod;
+            previewValue.textContent = `${selectedHour}:${padMinute(selectedMinute)} ${selectedPeriod}`;
+
+            minuteStepButtons.forEach((button) => {
+                const buttonStep = Number(button.dataset.timeStep || 5);
+                const isActive = buttonStep === selectedMinuteStep;
+                button.classList.toggle("bg-primary/10", isActive);
+                button.classList.toggle("text-primary", isActive);
+                button.classList.toggle("text-slate-500", !isActive);
+                button.classList.toggle("dark:text-slate-300", !isActive);
+            });
+        };
+
+        const closePanel = () => {
+            timePanel.classList.add("hidden");
+        };
+
+        const openPanel = () => {
+            timePanel.classList.remove("hidden");
+            renderValues();
+        };
+
+        const applyTimeSelection = () => {
+            timeInput.value = `${selectedHour}:${padMinute(selectedMinute)} ${selectedPeriod}`;
+            timeInput.dispatchEvent(new Event("input", { bubbles: true }));
+            timeInput.dispatchEvent(new Event("change", { bubbles: true }));
+            closePanel();
+        };
+
+        const parseExistingTimeValue = (value) => {
+            const match = String(value).trim().match(/^(1[0-2]|[1-9]):([0-5][0-9])\s?(AM|PM)$/i);
+            if (!match) return;
+            selectedHour = Number(match[1]);
+            selectedMinute = Number(match[2]);
+            selectedPeriod = match[3].toUpperCase();
+            renderValues();
+        };
+
+        hourUp?.addEventListener("click", () => {
+            selectedHour = normalizeHour(selectedHour + 1);
+            renderValues();
+        });
+
+        hourDown?.addEventListener("click", () => {
+            selectedHour = normalizeHour(selectedHour - 1);
+            renderValues();
+        });
+
+        minuteUp?.addEventListener("click", () => {
+            selectedMinute = normalizeMinute(selectedMinute + selectedMinuteStep);
+            renderValues();
+        });
+
+        minuteDown?.addEventListener("click", () => {
+            selectedMinute = normalizeMinute(selectedMinute - selectedMinuteStep);
+            renderValues();
+        });
+
+        minuteStepButtons.forEach((button) => {
+            button.addEventListener("click", () => {
+                const nextStep = Number(button.dataset.timeStep || 5);
+                if ([5, 10, 30].includes(nextStep)) {
+                    selectedMinuteStep = nextStep;
+                    renderValues();
+                }
+            });
+        });
+
+        periodUp?.addEventListener("click", () => {
+            togglePeriod();
+            renderValues();
+        });
+
+        periodDown?.addEventListener("click", () => {
+            togglePeriod();
+            renderValues();
+        });
+
+        timeTrigger.addEventListener("click", () => {
+            if (!timePanel.classList.contains("hidden")) {
+                closePanel();
+                return;
+            }
+            parseExistingTimeValue(timeInput.value);
+            openPanel();
+        });
+
+        timeInput.addEventListener("click", () => {
+            parseExistingTimeValue(timeInput.value);
+            openPanel();
+        });
+
+        timeInput.addEventListener("keydown", (event) => {
+            if (event.key !== "Tab") {
+                event.preventDefault();
+            }
+        });
+
+        applyButton?.addEventListener("click", applyTimeSelection);
+        cancelButton?.addEventListener("click", closePanel);
+
+        document.addEventListener("click", (event) => {
+            const target = event.target;
+            if (!(target instanceof Node)) return;
+            const clickedInside = timePanel.contains(target) || timeTrigger.contains(target) || timeInput.contains(target);
+            if (!clickedInside) {
+                closePanel();
+            }
+        });
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") {
+                closePanel();
+            }
+        });
+
+        renderValues();
+    };
+
+    initializeTimePicker();
+
     const params = new URLSearchParams(window.location.search);
     const presetService = params.get("service");
     const presetCategory = params.get("category");
