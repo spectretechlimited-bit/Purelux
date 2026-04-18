@@ -861,7 +861,6 @@ const AdminApp = {
 
         const payload = {
             name: String(formData.get("serviceName") || "").trim(),
-            priceLabel: String(formData.get("servicePrice") || "").trim(),
             duration: String(formData.get("serviceDuration") || "").trim(),
             imageUrl: imagePayload.imageUrl,
             imageDataUrl: imagePayload.imageDataUrl,
@@ -913,7 +912,7 @@ const AdminApp = {
                             <div>
                                 <h4 class="text-lg font-black">${this.escapeHtml(data.name || "Unnamed Service")}</h4>
                                 <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">${this.escapeHtml(data.description || "No description")}</p>
-                                <p class="mt-3 text-xs font-black uppercase tracking-wider text-primary">${this.escapeHtml(data.priceLabel || "")}${data.duration ? ` • ${this.escapeHtml(data.duration)}` : ""}</p>
+                                <p class="mt-3 text-xs font-black uppercase tracking-wider text-primary">${this.escapeHtml(data.duration || "")}</p>
                             </div>
                         </div>
                         <button data-delete-service="${row.id}" class="rounded-lg bg-rose-500/10 px-3 py-2 text-xs font-black uppercase tracking-widest text-rose-500 hover:bg-rose-500/20">Delete</button>
@@ -952,7 +951,6 @@ const AdminApp = {
         const payload = {
             title: String(formData.get("trendTitle") || "").trim(),
             category: String(formData.get("trendCategory") || "").trim(),
-            priceLabel: String(formData.get("trendPrice") || "").trim(),
             duration: String(formData.get("trendDuration") || "").trim(),
             imageUrl: imagePayload.imageUrl,
             imageDataUrl: imagePayload.imageDataUrl,
@@ -1004,7 +1002,7 @@ const AdminApp = {
                             <div>
                                 <h4 class="text-lg font-black">${this.escapeHtml(data.title || "Untitled Trend")}</h4>
                                 <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">${this.escapeHtml(data.description || "No description")}</p>
-                                <p class="mt-2 text-xs font-black uppercase tracking-wider text-primary">${this.escapeHtml(data.category || "Beauty")} • ${this.escapeHtml(data.priceLabel || "")} • ${this.escapeHtml(data.duration || "")}</p>
+                                <p class="mt-2 text-xs font-black uppercase tracking-wider text-primary">${this.escapeHtml(data.category || "Beauty")} • ${this.escapeHtml(data.duration || "")}</p>
                                 <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Booking label: ${this.escapeHtml(data.title || "N/A")}</p>
                             </div>
                         </div>

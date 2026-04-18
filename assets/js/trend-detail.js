@@ -9,7 +9,6 @@ import {
 const titleEl = document.getElementById("detailTitle");
 const descriptionEl = document.getElementById("detailDescription");
 const durationEl = document.getElementById("detailDuration");
-const priceEl = document.getElementById("detailPrice");
 const categoryEl = document.getElementById("detailCategory");
 const imageEl = document.getElementById("detailImage");
 const bookBtn = document.getElementById("detailBookBtn");
@@ -26,14 +25,12 @@ const apply = (item) => {
     const title = item.title || "Trending Style";
     const desc = item.description || "Trend details unavailable.";
     const duration = item.duration || "60 min";
-    const price = item.priceLabel || "KSh 50+";
     const category = item.category || "Beauty";
     const image = item.imageDataUrl || item.imageUrl || "../../assets/img/h6.jpeg";
 
     if (titleEl) titleEl.textContent = title;
     if (descriptionEl) descriptionEl.textContent = desc;
     if (durationEl) durationEl.textContent = duration;
-    if (priceEl) priceEl.textContent = price;
     if (categoryEl) categoryEl.textContent = category;
     if (imageEl) {
         imageEl.src = image;

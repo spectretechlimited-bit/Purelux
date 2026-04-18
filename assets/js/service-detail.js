@@ -11,7 +11,6 @@ const fallbackServices = [
         slug: "artistic-braiding-120-min",
         name: "Artistic Braiding",
         duration: "120 min",
-        priceLabel: "KSh 45+",
         imageUrl: "../../assets/img/h6.jpeg",
         description: "Masterfully crafted braids that last and protect your natural hair while keeping the look polished and comfortable.",
     },
@@ -19,7 +18,6 @@ const fallbackServices = [
         slug: "couture-hair-styling-60-min",
         name: "Couture Hair Styling",
         duration: "60 min",
-        priceLabel: "KSh 60+",
         imageUrl: "../../assets/img/h7.jpeg",
         description: "Bespoke styling for weddings, galas, and everyday elegance with a finish tailored to your look and occasion.",
     },
@@ -27,7 +25,6 @@ const fallbackServices = [
         slug: "luxury-nail-art-75-min",
         name: "Luxury Nail Art",
         duration: "75 min",
-        priceLabel: "KSh 25+",
         imageUrl: "../../assets/img/n3.jpeg",
         description: "Premium manicures and creative gel art for a refined finish that feels polished and expressive.",
     },
@@ -35,7 +32,6 @@ const fallbackServices = [
         slug: "intricate-braiding-120-min",
         name: "Intricate Braiding",
         duration: "120 min",
-        priceLabel: "KSh 85+",
         imageUrl: "../../assets/img/h1.jpeg",
         description: "Custom patterns, goddess braids, and premium extensions designed to protect your natural hair while delivering a polished, long-lasting look.",
     },
@@ -43,7 +39,6 @@ const fallbackServices = [
         slug: "signature-styling-60-min",
         name: "Signature Styling",
         duration: "60 min",
-        priceLabel: "KSh 60+",
         imageUrl: "../../assets/img/h2.jpeg",
         description: "Precision cuts, voluminous blowouts, and silk press styling tailored to your face shape, routine, and event goals.",
     },
@@ -51,7 +46,6 @@ const fallbackServices = [
         slug: "vibrant-coloring-180-min",
         name: "Vibrant Coloring",
         duration: "180 min",
-        priceLabel: "KSh 120+",
         imageUrl: "../../assets/img/h3.jpeg",
         description: "From soft balayage to bold statement shades, our coloring service blends creativity and hair health for standout results.",
     },
@@ -59,7 +53,6 @@ const fallbackServices = [
         slug: "luxury-spa-care-90-min",
         name: "Luxury Spa Care",
         duration: "90 min",
-        priceLabel: "KSh 95+",
         imageUrl: "../../assets/img/h4.jpeg",
         description: "A restorative scalp and strand treatment that deeply hydrates, revives texture, and supports healthier growth.",
     },
@@ -67,7 +60,6 @@ const fallbackServices = [
         slug: "bridal-gala-updos-150-min",
         name: "Bridal & Gala Updos",
         duration: "150 min",
-        priceLabel: "KSh 150+",
         imageUrl: "../../assets/img/h5.jpeg",
         description: "Elegant event-ready updos designed for comfort, hold, and camera-ready finish through your full celebration.",
     },
@@ -75,7 +67,6 @@ const fallbackServices = [
         slug: "keratin-fusion-210-min",
         name: "Keratin Fusion",
         duration: "210 min",
-        priceLabel: "KSh 200+",
         imageUrl: "../../assets/img/h6.jpeg",
         description: "A smoothing treatment that fights frizz and leaves hair sleek, glossy, and easier to manage for weeks.",
     },
@@ -84,7 +75,6 @@ const fallbackServices = [
 const titleEl = document.getElementById("detailTitle");
 const descriptionEl = document.getElementById("detailDescription");
 const durationEl = document.getElementById("detailDuration");
-const priceEl = document.getElementById("detailPrice");
 const categoryEl = document.getElementById("detailCategory");
 const imageEl = document.getElementById("detailImage");
 const bookBtn = document.getElementById("detailBookBtn");
@@ -108,14 +98,12 @@ const apply = (item) => {
     const name = item.name || "Service";
     const desc = item.description || "Service details unavailable.";
     const duration = item.duration || "60 min";
-    const price = item.priceLabel || "KSh 50+";
     const category = item.category || deriveCategory(item);
     const image = item.imageDataUrl || item.imageUrl || "../../assets/img/h6.jpeg";
 
     if (titleEl) titleEl.textContent = name;
     if (descriptionEl) descriptionEl.textContent = desc;
     if (durationEl) durationEl.textContent = duration;
-    if (priceEl) priceEl.textContent = price;
     if (categoryEl) categoryEl.textContent = category;
     if (imageEl) {
         imageEl.src = image;

@@ -41,7 +41,6 @@ const renderTrendCard = (trend, index) => {
     const category = escapeHtml(trend.category || "Beauty");
     const description = escapeHtml(shortText(trend.description || "A fresh trending look is now available."));
     const duration = escapeHtml(trend.duration || "60 min");
-    const price = escapeHtml(trend.priceLabel || "KSh 50+");
     const image = escapeHtml(trend.imageDataUrl || trend.imageUrl || "../../assets/img/h6.jpeg");
     const service = buildServiceQuery(trend);
     const bookingCategory = encodeURIComponent(trend.category || "Beauty");
@@ -49,7 +48,6 @@ const renderTrendCard = (trend, index) => {
 
     return `
     <article class="group relative overflow-hidden rounded-3xl border border-primary/15 bg-white/90 shadow-sm transition-all hover:-translate-y-1 hover:shadow-2xl dark:bg-surface/80" style="animation-delay:${index * 60}ms">
-        <div class="absolute right-4 top-4 z-20 rounded-full bg-white/90 px-3 py-1 text-xs font-black text-slate-800 shadow">${price}</div>
         <div class="relative aspect-[4/3] overflow-hidden">
             <img src="${image}" alt="${title}" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
             <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>

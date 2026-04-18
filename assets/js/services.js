@@ -39,7 +39,6 @@ const deriveCategory = (service) => {
 const renderDynamicService = (service) => {
     const name = escapeHtml(service.name || "New Service");
     const description = escapeHtml(shortText(service.description || "Premium service available now.", 66));
-    const price = escapeHtml(service.priceLabel || "KSh 50+");
     const duration = escapeHtml(service.duration || "60 min");
     const imageUrl = escapeHtml(service.imageDataUrl || service.imageUrl || "../../assets/img/h6.jpeg");
     const slug = encodeURIComponent(service.slug || makeSlug(`${service.name || "service"}-${service.duration || "60-min"}`));
@@ -49,7 +48,6 @@ const renderDynamicService = (service) => {
     <div class="group relative flex flex-col bg-white dark:bg-slate-900/50 rounded-xl overflow-hidden border border-primary/20 hover:border-primary/50 transition-all">
         <div class="aspect-square w-full relative overflow-hidden">
             <img alt="${name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="${imageUrl}"/>
-            <div class="absolute top-4 right-4 bg-background-dark/80 backdrop-blur-md px-3 py-1 rounded-lg text-primary text-sm font-bold">${price}</div>
         </div>
         <div class="p-6 flex flex-col grow">
             <h3 class="text-xl font-bold mb-2">${name}</h3>
