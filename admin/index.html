@@ -49,91 +49,109 @@
         }
 
         .loader-shell {
-            width: min(88vw, 180px);
+            width: min(90vw, 220px);
             display: grid;
             place-items: center;
+            gap: 12px;
+            text-align: center;
         }
 
-        .spinner-wrap {
-            width: 120px;
-            height: 120px;
-            display: grid;
-            place-items: center;
-            position: relative;
-            animation: spin 1.8s linear infinite;
-        }
-
-        .spinner-dot {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 10px;
-            height: 10px;
-            border-radius: 999px;
-            background: var(--dot);
-            animation: pulse 1.2s ease-in-out infinite;
-            transform: translate(-50%, -50%);
-        }
-
-        .spinner-dot:nth-child(1) { transform: translate(-50%, -50%) rotate(0deg) translateY(-44px); animation-delay: 0s; }
-        .spinner-dot:nth-child(2) { transform: translate(-50%, -50%) rotate(45deg) translateY(-44px); animation-delay: 0.15s; }
-        .spinner-dot:nth-child(3) { transform: translate(-50%, -50%) rotate(90deg) translateY(-44px); animation-delay: 0.3s; }
-        .spinner-dot:nth-child(4) { transform: translate(-50%, -50%) rotate(135deg) translateY(-44px); animation-delay: 0.45s; }
-        .spinner-dot:nth-child(5) { transform: translate(-50%, -50%) rotate(180deg) translateY(-44px); animation-delay: 0.6s; }
-        .spinner-dot:nth-child(6) { transform: translate(-50%, -50%) rotate(225deg) translateY(-44px); animation-delay: 0.75s; }
-        .spinner-dot:nth-child(7) { transform: translate(-50%, -50%) rotate(270deg) translateY(-44px); animation-delay: 0.9s; }
-        .spinner-dot:nth-child(8) { transform: translate(-50%, -50%) rotate(315deg) translateY(-44px); animation-delay: 1.05s; }
-
-        .spinner-dot:nth-child(2n) {
-            background: var(--dot-active);
-        }
-
-        .spinner-core {
-            width: 44px;
-            height: 44px;
+        .logo-wrap {
+            width: 62px;
+            height: 62px;
             border-radius: 999px;
             background: var(--surface);
-            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 0 0 8px rgba(215, 144, 238, 0.12);
             display: grid;
             place-items: center;
-            position: absolute;
-            box-shadow: 0 0 0 10px rgba(215, 144, 238, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(10px);
         }
 
-        .spinner-core img {
-            width: 24px;
-            height: 24px;
+        .logo-wrap img {
+            width: 34px;
+            height: 34px;
             display: block;
             filter: brightness(0) invert(1);
             opacity: 0.95;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        .dot-wave {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 14px;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 0.35; transform: scale(0.9); }
-            50% { opacity: 1; transform: scale(1.15); }
+        .dot-wave span {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: var(--dot);
+            animation: wave 0.9s ease-in-out infinite;
+        }
+
+        .dot-wave span:nth-child(2),
+        .dot-wave span:nth-child(4) {
+            background: var(--dot-active);
+        }
+
+        .dot-wave span:nth-child(1) { animation-delay: 0s; }
+        .dot-wave span:nth-child(2) { animation-delay: 0.12s; }
+        .dot-wave span:nth-child(3) { animation-delay: 0.24s; }
+        .dot-wave span:nth-child(4) { animation-delay: 0.36s; }
+
+        .redirecting {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        @media (min-width: 768px) {
+            .loader-shell {
+                width: 180px;
+                gap: 10px;
+            }
+
+            .logo-wrap {
+                width: 54px;
+                height: 54px;
+            }
+
+            .logo-wrap img {
+                width: 30px;
+                height: 30px;
+            }
+        }
+
+        @keyframes wave {
+            0%, 100% {
+                transform: translateY(0);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translateY(-6px);
+                opacity: 1;
+            }
         }
     </style>
 </head>
 <body>
     <div class="loader-shell" role="status" aria-live="polite">
-        <div class="spinner-wrap" aria-hidden="true">
-            <span class="spinner-dot"></span>
-            <span class="spinner-dot"></span>
-            <span class="spinner-dot"></span>
-            <span class="spinner-dot"></span>
-            <span class="spinner-dot"></span>
-            <span class="spinner-dot"></span>
-            <span class="spinner-dot"></span>
-            <span class="spinner-dot"></span>
-            <span class="spinner-core">
-                <img src="../assets/img/logo.png" alt="" aria-hidden="true"/>
-            </span>
+        <div class="logo-wrap" aria-hidden="true">
+            <img src="../assets/img/logo.png" alt="" aria-hidden="true"/>
         </div>
+        <div class="dot-wave" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <p class="redirecting">Redirecting</p>
     </div>
 
     <script>
