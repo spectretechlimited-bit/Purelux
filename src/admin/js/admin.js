@@ -81,8 +81,11 @@ const AdminApp = {
 
         this.navLinks.forEach((link) => {
             link.addEventListener("click", (event) => {
-                event.preventDefault();
                 const sectionId = link.getAttribute("data-section");
+                if (!sectionId) {
+                    return;
+                }
+                event.preventDefault();
                 this.showSection(sectionId);
                 this.closeSidebar();
             });

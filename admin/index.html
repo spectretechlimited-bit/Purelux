@@ -8,14 +8,25 @@
     <meta http-equiv="refresh" content="2; url=../src/admin/index.html"/>
     <style>
         :root {
-            --bg: #14111a;
-            --surface: rgba(255, 255, 255, 0.08);
-            --surface-strong: rgba(255, 255, 255, 0.14);
-            --ink: #f7f4fb;
-            --muted: #c9c2d7;
+            --bg: #f6f2fa;
+            --bg-2: #ffffff;
+            --surface: rgba(255, 255, 255, 0.82);
+            --ink: #1f2430;
+            --muted: #67718a;
             --accent: #d790ee;
             --accent-2: #7c83ff;
-            --accent-soft: rgba(215, 144, 238, 0.22);
+            --dot: rgba(31, 36, 48, 0.15);
+            --dot-active: rgba(215, 144, 238, 0.95);
+        }
+
+        html.dark {
+            --bg: #14111a;
+            --bg-2: #1d1220;
+            --surface: rgba(255, 255, 255, 0.08);
+            --ink: #f7f4fb;
+            --muted: #c9c2d7;
+            --dot: rgba(255, 255, 255, 0.12);
+            --dot-active: rgba(215, 144, 238, 0.95);
         }
 
         * {
@@ -31,53 +42,63 @@
             color: var(--ink);
             background:
                 radial-gradient(circle at 20% 15%, rgba(215, 144, 238, 0.16), transparent 30%),
-                radial-gradient(circle at 80% 85%, rgba(124, 131, 255, 0.16), transparent 34%),
+                radial-gradient(circle at 80% 85%, rgba(124, 131, 255, 0.14), transparent 34%),
                 radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05), transparent 45%),
                 var(--bg);
             overflow: hidden;
         }
 
         .loader-shell {
-            width: min(88vw, 240px);
+            width: min(88vw, 180px);
             display: grid;
             place-items: center;
         }
 
         .spinner-wrap {
-            width: 112px;
-            height: 112px;
+            width: 120px;
+            height: 120px;
             display: grid;
             place-items: center;
             position: relative;
+            animation: spin 1.8s linear infinite;
         }
 
-        .spinner-ring {
+        .spinner-dot {
             position: absolute;
-            inset: 0;
+            top: 50%;
+            left: 50%;
+            width: 10px;
+            height: 10px;
             border-radius: 999px;
-            border: 2px solid rgba(255, 255, 255, 0.08);
+            background: var(--dot);
+            animation: pulse 1.2s ease-in-out infinite;
+            transform: translate(-50%, -50%);
         }
 
-        .spinner-ring:nth-child(2) {
-            inset: 10px;
-            border-color: rgba(215, 144, 238, 0.24);
-        }
+        .spinner-dot:nth-child(1) { transform: translate(-50%, -50%) rotate(0deg) translateY(-44px); animation-delay: 0s; }
+        .spinner-dot:nth-child(2) { transform: translate(-50%, -50%) rotate(45deg) translateY(-44px); animation-delay: 0.15s; }
+        .spinner-dot:nth-child(3) { transform: translate(-50%, -50%) rotate(90deg) translateY(-44px); animation-delay: 0.3s; }
+        .spinner-dot:nth-child(4) { transform: translate(-50%, -50%) rotate(135deg) translateY(-44px); animation-delay: 0.45s; }
+        .spinner-dot:nth-child(5) { transform: translate(-50%, -50%) rotate(180deg) translateY(-44px); animation-delay: 0.6s; }
+        .spinner-dot:nth-child(6) { transform: translate(-50%, -50%) rotate(225deg) translateY(-44px); animation-delay: 0.75s; }
+        .spinner-dot:nth-child(7) { transform: translate(-50%, -50%) rotate(270deg) translateY(-44px); animation-delay: 0.9s; }
+        .spinner-dot:nth-child(8) { transform: translate(-50%, -50%) rotate(315deg) translateY(-44px); animation-delay: 1.05s; }
 
-        .spinner-ring:nth-child(3) {
-            inset: 22px;
-            border-color: rgba(124, 131, 255, 0.22);
+        .spinner-dot:nth-child(2n) {
+            background: var(--dot-active);
         }
 
         .spinner-core {
-            width: 38px;
-            height: 38px;
+            width: 44px;
+            height: 44px;
             border-radius: 999px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(8px);
+            background: var(--surface);
+            backdrop-filter: blur(10px);
             display: grid;
             place-items: center;
             position: absolute;
-            box-shadow: 0 0 0 12px rgba(215, 144, 238, 0.1);
+            box-shadow: 0 0 0 10px rgba(215, 144, 238, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.18);
         }
 
         .spinner-core img {
@@ -88,28 +109,27 @@
             opacity: 0.95;
         }
 
-        .spinner-arc {
-            position: absolute;
-            inset: 0;
-            border-radius: 999px;
-            border: 2px solid transparent;
-            border-top-color: var(--accent);
-            border-right-color: rgba(124, 131, 255, 0.95);
-            animation: spin 1s linear infinite;
-        }
-
         @keyframes spin {
             to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.35; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1.15); }
         }
     </style>
 </head>
 <body>
     <div class="loader-shell" role="status" aria-live="polite">
         <div class="spinner-wrap" aria-hidden="true">
-            <span class="spinner-ring"></span>
-            <span class="spinner-ring"></span>
-            <span class="spinner-ring"></span>
-            <span class="spinner-arc"></span>
+            <span class="spinner-dot"></span>
+            <span class="spinner-dot"></span>
+            <span class="spinner-dot"></span>
+            <span class="spinner-dot"></span>
+            <span class="spinner-dot"></span>
+            <span class="spinner-dot"></span>
+            <span class="spinner-dot"></span>
+            <span class="spinner-dot"></span>
             <span class="spinner-core">
                 <img src="../assets/img/logo.png" alt="" aria-hidden="true"/>
             </span>

@@ -35,21 +35,21 @@
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen font-display antialiased">
     <!-- Login Modal Overlay -->
     <div id="loginModal" class="fixed inset-0 z-[100] flex items-center justify-center bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-xl transition-all flex p-3 sm:p-6">
-        <div class="bg-white dark:bg-surface p-5 sm:p-8 rounded-[2rem] sm:rounded-[2.5rem] border border-primary/30 shadow-2xl w-full max-w-sm sm:max-w-md">
-            <div class="text-center mb-6 sm:mb-8">
-                <img src="../../assets/img/logo.png" alt="PureLux Logo" class="h-12 sm:h-16 w-auto mx-auto mb-4 sm:mb-6">
-                <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-slate-100 tracking-tight">Admin Login</h2>
-                <p class="text-slate-600 dark:text-slate-300 mt-2 text-xs sm:text-sm font-semibold">Sign in to continue.</p>
+        <div class="bg-white dark:bg-surface p-4 sm:p-8 rounded-[1.5rem] sm:rounded-[2.5rem] border border-primary/30 shadow-2xl w-full max-w-[20rem] sm:max-w-md">
+            <div class="text-center mb-5 sm:mb-8">
+                <img src="../../assets/img/logo.png" alt="PureLux Logo" class="h-10 sm:h-16 w-auto mx-auto mb-3 sm:mb-6">
+                <h2 class="text-lg sm:text-2xl font-black text-slate-900 dark:text-slate-100 tracking-tight">Admin Login</h2>
+                <p class="text-slate-600 dark:text-slate-300 mt-1.5 sm:mt-2 text-[11px] sm:text-sm font-semibold">Sign in to continue.</p>
             </div>
             
-            <form id="loginForm" class="space-y-5 sm:space-y-6">
+            <form id="loginForm" class="space-y-4 sm:space-y-6">
                 <div>
                     <label class="block text-[11px] sm:text-xs font-black uppercase tracking-widest mb-2 text-slate-900 dark:text-slate-100">Email</label>
-                    <input type="email" name="email" required class="w-full bg-slate-50 dark:bg-background-dark/60 border-2 border-slate-300 dark:border-primary/40 rounded-2xl px-4 py-3 sm:px-5 sm:py-3.5 focus:ring-4 focus:ring-primary/25 focus:border-primary text-slate-900 dark:text-slate-100 font-bold transition-all placeholder:text-slate-500 dark:placeholder:text-slate-400" placeholder="admin@purelux.com">
+                    <input type="email" name="email" required class="w-full bg-slate-50 dark:bg-background-dark/60 border-2 border-slate-300 dark:border-primary/40 rounded-2xl px-4 py-2.5 sm:px-5 sm:py-3.5 focus:ring-4 focus:ring-primary/25 focus:border-primary text-slate-900 dark:text-slate-100 font-bold transition-all placeholder:text-slate-500 dark:placeholder:text-slate-400" placeholder="admin@purelux.com">
                 </div>
                 <div>
                     <label class="block text-[11px] sm:text-xs font-black uppercase tracking-widest mb-2 text-slate-900 dark:text-slate-100">Password</label>
-                    <input type="password" name="password" required class="w-full bg-slate-50 dark:bg-background-dark/60 border-2 border-slate-300 dark:border-primary/40 rounded-2xl px-4 py-3 sm:px-5 sm:py-3.5 focus:ring-4 focus:ring-primary/25 focus:border-primary text-slate-900 dark:text-slate-100 font-bold transition-all placeholder:text-slate-500 dark:placeholder:text-slate-400" placeholder="••••••••">
+                    <input type="password" name="password" required class="w-full bg-slate-50 dark:bg-background-dark/60 border-2 border-slate-300 dark:border-primary/40 rounded-2xl px-4 py-2.5 sm:px-5 sm:py-3.5 focus:ring-4 focus:ring-primary/25 focus:border-primary text-slate-900 dark:text-slate-100 font-bold transition-all placeholder:text-slate-500 dark:placeholder:text-slate-400" placeholder="••••••••">
                 </div>
                 <p id="loginError" class="text-rose-500 text-xs sm:text-sm font-bold text-center hidden"></p>
                 <button type="submit" class="w-full bg-primary text-background-dark font-black py-3 sm:py-3.5 rounded-2xl shadow-xl shadow-primary/25 hover:brightness-95 hover:scale-[1.01] transition-transform active:scale-100 uppercase tracking-widest text-sm sm:text-base">
@@ -123,7 +123,7 @@
             <p id="adminActionFeedback" class="hidden"></p>
 
             <!-- OVERVIEW SECTION -->
-            <div id="overview" class="admin-section space-y-16">
+            <div id="overview" class="admin-section space-y-10 sm:space-y-16">
                 <header class="flex items-center justify-between gap-4">
                     <div>
                         <h1 class="text-2xl md:text-3xl font-black tracking-tight mb-2">Dashboard</h1>
@@ -131,23 +131,23 @@
                     </div>
                 </header>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-5 mb-8">
                     <!-- Luxury Stat Card: Bookings -->
-                    <div class="bg-gradient-to-br from-white to-slate-50 dark:from-surface dark:to-surface/80 p-5 rounded-2xl border border-primary/20 shadow-sm hover:shadow-md hover:border-primary/35 transition-all duration-300">
-                        <p class="text-slate-500 dark:text-slate-400 text-xs uppercase font-bold tracking-widest mb-1">Total Bookings</p>
-                        <p id="statBookings" class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white">0</p>
+                    <div class="bg-gradient-to-br from-white to-slate-50 dark:from-surface dark:to-surface/80 p-4 sm:p-5 rounded-2xl border border-primary/20 shadow-sm hover:shadow-md hover:border-primary/35 transition-all duration-300">
+                        <p class="text-[10px] sm:text-xs uppercase font-bold tracking-widest mb-1 text-slate-500 dark:text-slate-400">Total Bookings</p>
+                        <p id="statBookings" class="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 dark:text-white">0</p>
                     </div>
 
                     <!-- Luxury Stat Card: Services -->
-                    <div class="bg-gradient-to-br from-white to-slate-50 dark:from-surface dark:to-surface/80 p-5 rounded-2xl border border-primary/20 shadow-sm hover:shadow-md hover:border-primary/35 transition-all duration-300">
-                        <p class="text-slate-500 dark:text-slate-400 text-xs uppercase font-bold tracking-widest mb-1">Approved Bookings</p>
-                        <p id="statServices" class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white">0</p>
+                    <div class="bg-gradient-to-br from-white to-slate-50 dark:from-surface dark:to-surface/80 p-4 sm:p-5 rounded-2xl border border-primary/20 shadow-sm hover:shadow-md hover:border-primary/35 transition-all duration-300">
+                        <p class="text-[10px] sm:text-xs uppercase font-bold tracking-widest mb-1 text-slate-500 dark:text-slate-400">Approved Bookings</p>
+                        <p id="statServices" class="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 dark:text-white">0</p>
                     </div>
 
                     <!-- Luxury Stat Card: Messages -->
-                    <div class="bg-gradient-to-br from-white to-slate-50 dark:from-surface dark:to-surface/80 p-5 rounded-2xl border border-primary/20 shadow-sm hover:shadow-md hover:border-primary/35 transition-all duration-300">
-                        <p class="text-slate-500 dark:text-slate-400 text-xs uppercase font-bold tracking-widest mb-1">Total Messages</p>
-                        <p id="statClients" class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white">0</p>
+                    <div class="bg-gradient-to-br from-white to-slate-50 dark:from-surface dark:to-surface/80 p-4 sm:p-5 rounded-2xl border border-primary/20 shadow-sm hover:shadow-md hover:border-primary/35 transition-all duration-300">
+                        <p class="text-[10px] sm:text-xs uppercase font-bold tracking-widest mb-1 text-slate-500 dark:text-slate-400">Total Messages</p>
+                        <p id="statClients" class="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 dark:text-white">0</p>
                     </div>
                 </div>
 
@@ -353,30 +353,30 @@
                     </label>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
-                    <div class="rounded-2xl border border-primary/15 bg-white dark:bg-surface p-5">
-                        <p class="text-[11px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Bookings in Period</p>
-                        <p id="analyticsBookingsPeriod" class="mt-2 text-3xl font-black text-slate-900 dark:text-slate-100">0</p>
+                <div class="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4">
+                    <div class="rounded-2xl border border-primary/15 bg-white dark:bg-surface p-4 sm:p-5">
+                        <p class="text-[10px] sm:text-[11px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Bookings in Period</p>
+                        <p id="analyticsBookingsPeriod" class="mt-1.5 sm:mt-2 text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100">0</p>
                     </div>
-                    <div class="rounded-2xl border border-primary/15 bg-white dark:bg-surface p-5">
-                        <p class="text-[11px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Messages in Period</p>
-                        <p id="analyticsMessagesPeriod" class="mt-2 text-3xl font-black text-slate-900 dark:text-slate-100">0</p>
+                    <div class="rounded-2xl border border-primary/15 bg-white dark:bg-surface p-4 sm:p-5">
+                        <p class="text-[10px] sm:text-[11px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Messages in Period</p>
+                        <p id="analyticsMessagesPeriod" class="mt-1.5 sm:mt-2 text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100">0</p>
                     </div>
-                    <div class="rounded-2xl border border-primary/15 bg-white dark:bg-surface p-5">
-                        <p class="text-[11px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Total Bookings</p>
-                        <p id="analyticsBookingsTotal" class="mt-2 text-3xl font-black text-slate-900 dark:text-slate-100">0</p>
+                    <div class="rounded-2xl border border-primary/15 bg-white dark:bg-surface p-4 sm:p-5">
+                        <p class="text-[10px] sm:text-[11px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Total Bookings</p>
+                        <p id="analyticsBookingsTotal" class="mt-1.5 sm:mt-2 text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100">0</p>
                     </div>
-                    <div class="rounded-2xl border border-primary/15 bg-white dark:bg-surface p-5">
-                        <p class="text-[11px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Total Messages</p>
-                        <p id="analyticsMessagesTotal" class="mt-2 text-3xl font-black text-slate-900 dark:text-slate-100">0</p>
+                    <div class="rounded-2xl border border-primary/15 bg-white dark:bg-surface p-4 sm:p-5">
+                        <p class="text-[10px] sm:text-[11px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Total Messages</p>
+                        <p id="analyticsMessagesTotal" class="mt-1.5 sm:mt-2 text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100">0</p>
                     </div>
-                    <div class="rounded-2xl border border-primary/15 bg-white dark:bg-surface p-5">
-                        <p class="text-[11px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Reviews in Period</p>
-                        <p id="analyticsReviewsPeriod" class="mt-2 text-3xl font-black text-slate-900 dark:text-slate-100">0</p>
+                    <div class="rounded-2xl border border-primary/15 bg-white dark:bg-surface p-4 sm:p-5">
+                        <p class="text-[10px] sm:text-[11px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Reviews in Period</p>
+                        <p id="analyticsReviewsPeriod" class="mt-1.5 sm:mt-2 text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100">0</p>
                     </div>
-                    <div class="rounded-2xl border border-primary/15 bg-white dark:bg-surface p-5">
-                        <p class="text-[11px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Total Reviews</p>
-                        <p id="analyticsReviewsTotal" class="mt-2 text-3xl font-black text-slate-900 dark:text-slate-100">0</p>
+                    <div class="rounded-2xl border border-primary/15 bg-white dark:bg-surface p-4 sm:p-5">
+                        <p class="text-[10px] sm:text-[11px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Total Reviews</p>
+                        <p id="analyticsReviewsTotal" class="mt-1.5 sm:mt-2 text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100">0</p>
                     </div>
                 </div>
 
