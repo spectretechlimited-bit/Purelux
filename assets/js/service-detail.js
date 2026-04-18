@@ -8,67 +8,60 @@ import {
 
 const fallbackServices = [
     {
-        slug: "artistic-braiding-120-min",
-        name: "Artistic Braiding",
+        slug: "braiding-120-min",
+        name: "Braiding",
         duration: "120 min",
         imageUrl: "../../assets/img/h6.jpeg",
-        description: "Masterfully crafted braids that last and protect your natural hair while keeping the look polished and comfortable.",
+        description: "Protective braid looks customized to your scalp comfort, preferred length, and long-wear finish.",
     },
     {
-        slug: "couture-hair-styling-60-min",
-        name: "Couture Hair Styling",
+        slug: "hair-styling-60-min",
+        name: "Hair Styling",
         duration: "60 min",
         imageUrl: "../../assets/img/h7.jpeg",
-        description: "Bespoke styling for weddings, galas, and everyday elegance with a finish tailored to your look and occasion.",
+        description: "Polished styling designed for your face shape, event needs, and desired finish.",
     },
     {
-        slug: "luxury-nail-art-75-min",
-        name: "Luxury Nail Art",
-        duration: "75 min",
-        imageUrl: "../../assets/img/n3.jpeg",
-        description: "Premium manicures and creative gel art for a refined finish that feels polished and expressive.",
-    },
-    {
-        slug: "intricate-braiding-120-min",
-        name: "Intricate Braiding",
-        duration: "120 min",
-        imageUrl: "../../assets/img/h1.jpeg",
-        description: "Custom patterns, goddess braids, and premium extensions designed to protect your natural hair while delivering a polished, long-lasting look.",
-    },
-    {
-        slug: "signature-styling-60-min",
-        name: "Signature Styling",
+        slug: "manicure-60-min",
+        name: "Manicure",
         duration: "60 min",
-        imageUrl: "../../assets/img/h2.jpeg",
-        description: "Precision cuts, voluminous blowouts, and silk press styling tailored to your face shape, routine, and event goals.",
+        imageUrl: "../../assets/img/n1.jpeg",
+        description: "Nail shaping, cuticle grooming, and clean finishing for neat and healthy-looking hands.",
     },
     {
-        slug: "vibrant-coloring-180-min",
-        name: "Vibrant Coloring",
-        duration: "180 min",
-        imageUrl: "../../assets/img/h3.jpeg",
-        description: "From soft balayage to bold statement shades, our coloring service blends creativity and hair health for standout results.",
+        slug: "pedicure-60-min",
+        name: "Pedicure",
+        duration: "60 min",
+        imageUrl: "../../assets/img/n2.jpeg",
+        description: "Refresh and soften your feet with exfoliation, nail care, and a comfort-focused finishing routine.",
     },
     {
-        slug: "luxury-spa-care-90-min",
-        name: "Luxury Spa Care",
+        slug: "cornrows-120-min",
+        name: "Cornrows",
+        duration: "120 min",
+        imageUrl: "../../assets/img/h5.jpeg",
+        description: "Defined cornrow lines and pattern work built for both everyday wear and standout styling.",
+    },
+    {
+        slug: "treatment-90-min",
+        name: "Treatment",
         duration: "90 min",
         imageUrl: "../../assets/img/h4.jpeg",
-        description: "A restorative scalp and strand treatment that deeply hydrates, revives texture, and supports healthier growth.",
+        description: "Targeted treatment sessions that support scalp health, moisture recovery, and stronger strands.",
     },
     {
-        slug: "bridal-gala-updos-150-min",
-        name: "Bridal & Gala Updos",
-        duration: "150 min",
-        imageUrl: "../../assets/img/h5.jpeg",
-        description: "Elegant event-ready updos designed for comfort, hold, and camera-ready finish through your full celebration.",
+        slug: "hair-colouring-180-min",
+        name: "Hair Colouring",
+        duration: "180 min",
+        imageUrl: "../../assets/img/h3.jpeg",
+        description: "Root touch-ups or full colour changes with professional blending for rich, lasting results.",
     },
     {
-        slug: "keratin-fusion-210-min",
-        name: "Keratin Fusion",
-        duration: "210 min",
-        imageUrl: "../../assets/img/h6.jpeg",
-        description: "A smoothing treatment that fights frizz and leaves hair sleek, glossy, and easier to manage for weeks.",
+        slug: "blowdry-45-min",
+        name: "Blowdry",
+        duration: "45 min",
+        imageUrl: "../../assets/img/h7.jpeg",
+        description: "Smooth and bouncy blowdry styling that adds body, shape, and a polished salon finish.",
     },
 ];
 
@@ -78,6 +71,23 @@ const durationEl = document.getElementById("detailDuration");
 const categoryEl = document.getElementById("detailCategory");
 const imageEl = document.getElementById("detailImage");
 const bookBtn = document.getElementById("detailBookBtn");
+
+const loadDetailImage = (src, alt) => {
+    if (!imageEl || !src) return;
+
+    const reveal = () => {
+        imageEl.alt = alt || "Service";
+        imageEl.classList.remove("opacity-0");
+        imageEl.classList.add("opacity-100");
+    };
+
+    imageEl.classList.remove("opacity-100");
+    imageEl.classList.add("opacity-0");
+    imageEl.onload = reveal;
+    imageEl.onerror = reveal;
+    imageEl.alt = alt || "Service";
+    imageEl.src = src;
+};
 
 const makeSlug = (value) => String(value || "")
     .toLowerCase()
@@ -105,10 +115,7 @@ const apply = (item) => {
     if (descriptionEl) descriptionEl.textContent = desc;
     if (durationEl) durationEl.textContent = duration;
     if (categoryEl) categoryEl.textContent = category;
-    if (imageEl) {
-        imageEl.src = image;
-        imageEl.alt = name;
-    }
+    loadDetailImage(image, name);
     if (bookBtn) {
         bookBtn.href = `booking.html?service=${encodeURIComponent(name)}&category=${encodeURIComponent(category)}`;
     }

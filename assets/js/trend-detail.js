@@ -13,6 +13,23 @@ const categoryEl = document.getElementById("detailCategory");
 const imageEl = document.getElementById("detailImage");
 const bookBtn = document.getElementById("detailBookBtn");
 
+const loadDetailImage = (src, alt) => {
+    if (!imageEl || !src) return;
+
+    const reveal = () => {
+        imageEl.alt = alt || "Trending style";
+        imageEl.classList.remove("opacity-0");
+        imageEl.classList.add("opacity-100");
+    };
+
+    imageEl.classList.remove("opacity-100");
+    imageEl.classList.add("opacity-0");
+    imageEl.onload = reveal;
+    imageEl.onerror = reveal;
+    imageEl.alt = alt || "Trending style";
+    imageEl.src = src;
+};
+
 const makeSlug = (value) => String(value || "")
     .toLowerCase()
     .trim()
@@ -32,10 +49,7 @@ const apply = (item) => {
     if (descriptionEl) descriptionEl.textContent = desc;
     if (durationEl) durationEl.textContent = duration;
     if (categoryEl) categoryEl.textContent = category;
-    if (imageEl) {
-        imageEl.src = image;
-        imageEl.alt = title;
-    }
+    loadDetailImage(image, title);
     if (bookBtn) {
         bookBtn.href = `booking.html?service=${encodeURIComponent(title)}&category=${encodeURIComponent(category)}`;
     }
