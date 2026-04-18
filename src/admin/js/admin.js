@@ -169,7 +169,10 @@ const AdminApp = {
             this.loginError.classList.add("hidden");
         } catch (error) {
             console.error("Admin login failed", error);
-            this.loginError.textContent = "Login failed. Verify Firebase Auth admin credentials.";
+            const authMessage = error?.code === "auth/invalid-credential" || error?.code === "auth/wrong-password"
+                ? "Invalid credentials. Check your email and password."
+                : "Sign in failed. Check your credentials and try again.";
+            this.loginError.textContent = authMessage;
             this.loginError.classList.remove("hidden");
         }
     },
