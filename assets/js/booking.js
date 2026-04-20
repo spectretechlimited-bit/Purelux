@@ -8,7 +8,89 @@ import {
 const bookingForm = document.querySelector("[data-booking-form]");
 
 if (bookingForm) {
+    const FULL_SCHEDULE_LABEL = "Monday-Saturday: 7:30 AM - 9:00 PM | Sunday: 1:00 PM - 9:00 PM";
+
+    const parseTimeToMinutes = (timeValue) => {
+        const match = String(timeValue).trim().match(/^(1[0-2]|[1-9]):([0-5][0-9])\s?(AM|PM)$/i);
+        if (!match) return null;
+
+        let hour = Number(match[1]);
+        const minute = Number(match[2]);
+        const period = match[3].toUpperCase();
+
+        if (period === "AM" && hour === 12) hour = 0;
+        if (period === "PM" && hour !== 12) hour += 12;
+
+        return hour * 60 + minute;
+    };
+
+    const getHoursForDate = (dateValue) => {
+        const normalizedDate = String(dateValue || "").trim();
+        if (!normalizedDate) return null;
+
+        const date = new Date(`${normalizedDate}T00:00:00`);
+        if (Number.isNaN(date.getTime())) return null;
+
+        const isSunday = date.getDay() === 0;
+        if (isSunday) {
+            return {
+                startMinutes: 13 * 60,
+                endMinutes: 21 * 60,
+                label: "Sunday: 1:00 PM - 9:00 PM",
+            };
+        }
+
+        return {
+            startMinutes: 7 * 60 + 30,
+            endMinutes: 21 * 60,
+            label: "Monday-Saturday: 7:30 AM - 9:00 PM",
+        };
+    };
+
+    const isTimeWithinWorkingHours = (dateValue, timeValue) => {
+        const schedule = getHoursForDate(dateValue);
+        const selectedMinutes = parseTimeToMinutes(timeValue);
+        if (!schedule || selectedMinutes === null) return false;
+        return selectedMinutes >= schedule.startMinutes && selectedMinutes <= schedule.endMinutes;
+    };
+
+    const promptContainer = document.getElementById("bookingPrompt");
+    const promptText = document.getElementById("bookingPromptText");
+    let promptTimer = null;
+
+    const hideBookingPrompt = () => {
+        if (!promptContainer) return;
+        promptContainer.classList.add("opacity-0", "translate-y-2");
+        window.setTimeout(() => {
+            promptContainer.classList.add("hidden");
+        }, 260);
+    };
+
+    const showBookingPrompt = (message) => {
+        if (!promptContainer || !promptText) {
+            alert(message);
+            return;
+        }
+
+        if (promptTimer) {
+            window.clearTimeout(promptTimer);
+        }
+
+        promptText.textContent = message;
+        promptContainer.classList.remove("hidden");
+        requestAnimationFrame(() => {
+            promptContainer.classList.remove("opacity-0", "translate-y-2");
+        });
+
+        promptTimer = window.setTimeout(() => {
+            hideBookingPrompt();
+        }, 5600);
+    };
+
+    promptContainer?.addEventListener("click", hideBookingPrompt);
+
     const initializeTimePicker = () => {
+        const dateInput = bookingForm.querySelector("input[name='date']");
         const timeInput = bookingForm.querySelector("[data-time-input]");
         const timeTrigger = bookingForm.querySelector("[data-time-trigger]");
         const timePanel = bookingForm.querySelector("[data-time-panel]");
@@ -28,8 +110,8 @@ if (bookingForm) {
 
         if (!timeInput || !timeTrigger || !timePanel || !previewValue || !hourValue || !minuteValue || !periodValue) return;
 
-        let selectedHour = 8;
-        let selectedMinute = 0;
+        let selectedHour = 7;
+        let selectedMinute = 30;
         let selectedPeriod = "AM";
         let selectedMinuteStep = 5;
 
@@ -66,7 +148,19 @@ if (bookingForm) {
         };
 
         const applyTimeSelection = () => {
-            timeInput.value = `${selectedHour}:${padMinute(selectedMinute)} ${selectedPeriod}`;
+            const selectedDate = dateInput?.value || "";
+            const selectedTime = `${selectedHour}:${padMinute(selectedMinute)} ${selectedPeriod}`;
+            if (!selectedDate) {
+                showBookingPrompt(`Please choose an appointment date before selecting a time. ${FULL_SCHEDULE_LABEL}`);
+                return;
+            }
+
+            if (!isTimeWithinWorkingHours(selectedDate, selectedTime)) {
+                showBookingPrompt(`Selected time is outside working hours. ${FULL_SCHEDULE_LABEL}`);
+                return;
+            }
+
+            timeInput.value = selectedTime;
             timeInput.dispatchEvent(new Event("input", { bubbles: true }));
             timeInput.dispatchEvent(new Event("change", { bubbles: true }));
             closePanel();
@@ -144,6 +238,14 @@ if (bookingForm) {
         applyButton?.addEventListener("click", applyTimeSelection);
         cancelButton?.addEventListener("click", closePanel);
 
+        dateInput?.addEventListener("change", () => {
+            if (!timeInput.value) return;
+            if (isTimeWithinWorkingHours(dateInput.value, timeInput.value)) return;
+
+            timeInput.value = "";
+            showBookingPrompt(`Selected date has different working hours. ${FULL_SCHEDULE_LABEL}`);
+        });
+
         document.addEventListener("click", (event) => {
             const target = event.target;
             if (!(target instanceof Node)) return;
@@ -203,7 +305,7 @@ if (bookingForm) {
         downloadButton.addEventListener("click", () => {
             if (!latestBooking) return;
             if (!window.jspdf || !window.jspdf.jsPDF) {
-                alert("PDF library failed to load.");
+                showBookingPrompt("Could not load the PDF feature right now. Please try again in a moment.");
                 return;
             }
 
@@ -256,11 +358,6 @@ if (bookingForm) {
     bookingForm.addEventListener("submit", async (event) => {
         event.preventDefault();
 
-        if (submitButton) {
-            submitButton.disabled = true;
-            submitButton.classList.add("opacity-70", "cursor-not-allowed");
-        }
-
         const formData = new FormData(bookingForm);
         const bookingPayload = {
             clientName: (formData.get("clientName") || "").trim(),
@@ -277,6 +374,16 @@ if (bookingForm) {
             source: "website-booking-form",
         };
 
+        if (!isTimeWithinWorkingHours(bookingPayload.date, bookingPayload.time)) {
+            showBookingPrompt(`Please choose a time within our working hours. ${FULL_SCHEDULE_LABEL}`);
+            return;
+        }
+
+        if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.classList.add("opacity-70", "cursor-not-allowed");
+        }
+
         try {
             await addDoc(collection(db, "bookings"), bookingPayload);
             latestBooking = bookingPayload;
@@ -288,11 +395,11 @@ if (bookingForm) {
             if (successModal) {
                 successModal.classList.remove("hidden");
             } else {
-                alert("Booking submitted successfully.");
+                showBookingPrompt("Booking submitted successfully.");
             }
         } catch (error) {
             console.error("Booking submission failed", error);
-            alert("Could not submit booking right now. Please try again.");
+            showBookingPrompt("Could not submit booking right now. Please try again.");
         } finally {
             if (submitButton) {
                 submitButton.disabled = false;
