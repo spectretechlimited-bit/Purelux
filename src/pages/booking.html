@@ -114,6 +114,7 @@
 </div>
 </div>
 
+<div class="grid grid-cols-1 gap-5 sm:gap-6 lg:grid-cols-2 lg:col-span-2">
 <label class="flex flex-col gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300">
 <span>Full Name</span>
 <input name="clientName" required class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-base text-slate-900 placeholder:text-slate-400 outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:placeholder:text-slate-500" placeholder="Jane Doe" type="text"/>
@@ -122,7 +123,9 @@
 <span>Phone Number</span>
 <input name="phone" required class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-base text-slate-900 placeholder:text-slate-400 outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:placeholder:text-slate-500" placeholder="0741695450" type="tel"/>
 </label>
+</div>
 
+<div class="grid grid-cols-1 gap-5 sm:gap-6 lg:grid-cols-2 lg:col-span-2">
 <label class="flex flex-col gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300">
 <span>Email Address</span>
 <input name="email" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-base text-slate-900 placeholder:text-slate-400 outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:placeholder:text-slate-500" placeholder="jane@example.com" type="email"/>
@@ -133,7 +136,9 @@
 <span>Location</span>
 <input name="location" required class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-base text-slate-900 placeholder:text-slate-400 outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:placeholder:text-slate-500" placeholder="Your location" type="text"/>
 </label>
+</div>
 
+<div class="grid grid-cols-1 gap-5 sm:gap-6 lg:grid-cols-2 lg:col-span-2">
 <label class="flex flex-col gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300">
 <span>Appointment Date</span>
 <input name="date" required class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-base text-slate-900 outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100" type="date"/>
@@ -192,10 +197,13 @@
 <button type="button" data-time-apply class="rounded-xl bg-primary px-3 py-2 text-sm font-bold text-background-dark hover:opacity-90">Set Time</button>
 </div>
 </div>
+</div>
 <span class="text-xs font-medium text-slate-500 dark:text-slate-400">Use the clock picker to set any hour, minute, and AM/PM without typing.</span>
 </label>
+</div>
 
-<label class="flex flex-col gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300 lg:col-start-1">
+<div class="grid grid-cols-1 gap-5 sm:gap-6 lg:grid-cols-2 lg:col-span-2">
+<label class="flex flex-col gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300">
 <span>Preferred Communication Method</span>
 <select name="communicationMethod" required class="w-full appearance-none rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-base text-slate-900 outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100">
 <option>Phone call</option>
@@ -204,7 +212,7 @@
 </select>
 </label>
 
-<label class="flex flex-col gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300 lg:col-start-2">
+<label class="flex flex-col gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300">
 <span>Service Category</span>
 <select name="serviceCategory" required class="w-full appearance-none rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-base text-slate-900 outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100">
 <option value="Hair">Hair</option>
@@ -217,8 +225,10 @@
 <span>Service Description</span>
 <textarea name="serviceDescription" required class="w-full min-h-32 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-base text-slate-900 placeholder:text-slate-400 outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:placeholder:text-slate-500" placeholder="Tell us what style or treatment you want..."></textarea>
 </label>
+</div>
 
-<div class="rounded-[1.5rem] border border-primary/15 bg-primary/5 dark:bg-primary/10 px-4 py-4 lg:col-span-2">
+<div class="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:col-span-2 lg:items-center">
+<div class="rounded-[1.5rem] border border-primary/15 bg-primary/5 dark:bg-primary/10 px-4 py-4">
 <div class="flex items-start gap-3">
 <span class="material-symbols-outlined text-primary mt-0.5">mail</span>
 <div>
@@ -228,9 +238,9 @@
 </div>
 </div>
 
-<div class="flex items-center justify-between gap-4 pt-2 lg:col-span-2">
-<p class="text-sm sm:text-base text-slate-600 dark:text-slate-400">Please provide accurate details so we can review your request quickly.</p>
-<button class="inline-flex items-center justify-center gap-2 rounded-2xl bg-primary px-7 py-4 font-extrabold text-background-dark shadow-xl shadow-primary/20 transition-all hover:-translate-y-0.5 hover:bg-primary/90" type="submit">
+<p class="text-sm sm:text-base text-slate-600 dark:text-slate-400 lg:px-2">Please provide accurate details so we can review your request quickly.</p>
+
+<button class="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-primary px-7 py-4 font-extrabold text-background-dark shadow-xl shadow-primary/20 transition-all hover:-translate-y-0.5 hover:bg-primary/90 lg:justify-self-end" type="submit">
 Submit Booking
 <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
 </button>
