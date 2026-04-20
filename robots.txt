@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /src/admin/
+
+Sitemap: https://purelux.co.ke/sitemap.xml
