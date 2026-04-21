@@ -50,7 +50,12 @@
                 </div>
                 <div>
                     <label class="block text-[11px] sm:text-xs font-black uppercase tracking-widest mb-2 text-slate-900 dark:text-slate-100">Password</label>
-                    <input type="password" name="password" required class="w-full bg-slate-50 dark:bg-background-dark/60 border-2 border-slate-300 dark:border-primary/40 rounded-2xl px-4 py-2.5 sm:px-5 sm:py-3.5 focus:ring-4 focus:ring-primary/25 focus:border-primary text-slate-900 dark:text-slate-100 font-bold transition-all placeholder:text-slate-500 dark:placeholder:text-slate-400" placeholder="••••••••">
+                    <div class="relative">
+                        <input type="password" name="password" id="passwordInput" required class="w-full bg-slate-50 dark:bg-background-dark/60 border-2 border-slate-300 dark:border-primary/40 rounded-2xl px-4 py-2.5 sm:px-5 sm:py-3.5 focus:ring-4 focus:ring-primary/25 focus:border-primary text-slate-900 dark:text-slate-100 font-bold transition-all placeholder:text-slate-500 dark:placeholder:text-slate-400 pr-12" placeholder="••••••••">
+                        <button type="button" id="togglePasswordBtn" class="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 transition-colors" aria-label="Toggle password visibility">
+                            <span class="material-symbols-outlined text-[20px]">visibility</span>
+                        </button>
+                    </div>
                 </div>
                 <p id="loginError" class="text-rose-500 text-xs sm:text-sm font-bold text-center hidden"></p>
                 <button type="submit" class="w-full bg-primary text-background-dark font-black py-3 sm:py-3.5 rounded-2xl shadow-xl shadow-primary/25 hover:brightness-95 hover:scale-[1.01] transition-transform active:scale-100 uppercase tracking-widest text-sm sm:text-base">

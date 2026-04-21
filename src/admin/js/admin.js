@@ -70,6 +70,15 @@ const AdminApp = {
     bindEvents() {
         this.loginForm?.addEventListener("submit", (event) => this.handleLogin(event));
         this.logoutBtn?.addEventListener("click", () => this.handleLogout());
+        
+        // Password visibility toggle
+        const togglePasswordBtn = document.getElementById("togglePasswordBtn");
+        const passwordInput = document.getElementById("passwordInput");
+        togglePasswordBtn?.addEventListener("click", (event) => {
+            event.preventDefault();
+            this.togglePasswordVisibility(passwordInput, togglePasswordBtn);
+        });
+        
         this.addServiceForm?.addEventListener("submit", (event) => this.handleAddService(event));
         this.addTrendingForm?.addEventListener("submit", (event) => this.handleAddTrending(event));
         this.sidebarOpenBtn?.addEventListener("click", () => this.openSidebar());
@@ -186,6 +195,13 @@ const AdminApp = {
         } catch (error) {
             console.error("Logout failed", error);
         }
+    },
+
+    togglePasswordVisibility(input, button) {
+        const isPassword = input.type === "password";
+        input.type = isPassword ? "text" : "password";
+        const icon = button.querySelector(".material-symbols-outlined");
+        icon.textContent = isPassword ? "visibility_off" : "visibility";
     },
 
     showSection(id) {
